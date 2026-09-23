@@ -1,0 +1,68 @@
+{%- comment -%}
+usage:
+{%- include dateTranslate, dateString:article.published_at language:'French' -%}
+-->
+{%- endcomment -%}
+
+{%- for i in (1..1) -%}
+    {%- assign debug = false -%}
+    {%- assign datesSupported = 'English,Portuguese' | split:',' -%}
+    {%- assign dateFormat = format | default:'%A %B %d, %Y' -%}
+  
+    {%- if debug -%}
+      {%- assign language = 'French' -%}
+      {%- assign dateString = 'now' | date:dateFormat -%}
+    {%- endif -%}
+    
+    {%- if dateString == blank or language == blank -%}{% break %}{%- endif -%}
+    {%- unless datesSupported contains language -%}{% break %}{%- endunless -%}
+  
+    {%- assign daysEnglish = 'Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday' | split:',' -%}
+    {%- assign monthsEnglish = 'January,February,March,April,May,June,July,August,September,October,November,December' | split:',' -%}
+  
+    {%- assign daysNorwegian = 'mandag,tirsdag,onsdag,torsdag,fredag,lørdag,søndag' | split:',' -%}
+    {%- assign monthsNorwegian = 'januar,februar,mars,april,mai,juni,juli,august,september,oktober,november,desember' | split:',' -%}
+  
+    {%- assign daysFrench = 'lundi,mardi,mercredi,jeudi,vendredi,samedi,dimanche' | split:',' -%}
+    {%- assign monthsFrench = 'janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre' | split:',' -%}
+  
+    {%- assign daysSpanish = 'lunes,martes,miércoles,jueves,viernes,sábado,domingo' | split:',' -%}
+    {%- assign monthsSpanish = 'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre' | split:',' -%}
+
+    {%- assign daysPortuguese = 'segunda,terça,quarta,quinta,sexta,sábado,domingo' | split:',' -%}
+    {%- assign monthsPortuguese = 'janeiro,fevereiro,março,abril,maio,junho,julho,agosto,setembro,outubro,novembro,dezembro' | split:',' -%}
+  
+    {%- assign currentDays = 'days' | append:language -%}
+    {%- assign currentMonths = 'months' | append:language -%}
+  
+    {%- assign currentDaysArray = self[currentDays] -%}
+    {%- assign currentMonthsArray = self[currentMonths] -%}
+  
+    {%- assign shortSlice = 3 -%}
+    
+    {%- for _i in (0..11) -%}
+      {%- if _i < 7 -%}
+        {%- assign shortDateFormatEnglish = daysEnglish[_i] | slice:0,shortSlice -%}
+        {%- assign shortDateFormatCurrent = currentDaysArray[_i] | slice:0,shortSlice -%}
+        {%- assign dateString = dateString | replace:daysEnglish[_i],currentDaysArray[_i] | replace:shortDateFormatEnglish,shortDateFormatCurrent -%}
+      {%- endif -%}
+      {%- assign shortMonthFormatEnglish = monthsEnglish[_i] | slice:0,shortSlice -%}
+      {%- assign shortMonthFormatCurrent = currentMonthsArray[_i] | slice:0,shortSlice -%}
+      {%- assign dateString = dateString | replace:monthsEnglish[_i],currentMonthsArray[_i] | replace:shortMonthFormatEnglish,shortMonthFormatCurrent -%}
+    {%- endfor -%}
+  
+    {{- dateString -}}
+  
+  {%- endfor -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- assign currentDaysArray = [currentDays] -%}"
+  to: "{%- assign currentDaysArray = self[currentDays] -%}"
+  position: 1949..2000
+- from: "{%- assign currentMonthsArray = [currentMonths] -%}"
+  to: "{%- assign currentMonthsArray = self[currentMonths] -%}"
+  position: 2005..2060
+{%- endcomment -%}

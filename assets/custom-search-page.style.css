@@ -1,0 +1,9 @@
+.card__content, .card__content .card__information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list--card__information-size-variants {
+    justify-content: center;
+}

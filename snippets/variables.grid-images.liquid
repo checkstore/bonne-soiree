@@ -1,0 +1,119 @@
+<style>
+  .container_title {
+    --position_title_section: {{ section.settings.position_title_section }};
+    --desktop_padding_right_title: {{ section.settings.desktop_padding_right_title }}px;
+    --desktop_padding_left_title: {{ section.settings.desktop_padding_left_title }}px;
+    --desktop_padding_top_title: {{ section.settings.desktop_padding_top_title }}px;
+    --desktop_padding_bottom_title: {{ section.settings.desktop_padding_bottom_title }}px;
+    --width_section: {{ section.settings.width_section }};
+
+    justify-content: var(--position_title_section);
+    padding: var(--desktop_padding_top_title) var(--desktop_padding_right_title) var(--desktop_padding_bottom_title) var(--desktop_padding_left_title);
+  }
+  {% if settings.full_width %}
+    .title__grid-image {
+    font-size: 60px;
+  }
+  .title_section {
+    --desktop_font_size_title: {{ section.settings.desktop_font_size_title }}px;
+    font-size: var(--desktop_font_size_title);
+  }
+  @media screen and (max-width: 1550px) {
+    .title__grid-image {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 1100px) {
+    .title__grid-image {
+      font-size: 34px;
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    .title__grid-image {
+      font-size: 40px;
+    }
+    .title_section {
+      --tablet_font_size_title: {{ section.settings.tablet_font_size_title }}px;
+      font-size: var(--tablet_font_size_title);
+    } 
+  }
+  @media screen and (max-width: 500px) {
+    .title__grid-image {
+      font-size: 32px;
+    }
+    .description__grid-image {
+      font-size: 14px;
+    }
+    .title_section {
+      --mobile_font_size_title: {{ section.settings.mobile_font_size_title }}px;
+      font-size: var(--mobile_font_size_title);
+    }
+  }
+  {% else %}
+  .title__grid-image {
+      font-size: 40px;
+    }
+  
+{% endif %}
+
+.grid-image {
+  --desktop_gap-section: {{ section.settings.desktop_gap_section }}px;
+  --desktop_padding_right_section: {{ section.settings.desktop_padding_right_section }}px;
+  --desktop_padding_left_section: {{ section.settings.desktop_padding_left_section }}px;
+  --desktop_padding_top_section: {{ section.settings.desktop_padding_top_section }}px;
+  --desktop_padding_bottom_section: {{ section.settings.desktop_padding_bottom_section }}px;
+  --width_section: {{ section.settings.width_section }};
+
+  gap: var(--desktop_gap-section);
+  padding: var(--desktop_padding_top_section) var(--desktop_padding_right_section) var(--desktop_padding_bottom_section) var(--desktop_padding_left_section);
+
+  {% if section.settings.width_section == "--page-width" %}
+    max-width: var(--page-width);
+  {% else %}
+    max-width: var(--width_section);
+  {% endif %}
+}
+.image__grid-image {
+  --height-section: {{ section.settings.height_section }};
+  height: var(--height-section);
+}
+@media screen and (max-width: 1023px) {
+  .grid-image {
+    --mobile_gap-section: {{ section.settings.mobile_gap_section }}px;
+    --mobile_padding_right_section: {{ section.settings.mobile_padding_right_section }}px;
+    --mobile_padding_left_section: {{ section.settings.mobile_padding_left_section }}px;
+    --mobile_padding_top_section: {{ section.settings.mobile_padding_top_section }}px;
+    --mobile_padding_bottom_section: {{ section.settings.mobile_padding_bottom_section }}px;
+
+    gap: var(--mobile_gap-section);
+    padding: var(--mobile_padding_top_section) var(--mobile_padding_right_section) var(--mobile_padding_bottom_section) var(--mobile_padding_left_section);
+    flex-direction: column;
+
+  }
+  .container_title {
+    --mobile_padding_right_title: {{ section.settings.mobile_padding_right_title }}px;
+    --mobile_padding_left_title: {{ section.settings.mobile_padding_left_title }}px;
+    --mobile_padding_top_title: {{ section.settings.mobile_padding_top_title }}px;
+    --mobile_padding_bottom_title: {{ section.settings.mobile_padding_bottom_title }}px;
+
+    justify-content: center;
+    padding: var(--mobile_padding_top_title) var(--mobile_padding_right_title) var(--mobile_padding_bottom_title) var(--mobile_padding_left_title);
+  }
+
+  {% for block in section.blocks %}
+    .grid-image .container__grid-image--{{ block.id }}
+    .content__grid-image--{{ block.id }} {
+      --mobile_position_text_section: {{ block.settings.mobile_position_text_section }};
+      align-items: var(--mobile_position_text_section);
+    }
+  {% endfor %}
+}
+
+{% for block in section.blocks %}
+  .container__grid-image--{{ block.id }}
+  .content__grid-image--{{ block.id }} {
+    --desktop_position_text_section: {{ block.settings.desktop_position_text_section }};
+    align-items: var(--desktop_position_text_section);
+  }
+{% endfor %}
+</style>

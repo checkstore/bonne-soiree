@@ -1,0 +1,849 @@
+{% doc %}
+  @prompt
+    Please create a new custom homepage section with a two-column split layout.
+    
+    Layout structure:
+    
+    – Full width section.
+    – Two equal columns (50% / 50%) on desktop.
+    – Stack vertically on mobile (image 1 on top, image 2 below).
+    
+    Left column:
+    – Image upload field.
+    – Optional text overlay (heading + paragraph).
+    – Text alignment control (left, center, right).
+    
+    Right column:
+    – Image upload field.
+    – Add a customizable button overlay.
+    
+    Button settings (must be editable in the section settings panel):
+    – Button label text
+    – Button link
+    – Font size
+    – Font family
+    – Text color
+    – Background color
+    – Border color
+    – Border thickness
+    – Padding
+    – Button width (auto or custom)
+    – Button position (free positioning using top/left controls or alignment presets like center, bottom-right, etc.)
+    
+    Additional requirements:
+    – Keep layout minimal and clean.
+    – No heavy animations.
+    – Maintain strong responsiveness on mobile.
+    – Ensure the section does not affect global theme styles.
+    – Do not modify existing slider or header functionality.
+    
+    This section should feel editorial, premium and minimal., There are two adjustments needed in the custom two-column section:
+    
+    The button text is not updating to the selected font.
+    Please ensure the button text correctly inherits and applies the font family selected in the section settings. The font change must reflect visually on both desktop and mobile.
+    
+    I need the button to support a fully transparent background.
+    Please allow the button background color to be set as transparent (no fill), while keeping border and text color customizable., The button text font is still not changing because the theme forces fonts by text type (headings vs paragraphs).
+    
+    Please update the custom section so the button label is NOT rendered as a heading element (h1/h2/h3) or any “heading” style., Please force the button label font to Times New Roman.
+    
+    – Apply font-family: "Times New Roman", Times, serif !important; to the button text element (the label) inside this custom two-column section.
+    – Ensure it overrides any theme typography rules that are currently forcing another font.
+    – This must work on both desktop and mobile.
+    – Do not change the section layout or slider functionality. Only adjust the button font.
+    
+    Also keep support for a transparent button background with customizable border and text color., Please enhance the button positioning control in the custom two-column section.
+    
+    Instead of only preset positions (top-center, middle-center, bottom-center), 
+    add custom offset controls:
+    
+    – Vertical offset (in px or %)  
+    – Horizontal offset (in px or %)  
+    
+    The button should use position: absolute and allow fine positioning adjustments relative to its container.
+    
+    Keep the existing preset options, but add manual offset controls for more precise placement.
+    
+    Do not modify layout structure.
+    Maintain responsiveness on mobile., The button position controls (px values) are not working. When I adjust the X and Y values, the button does not move.
+    
+    Please fix the implementation so the position settings actually affect the button.
+    
+    Requirements:
+    
+    – The image container must use position: relative;
+    – The button must use position: absolute;
+    – The X and Y values from the section settings must be applied directly to left and top (or bottom) in CSS.
+    – Ensure there is no transform rule overriding the movement.
+    – The button must move visibly when adjusting the px values.
+    – Maintain responsiveness on mobile.
+    – Do not change the layout structure. Only fix the positioning logic.
+    
+    Additionally, add a simple hover effect:
+    – Smooth transition (around 200ms)
+    – Subtle movement (translateY -2px) OR background color change on hover
+    – Keep it minimal and refined, The desktop button positioning is working, but on mobile the layout breaks and the button is misplaced/overflowing., I need to customize the desktop buttom position and the mobile buttom position.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-split-layout-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-split-layout__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .ai-split-layout__column-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-split-layout__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .ai-split-layout__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-split-layout__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-split-layout__image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-split-layout__text-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    text-align: {{ block.settings.text_alignment }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-split-layout__heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    margin: 0 0 16px 0;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .ai-split-layout__paragraph-{{ ai_gen_id }} {
+    font-size: {{ block.settings.paragraph_size }}px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-split-layout__button-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    {% if block.settings.button_position_desktop == 'custom' %}
+      {% if block.settings.button_offset_unit_desktop == 'percent' %}
+        top: {{ block.settings.button_vertical_offset_desktop }}%;
+        left: {{ block.settings.button_horizontal_offset_desktop }}%;
+      {% else %}
+        top: {{ block.settings.button_vertical_offset_px_desktop }}px;
+        left: {{ block.settings.button_horizontal_offset_px_desktop }}px;
+      {% endif %}
+    {% elsif block.settings.button_position_desktop == 'center' %}
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    {% elsif block.settings.button_position_desktop == 'top-left' %}
+      top: 40px;
+      left: 40px;
+    {% elsif block.settings.button_position_desktop == 'top-center' %}
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+    {% elsif block.settings.button_position_desktop == 'top-right' %}
+      top: 40px;
+      right: 40px;
+      left: auto;
+    {% elsif block.settings.button_position_desktop == 'middle-left' %}
+      top: 50%;
+      left: 40px;
+      transform: translateY(-50%);
+    {% elsif block.settings.button_position_desktop == 'middle-right' %}
+      top: 50%;
+      right: 40px;
+      left: auto;
+      transform: translateY(-50%);
+    {% elsif block.settings.button_position_desktop == 'bottom-left' %}
+      bottom: 40px;
+      top: auto;
+      left: 40px;
+    {% elsif block.settings.button_position_desktop == 'bottom-center' %}
+      bottom: 40px;
+      top: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    {% elsif block.settings.button_position_desktop == 'bottom-right' %}
+      bottom: 40px;
+      top: auto;
+      right: 40px;
+      left: auto;
+    {% endif %}
+  }
+
+  .ai-split-layout__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding }}px;
+    font-size: {{ block.settings.button_font_size }}px !important;
+    font-family: "Times New Roman", Times, serif !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    color: {{ block.settings.button_text_color }} !important;
+    {% if block.settings.button_bg_transparent %}
+      background-color: transparent !important;
+    {% else %}
+      background-color: {{ block.settings.button_bg_color }} !important;
+    {% endif %}
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }} !important;
+    text-decoration: none !important;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    {% if block.settings.button_width == 'auto' %}
+      width: auto;
+    {% else %}
+      width: {{ block.settings.button_custom_width }}px;
+      text-align: center;
+    {% endif %}
+    line-height: 1.4 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+  }
+
+  .ai-split-layout__button-{{ ai_gen_id }} span {
+    font-family: "Times New Roman", Times, serif !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+  }
+
+  .ai-split-layout__button-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-split-layout__container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-split-layout__image-wrapper-{{ ai_gen_id }} {
+      min-height: 300px;
+    }
+
+    .ai-split-layout__text-overlay-{{ ai_gen_id }} {
+      padding: 24px;
+    }
+
+    .ai-split-layout__heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+    }
+
+    .ai-split-layout__paragraph-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.paragraph_size }}px * 0.9);
+    }
+
+    .ai-split-layout__button-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.button_font_size }}px * 0.9) !important;
+      padding: calc({{ block.settings.button_padding }}px * 0.8);
+      font-family: "Times New Roman", Times, serif !important;
+      {% if block.settings.button_width == 'custom' %}
+        width: calc({{ block.settings.button_custom_width }}px * 0.8);
+        max-width: calc(100% - 48px);
+      {% endif %}
+    }
+
+    .ai-split-layout__button-overlay-{{ ai_gen_id }} {
+      {% if block.settings.button_position_mobile == 'custom' %}
+        {% if block.settings.button_offset_unit_mobile == 'percent' %}
+          top: {{ block.settings.button_vertical_offset_mobile }}%;
+          left: {{ block.settings.button_horizontal_offset_mobile }}%;
+          transform: none;
+          right: auto;
+          bottom: auto;
+        {% else %}
+          top: {{ block.settings.button_vertical_offset_px_mobile }}px;
+          left: {{ block.settings.button_horizontal_offset_px_mobile }}px;
+          transform: none;
+          right: auto;
+          bottom: auto;
+        {% endif %}
+      {% elsif block.settings.button_position_mobile == 'center' %}
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
+        bottom: auto;
+      {% elsif block.settings.button_position_mobile == 'top-left' %}
+        top: 24px;
+        left: 24px;
+        transform: none;
+        right: auto;
+        bottom: auto;
+      {% elsif block.settings.button_position_mobile == 'top-center' %}
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+        bottom: auto;
+      {% elsif block.settings.button_position_mobile == 'top-right' %}
+        top: 24px;
+        right: 24px;
+        left: auto;
+        transform: none;
+        bottom: auto;
+      {% elsif block.settings.button_position_mobile == 'middle-left' %}
+        top: 50%;
+        left: 24px;
+        transform: translateY(-50%);
+        right: auto;
+        bottom: auto;
+      {% elsif block.settings.button_position_mobile == 'middle-right' %}
+        top: 50%;
+        right: 24px;
+        left: auto;
+        transform: translateY(-50%);
+        bottom: auto;
+      {% elsif block.settings.button_position_mobile == 'bottom-left' %}
+        bottom: 24px;
+        top: auto;
+        left: 24px;
+        transform: none;
+        right: auto;
+      {% elsif block.settings.button_position_mobile == 'bottom-center' %}
+        bottom: 24px;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+      {% elsif block.settings.button_position_mobile == 'bottom-right' %}
+        bottom: 24px;
+        top: auto;
+        right: 24px;
+        left: auto;
+        transform: none;
+      {% endif %}
+    }
+  }
+{% endstyle %}
+
+<editorial-split-layout-{{ ai_gen_id }} class="ai-split-layout-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-split-layout__container-{{ ai_gen_id }}">
+    <div class="ai-split-layout__column-{{ ai_gen_id }}">
+      <div class="ai-split-layout__image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.left_image %}
+          <img
+            src="{{ block.settings.left_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.left_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.left_image.width }}"
+            height="{{ block.settings.left_image.height }}"
+            class="ai-split-layout__image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-split-layout__image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_text_overlay %}
+          <div class="ai-split-layout__text-overlay-{{ ai_gen_id }}">
+            {% if block.settings.left_heading != blank %}
+              <h2 class="ai-split-layout__heading-{{ ai_gen_id }}">{{ block.settings.left_heading }}</h2>
+            {% endif %}
+            {% if block.settings.left_paragraph != blank %}
+              <div class="ai-split-layout__paragraph-{{ ai_gen_id }}">{{ block.settings.left_paragraph }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ai-split-layout__column-{{ ai_gen_id }}">
+      <div class="ai-split-layout__image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.right_image %}
+          <img
+            src="{{ block.settings.right_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.right_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.right_image.width }}"
+            height="{{ block.settings.right_image.height }}"
+            class="ai-split-layout__image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-split-layout__image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_button %}
+          <div class="ai-split-layout__button-overlay-{{ ai_gen_id }}">
+            <a
+              href="{{ block.settings.button_link }}"
+              class="ai-split-layout__button-{{ ai_gen_id }}"
+            >
+              <span>{{ block.settings.button_label }}</span>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</editorial-split-layout-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class EditorialSplitLayout{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('editorial-split-layout-{{ ai_gen_id }}', EditorialSplitLayout{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Editorial split layout",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left column"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text_overlay",
+      "label": "Show text overlay",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "left_heading",
+      "label": "Heading",
+      "default": "<p>Editorial content</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "left_paragraph",
+      "label": "Paragraph",
+      "default": "<p>Add your editorial text here to create a premium, minimal aesthetic.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "label": "Paragraph size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Right column"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_bg_transparent",
+      "label": "Transparent background",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "label": "Padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "button_width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "range",
+      "id": "button_custom_width",
+      "label": "Custom width",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "Desktop button position"
+    },
+    {
+      "type": "select",
+      "id": "button_position_desktop",
+      "label": "Position preset",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle left"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        },
+        {
+          "value": "custom",
+          "label": "Custom offset"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "button_offset_unit_desktop",
+      "label": "Offset unit",
+      "options": [
+        {
+          "value": "percent",
+          "label": "Percentage"
+        },
+        {
+          "value": "pixels",
+          "label": "Pixels"
+        }
+      ],
+      "default": "percent"
+    },
+    {
+      "type": "range",
+      "id": "button_vertical_offset_desktop",
+      "label": "Vertical offset",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "button_horizontal_offset_desktop",
+      "label": "Horizontal offset",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "button_vertical_offset_px_desktop",
+      "label": "Vertical position (px)",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "button_horizontal_offset_px_desktop",
+      "label": "Horizontal position (px)",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "Mobile button position"
+    },
+    {
+      "type": "select",
+      "id": "button_position_mobile",
+      "label": "Position preset",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle left"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        },
+        {
+          "value": "custom",
+          "label": "Custom offset"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "button_offset_unit_mobile",
+      "label": "Offset unit",
+      "options": [
+        {
+          "value": "percent",
+          "label": "Percentage"
+        },
+        {
+          "value": "pixels",
+          "label": "Pixels"
+        }
+      ],
+      "default": "percent"
+    },
+    {
+      "type": "range",
+      "id": "button_vertical_offset_mobile",
+      "label": "Vertical offset",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "button_horizontal_offset_mobile",
+      "label": "Horizontal offset",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "button_vertical_offset_px_mobile",
+      "label": "Vertical position (px)",
+      "min": 0,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "button_horizontal_offset_px_mobile",
+      "label": "Horizontal position (px)",
+      "min": 0,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial split layout"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,500 @@
+{% doc %}
+  @prompt
+    Create a custom section with three banners displayed side by side on desktop (4 columns) and stacked vertically on mobile.
+    
+    Each banner must include:
+    
+    An image (fully replaceable)
+    
+    A title centered in the middle of the image
+    
+    A button below the title that links to a page of my choice (editable link)
+    
+    Design requirements:
+    
+    Typography: “Times New Roman”, serif for both title and button
+    
+    The layout must use a 4-column grid on desktop and 1-column stacking on mobile
+    
+    The title and button should be perfectly centered (both vertically and horizontally)
+    
+    Button should have a minimalist style — lowercase text, thin white border, and small hover effect (slight image zoom or brightness)
+    
+    Keep generous spacing (padding) around text so it feels balanced and editorial
+    
+    , 4 banners instead of 3, Please update this 4-banner section with the changes below:
+    
+    Remove image zoom on hover
+    
+    Disable any zoom/scale effect on banner images when the mouse hovers.
+    
+    Images must stay static on hover (no transform, no scale).
+    
+    Font size controls (in px)
+    
+    Add a setting in the theme editor to control the title font size (px) for each banner (or for all banners).
+    
+    Add a setting in the theme editor to control the button text size (px).
+    
+    Changing these values must not break the layout or alignment.
+    
+    Do not change anything else in the section.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-banners-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-editorial-banners-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.banner_spacing }}px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-editorial-banner-item-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+  }
+
+  .ai-editorial-banner-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-editorial-banner-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-editorial-banner-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-editorial-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-editorial-banner-content-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: {{ block.settings.content_padding }}px;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .ai-editorial-banner-title-{{ ai_gen_id }} {
+    font-family: "Times New Roman", serif;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    line-height: 1.2;
+    font-weight: normal;
+  }
+
+  .ai-editorial-banner-button-{{ ai_gen_id }} {
+    font-family: "Times New Roman", serif;
+    font-size: {{ block.settings.button_size }}px;
+    color: {{ block.settings.button_text_color }};
+    background: transparent;
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    text-decoration: none;
+    text-transform: lowercase;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .ai-editorial-banner-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    border-color: {{ block.settings.button_hover_border }};
+    color: {{ block.settings.button_hover_text }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-editorial-banners-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.banner_spacing_mobile }}px;
+    }
+
+    .ai-editorial-banner-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size_mobile }}px;
+    }
+
+    .ai-editorial-banner-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_size_mobile }}px;
+    }
+
+    .ai-editorial-banner-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.content_padding_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-editorial-banners-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-editorial-banners-grid-{{ ai_gen_id }}">
+    {% for i in (1..4) %}
+      {% liquid
+        assign image_key = 'banner_' | append: i | append: '_image'
+        assign title_key = 'banner_' | append: i | append: '_title'
+        assign link_key = 'banner_' | append: i | append: '_link'
+        assign button_text_key = 'banner_' | append: i | append: '_button_text'
+        
+        assign banner_image = block.settings[image_key]
+        assign banner_title = block.settings[title_key]
+        assign banner_link = block.settings[link_key]
+        assign banner_button_text = block.settings[button_text_key]
+      %}
+      
+      <div class="ai-editorial-banner-item-{{ ai_gen_id }}">
+        <div class="ai-editorial-banner-image-wrapper-{{ ai_gen_id }}">
+          {% if banner_image %}
+            <img
+              src="{{ banner_image | image_url: width: 800 }}"
+              alt="{{ banner_image.alt | escape }}"
+              loading="lazy"
+              width="{{ banner_image.width }}"
+              height="{{ banner_image.height }}"
+              class="ai-editorial-banner-image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-editorial-banner-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+        
+        <div class="ai-editorial-banner-content-{{ ai_gen_id }}">
+          {% if banner_title != blank %}
+            <h2 class="ai-editorial-banner-title-{{ ai_gen_id }}">{{ banner_title }}</h2>
+          {% endif %}
+          
+          {% if banner_link != blank and banner_button_text != blank %}
+            <a href="{{ banner_link }}" class="ai-editorial-banner-button-{{ ai_gen_id }}">
+              {{ banner_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Editorial banners",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_1_title",
+      "label": "Title",
+      "default": "Collection One"
+    },
+    {
+      "type": "text",
+      "id": "banner_1_button_text",
+      "label": "Button text",
+      "default": "shop now"
+    },
+    {
+      "type": "url",
+      "id": "banner_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Banner 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_2_title",
+      "label": "Title",
+      "default": "Collection Two"
+    },
+    {
+      "type": "text",
+      "id": "banner_2_button_text",
+      "label": "Button text",
+      "default": "discover"
+    },
+    {
+      "type": "url",
+      "id": "banner_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Banner 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_3_title",
+      "label": "Title",
+      "default": "Collection Three"
+    },
+    {
+      "type": "text",
+      "id": "banner_3_button_text",
+      "label": "Button text",
+      "default": "explore"
+    },
+    {
+      "type": "url",
+      "id": "banner_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Banner 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_4_title",
+      "label": "Title",
+      "default": "Collection Four"
+    },
+    {
+      "type": "text",
+      "id": "banner_4_button_text",
+      "label": "Button text",
+      "default": "view all"
+    },
+    {
+      "type": "url",
+      "id": "banner_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "banner_spacing",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Space between banners (desktop)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "banner_spacing_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Space between banners (mobile)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Content padding (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_padding_mobile",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Content padding (mobile)",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 12,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size (desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 12,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Space below title",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_size_mobile",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size (mobile)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Hover background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border",
+      "label": "Hover border color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial banners"
+    }
+  ]
+}
+{% endschema %}

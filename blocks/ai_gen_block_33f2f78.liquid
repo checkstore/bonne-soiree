@@ -1,0 +1,575 @@
+{% doc %}
+  @prompt
+    Create a section called “Recently Viewed Products” in a minimal, elegant, editorial style.
+    
+    Functionality
+    
+    Show the most recently viewed products (from localStorage key recently_viewed).
+    
+    Limit: 12 items max, no duplicates.
+    
+    Fetch product data from /products/{handle}.js.
+    
+    Display up to 6 items (editable).
+    
+    If empty: show “No products viewed yet.” and allow “Hide when empty” toggle.
+    
+    Optional “Clear history” link.
+    
+    Layout
+    
+    Horizontal scroll container (no arrows, no dots).
+    
+    overflow-x: auto, scroll-snap-type: x mandatory.
+    
+    Mobile: swipe with finger.
+    
+    Desktop: drag or scroll horizontally.
+    
+    Center products if fewer than 4.
+    
+    Design
+    
+    Image: 3:4 ratio, rounded 6px, object-fit: cover.
+    
+    Hover: show 2nd image or soft shadow.
+    
+    Font: Times New Roman, regular 400.
+    
+    Title: 16px, color #121212.
+    
+    Price: 14px, color #121212.
+    
+    Section heading: “Recently Viewed”, Times New Roman 22px, regular.
+    
+    Padding: 80px top (desktop) / 40px (mobile); 60px bottom.
+    
+    Settings
+    
+    heading, subheading, alignment, max_items, show_clear_history, hide_when_empty, padding_top, padding_bottom.
+    
+    Implementation
+    
+    Use flex or grid-auto-flow: column.
+    
+    Hide scrollbar (scrollbar-width: none, ::-webkit-scrollbar {display:none;}).
+    
+    Keep all CSS scoped locally., 1. Scale down all elements
+    
+    Reduce overall card size slightly (images, spacing, and text).
+    
+    Maintain the 3:4 image ratio and spacing consistency.
+    
+    2. Typography fixes
+    
+    Apply Times New Roman to all text inside this section (titles and prices).
+    
+    Price font: Times New Roman, 14px, weight 400, color #121212 (no bold).
+    
+    3. “Clear history” placement and style
+    
+    Move the “Clear history” link to appear right below the section title, aligned with it.
+    
+    Font: Times New Roman, 14px, weight 400, color #666 (#666666).
+    
+    On hover → color #121212.
+    
+    Keep all existing layout behavior (horizontal scroll, spacing, and hover states) unchanged.
+    Scope all style edits to this section only., Instructions:
+    
+    Apply font-family: "Times New Roman", serif !important; to the price element.
+    
+    Font size: 14px, weight 400, color #121212.
+    
+    Ensure this rule overrides any inherited theme font (like Heebo).
+    
+    Do not change any other styles, layout, or functionality.
+    
+    Keep scope limited to this section only.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-recently-viewed-{{ ai_gen_id }} {
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-recently-viewed-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-recently-viewed-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.alignment }};
+    margin-bottom: 30px;
+  }
+
+  .ai-recently-viewed-title-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #121212;
+    margin: 0 0 8px;
+  }
+
+  .ai-recently-viewed-subtitle-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #121212;
+    margin: 0;
+  }
+
+  .ai-recently-viewed-clear-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.alignment }};
+    margin-bottom: 20px;
+  }
+
+  .ai-recently-viewed-clear-link-header-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #666;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color 0.3s ease;
+  }
+
+  .ai-recently-viewed-clear-link-header-{{ ai_gen_id }}:hover {
+    color: #121212;
+  }
+
+  .ai-recently-viewed-products-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 10px;
+  }
+
+  .ai-recently-viewed-products-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-recently-viewed-products-{{ ai_gen_id }}.centered {
+    justify-content: center;
+  }
+
+  .ai-recently-viewed-product-{{ ai_gen_id }} {
+    flex: 0 0 auto;
+    width: 220px;
+    scroll-snap-align: start;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ai-recently-viewed-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+
+  .ai-recently-viewed-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-recently-viewed-image-secondary-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-recently-viewed-product-{{ ai_gen_id }}:hover .ai-recently-viewed-image-secondary-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-recently-viewed-product-{{ ai_gen_id }}:hover .ai-recently-viewed-image-wrapper-{{ ai_gen_id }} {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-recently-viewed-product-title-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #121212;
+    margin: 0 0 5px;
+    line-height: 1.3;
+  }
+
+  .ai-recently-viewed-product-price-{{ ai_gen_id }} {
+    font-family: "Times New Roman", serif !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #121212;
+    margin: 0;
+  }
+
+  .ai-recently-viewed-empty-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+    color: #666;
+  }
+
+  .ai-recently-viewed-hidden-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-recently-viewed-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.padding_top | times: 0.5 }}px;
+      padding-bottom: {{ block.settings.padding_bottom | times: 0.5 }}px;
+    }
+
+    .ai-recently-viewed-container-{{ ai_gen_id }} {
+      padding: 0 15px;
+    }
+
+    .ai-recently-viewed-header-{{ ai_gen_id }} {
+      margin-bottom: 25px;
+    }
+
+    .ai-recently-viewed-clear-header-{{ ai_gen_id }} {
+      margin-bottom: 15px;
+    }
+
+    .ai-recently-viewed-products-{{ ai_gen_id }} {
+      gap: 12px;
+    }
+
+    .ai-recently-viewed-product-{{ ai_gen_id }} {
+      width: 180px;
+    }
+
+    .ai-recently-viewed-product-title-{{ ai_gen_id }} {
+      font-size: 13px;
+    }
+
+    .ai-recently-viewed-product-price-{{ ai_gen_id }} {
+      font-size: 13px;
+    }
+  }
+{% endstyle %}
+
+<recently-viewed-products-{{ ai_gen_id }}
+  class="ai-recently-viewed-{{ ai_gen_id }}"
+  data-max-items="{{ block.settings.max_items }}"
+  data-hide-when-empty="{{ block.settings.hide_when_empty }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-recently-viewed-container-{{ ai_gen_id }}">
+    <div class="ai-recently-viewed-header-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-recently-viewed-title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.subheading != blank %}
+        <p class="ai-recently-viewed-subtitle-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_clear_history %}
+      <div class="ai-recently-viewed-clear-header-{{ ai_gen_id }} ai-recently-viewed-hidden-{{ ai_gen_id }}" id="ai-recently-viewed-clear-header-{{ ai_gen_id }}">
+        <button class="ai-recently-viewed-clear-link-header-{{ ai_gen_id }}" id="ai-recently-viewed-clear-btn-{{ ai_gen_id }}">
+          Limpar histórico
+        </button>
+      </div>
+    {% endif %}
+
+    <div class="ai-recently-viewed-content-{{ ai_gen_id }}">
+      <div class="ai-recently-viewed-products-{{ ai_gen_id }}" id="ai-recently-viewed-products-{{ ai_gen_id }}">
+      </div>
+
+      <div class="ai-recently-viewed-empty-{{ ai_gen_id }} ai-recently-viewed-hidden-{{ ai_gen_id }}" id="ai-recently-viewed-empty-{{ ai_gen_id }}">
+        Nenhum produto visualizado ainda.
+      </div>
+    </div>
+  </div>
+</recently-viewed-products-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class RecentlyViewedProducts{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.maxItems = parseInt(this.dataset.maxItems) || 6;
+        this.hideWhenEmpty = this.dataset.hideWhenEmpty === 'true';
+        this.productsContainer = this.querySelector('#ai-recently-viewed-products-{{ ai_gen_id }}');
+        this.emptyState = this.querySelector('#ai-recently-viewed-empty-{{ ai_gen_id }}');
+        this.clearContainer = this.querySelector('#ai-recently-viewed-clear-header-{{ ai_gen_id }}');
+        this.clearBtn = this.querySelector('#ai-recently-viewed-clear-btn-{{ ai_gen_id }}');
+      }
+
+      connectedCallback() {
+        this.loadRecentlyViewed();
+        this.setupEventListeners();
+        this.trackCurrentProduct();
+      }
+
+      setupEventListeners() {
+        if (this.clearBtn) {
+          this.clearBtn.addEventListener('click', () => {
+            this.clearHistory();
+          });
+        }
+      }
+
+      trackCurrentProduct() {
+        if (window.location.pathname.includes('/products/')) {
+          const productHandle = window.location.pathname.split('/products/')[1].split('?')[0];
+          if (productHandle) {
+            this.addToRecentlyViewed(productHandle);
+          }
+        }
+      }
+
+      addToRecentlyViewed(handle) {
+        let recentlyViewed = this.getRecentlyViewed();
+        
+        recentlyViewed = recentlyViewed.filter(item => item !== handle);
+        recentlyViewed.unshift(handle);
+        
+        if (recentlyViewed.length > 12) {
+          recentlyViewed = recentlyViewed.slice(0, 12);
+        }
+        
+        localStorage.setItem('recently_viewed', JSON.stringify(recentlyViewed));
+      }
+
+      getRecentlyViewed() {
+        try {
+          return JSON.parse(localStorage.getItem('recently_viewed') || '[]');
+        } catch (e) {
+          return [];
+        }
+      }
+
+      async loadRecentlyViewed() {
+        const recentlyViewed = this.getRecentlyViewed();
+        
+        if (recentlyViewed.length === 0) {
+          this.showEmptyState();
+          return;
+        }
+
+        const products = await this.fetchProducts(recentlyViewed.slice(0, this.maxItems));
+        this.renderProducts(products);
+      }
+
+      async fetchProducts(handles) {
+        const products = [];
+        
+        for (const handle of handles) {
+          try {
+            const response = await fetch(`/products/${handle}.js`);
+            if (response.ok) {
+              const product = await response.json();
+              products.push(product);
+            }
+          } catch (error) {
+            console.warn(`Failed to fetch product: ${handle}`, error);
+          }
+        }
+        
+        return products;
+      }
+
+      renderProducts(products) {
+        if (products.length === 0) {
+          this.showEmptyState();
+          return;
+        }
+
+        this.productsContainer.innerHTML = products.map(product => this.createProductHTML(product)).join('');
+        
+        if (products.length < 4) {
+          this.productsContainer.classList.add('centered');
+        }
+
+        this.showProducts();
+      }
+
+      createProductHTML(product) {
+        const primaryImage = product.featured_image;
+        const secondaryImage = product.images && product.images.length > 1 ? product.images[1] : null;
+        const price = this.formatPrice(product.price);
+
+        return `
+          <a href="/products/${product.handle}" class="ai-recently-viewed-product-{{ ai_gen_id }}">
+            <div class="ai-recently-viewed-image-wrapper-{{ ai_gen_id }}">
+              <img 
+                src="${primaryImage}" 
+                alt="${product.title}" 
+                class="ai-recently-viewed-image-{{ ai_gen_id }}"
+                loading="lazy"
+              >
+              ${secondaryImage ? `
+                <img 
+                  src="${secondaryImage}" 
+                  alt="${product.title}" 
+                  class="ai-recently-viewed-image-secondary-{{ ai_gen_id }}"
+                  loading="lazy"
+                >
+              ` : ''}
+            </div>
+            <h3 class="ai-recently-viewed-product-title-{{ ai_gen_id }}">${product.title}</h3>
+            <p class="ai-recently-viewed-product-price-{{ ai_gen_id }}">${price}</p>
+          </a>
+        `;
+      }
+
+      formatPrice(price) {
+        return new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }).format(price / 100);
+      }
+
+      showEmptyState() {
+        if (this.hideWhenEmpty) {
+          this.style.display = 'none';
+        } else {
+          this.emptyState.classList.remove('ai-recently-viewed-hidden-{{ ai_gen_id }}');
+          this.productsContainer.classList.add('ai-recently-viewed-hidden-{{ ai_gen_id }}');
+          if (this.clearContainer) {
+            this.clearContainer.classList.add('ai-recently-viewed-hidden-{{ ai_gen_id }}');
+          }
+        }
+      }
+
+      showProducts() {
+        this.style.display = 'block';
+        this.emptyState.classList.add('ai-recently-viewed-hidden-{{ ai_gen_id }}');
+        this.productsContainer.classList.remove('ai-recently-viewed-hidden-{{ ai_gen_id }}');
+        if (this.clearContainer) {
+          this.clearContainer.classList.remove('ai-recently-viewed-hidden-{{ ai_gen_id }}');
+        }
+      }
+
+      clearHistory() {
+        localStorage.removeItem('recently_viewed');
+        this.showEmptyState();
+      }
+    }
+
+    customElements.define('recently-viewed-products-{{ ai_gen_id }}', RecentlyViewedProducts{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Recently viewed products",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Recently Viewed"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Maximum products to show",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_clear_history",
+      "label": "Show clear history link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "label": "Hide section when empty",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently viewed products"
+    }
+  ]
+}
+{% endschema %}

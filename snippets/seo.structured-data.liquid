@@ -1,0 +1,24 @@
+{% case template %}
+  {% when 'index' %}
+    {% render 'seo.schema.organization' %}
+    {% render 'seo.schema.web-site' %}
+   
+  {% when 'collection' %}
+    {% render 'seo.schema.breadcrumb-list' %}
+    {% render 'seo.schema.collection-page' %}
+    {% render 'seo.schema.item-list',
+      product_list: collection.products
+    %}
+  {% when 'search' %}
+    {% render 'seo.schema.web-site' %}
+    {% render 'seo.schema.item-list',
+      product_list: search.results
+    %}
+  {% when 'product' %}
+    {% render 'seo.schema.breadcrumb-list' %}
+    {% render 'seo.schema.product' %}
+  {% when 'article' %}
+    {% render 'seo.schema.web-site' %}
+    {% render 'seo.schema.article' %}
+  {% else %}
+{% endcase %}

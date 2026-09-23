@@ -1,0 +1,394 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "blocks_aXpnVm": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fd434e0_nRQQzb": {
+          "type": "ai_gen_block_fd434e0",
+          "settings": {
+            "padding_top": 8,
+            "padding_bottom": 32,
+            "show_divider": false,
+            "divider_style": "solid",
+            "divider_color": "#edeae4",
+            "background_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fd434e0_nRQQzb"
+      ],
+      "name": "Safe Spacer / Divider",
+      "settings": {}
+    },
+    "rich_text_TzXdeJ": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_AerdWW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Loja Física",
+            "heading_size": "h1"
+          }
+        },
+        "heading_RjRNFA": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>L'appartement Bonne Soirée</em>",
+            "heading_size": "h2"
+          }
+        },
+        "text_tYcam7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Rua Bela Cintra, 2116 — Jardins, São Paulo</p><p>Seg-Sex das 10:00 - 19:00 <br/>Sábado das 10:00 - 18:00<br/><br/></p>"
+          }
+        },
+        "text_eedbc8": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<h4><a href=\"https://www.google.com.br/maps/place/R.+Bela+Cintra,+2116+-+Jardins,+S%C3%A3o+Paulo+-+SP,+01415-006/@-23.5629434,-46.671468,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d5a0e8b21b:0x30fbc1959c2e27c5!8m2!3d-23.5629434!4d-46.6688931!16s%2Fg%2F11bw4g37lg?hl=pt-BR&entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D\" target=\"_blank\" title=\"https://www.google.com.br/maps/place/R.+Bela+Cintra,+2116+-+Jardins,+S%C3%A3o+Paulo+-+SP,+01415-006/@-23.5629434,-46.671468,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d5a0e8b21b:0x30fbc1959c2e27c5!8m2!3d-23.5629434!4d-46.6688931!16s%2Fg%2F11bw4g37lg?hl=pt-BR&entry=ttu&g_ep=EgoyMDI1MDUyOC4wIKXMDSoASAFQAw%3D%3D\">Rua Bela Cintra, 2116 - São Paulo  - SP</a></h4><p>Segunda a sexta das 10:00 as 19:00 / Sábado 10:00 as 18:00</p>"
+          }
+        },
+        "button_88XgUp": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Entrar em contato",
+            "button_link": "https://wa.me/5511910910055",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_AerdWW",
+        "heading_RjRNFA",
+        "text_tYcam7",
+        "text_eedbc8",
+        "button_88XgUp"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "17599757019b50281a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe3f23d_KahdmX": {
+          "type": "ai_gen_block_fe3f23d",
+          "settings": {
+            "heading": "",
+            "button_text": "Entrar em contato",
+            "button_link": "https://wa.me/5511915493888",
+            "alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 40,
+            "text_color": "#000000",
+            "background_color": "#ffffff",
+            "border_color": "#000000",
+            "border_thickness": 1
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe3f23d_KahdmX"
+      ],
+      "settings": {}
+    },
+    "blocks_qqEc9D": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2ad77b5_P4EVrW": {
+          "type": "ai_gen_block_2ad77b5",
+          "settings": {
+            "image": "shopify://shop_images/chave.png",
+            "banner_height": 240,
+            "max_width": 1200,
+            "frame_background_color": "#ffffff",
+            "frame_padding": 20,
+            "image_border_radius": 0,
+            "shadow_opacity": 0,
+            "shadow_vertical": 8,
+            "shadow_blur": 24,
+            "show_content_overlay": false,
+            "heading": "",
+            "text": "",
+            "button_text": "",
+            "button_link": "",
+            "content_vertical_alignment": "center",
+            "content_horizontal_alignment": "center",
+            "text_alignment": "center",
+            "content_max_width": 400,
+            "content_background_color": "#ffffffe6",
+            "content_padding": 30,
+            "content_border_radius": 12,
+            "content_backdrop_blur": 4,
+            "heading_color": "#121212",
+            "heading_size": 32,
+            "heading_weight": "600",
+            "heading_margin_bottom": 16,
+            "text_color": "#666666",
+            "text_size": 16,
+            "text_margin_bottom": 20,
+            "button_background_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_background_color": "#333333",
+            "button_hover_text_color": "#ffffff",
+            "button_border_color": "#121212",
+            "button_hover_border_color": "#333333",
+            "button_border_width": 0,
+            "button_font_size": 14,
+            "button_font_weight": "500",
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2ad77b5_P4EVrW"
+      ],
+      "name": "Editorial framed banner",
+      "settings": {}
+    },
+    "rich_text_yV4867": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Ud8pKe": {
+          "type": "heading",
+          "settings": {
+            "heading": "Casa 22 - Shopping Cidade Jardim",
+            "heading_size": "h2"
+          }
+        },
+        "text_MiLLRE": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Av. Magalhães de Castro, 12000 - Piso 2 - São Paulo - SP</p><p>Segunda a Sábado das 10:00 as 22:00 / Domingos e feriados 14:00 as 20:00</p>"
+          }
+        },
+        "button_rFkzMF": {
+          "type": "button",
+          "settings": {
+            "button_label": "Entrar em contato",
+            "button_link": "https://wa.me/11930622676",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Ud8pKe",
+        "text_MiLLRE",
+        "button_rFkzMF"
+      ],
+      "disabled": true,
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_RPfbVG": {
+      "type": "rich-text",
+      "blocks": {
+        "button_VFa4eA": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "button_VFa4eA"
+      ],
+      "disabled": true,
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "image_video_rkjHYa": {
+      "type": "image-video",
+      "blocks": {
+        "video_wetDqh": {
+          "type": "video",
+          "settings": {
+            "container_image": false,
+            "video_desktop": "shopify://files/videos/LOJA (2).mp4",
+            "video_mobile": "shopify://files/videos/Abertura Loja Bonne_2.mp4",
+            "title": "",
+            "text": "",
+            "text_button": "",
+            "url_button": "",
+            "video_height": "700",
+            "margin_top": 50,
+            "margin_bottom": 50,
+            "position_horizontal_desktop": "center",
+            "position_vertical_desktop": "center",
+            "position_horizontal_tablet": "center",
+            "position_vertical_tablet": "center",
+            "position_horizontal_mobile": "center",
+            "position_vertical_mobile": "center",
+            "color_text_desktop": "#000000",
+            "color_text_button_desktop": "#ffffff",
+            "color_background_button_desktop": "#000000",
+            "color_border_button_desktop": "#000000",
+            "color_text_button_desktop_hover": "#000000",
+            "color_background_button_desktop_hover": "#ffffff",
+            "color_border_button_desktop_hover": "#ffffff",
+            "underline_button_desktop": false,
+            "align_text_desktop": "center",
+            "color_text_mobile": "#000000",
+            "color_text_button_mobile": "#000000",
+            "color_background_button_mobile": "#000000",
+            "color_border_button_mobile": "#000000",
+            "align_text_mobile": "center",
+            "font_size_title_desktop": 80,
+            "letter_spacing_title_desktop": 0,
+            "font_size_text_desktop": 25,
+            "font_size_button_desktop": 18,
+            "font_size_title_tablet": 70,
+            "letter_spacing_title_tablet": 0,
+            "font_size_text_tablet": 20,
+            "font_size_button_tablet": 18,
+            "font_size_title_mobile": 50,
+            "letter_spacing_title_mobile": 0,
+            "font_size_text_mobile": 18,
+            "font_size_button_mobile": 16
+          }
+        }
+      },
+      "block_order": [
+        "video_wetDqh"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "grid_images_ghPk8h": {
+      "type": "grid-images",
+      "blocks": {
+        "image_aQzMDL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1100.png",
+            "title": "",
+            "description": "",
+            "link": "",
+            "desktop_position_text_section": "center",
+            "mobile_position_text_section": "center"
+          }
+        },
+        "image_UmzmPn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1111.png",
+            "title": "",
+            "description": "",
+            "link": "",
+            "desktop_position_text_section": "center",
+            "mobile_position_text_section": "center"
+          }
+        },
+        "image_CYyUKt": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1122.png",
+            "title": "",
+            "description": "",
+            "link": "",
+            "desktop_position_text_section": "center",
+            "mobile_position_text_section": "center"
+          }
+        }
+      },
+      "block_order": [
+        "image_aQzMDL",
+        "image_UmzmPn",
+        "image_CYyUKt"
+      ],
+      "disabled": true,
+      "settings": {
+        "title_section": "",
+        "desktop_font_size_title": 32,
+        "tablet_font_size_title": 30,
+        "mobile_font_size_title": 28,
+        "position_title_section": "center",
+        "desktop_padding_right_title": 0,
+        "desktop_padding_left_title": 0,
+        "desktop_padding_top_title": 36,
+        "desktop_padding_bottom_title": 0,
+        "mobile_padding_right_title": 0,
+        "mobile_padding_left_title": 0,
+        "mobile_padding_top_title": 20,
+        "mobile_padding_bottom_title": 0,
+        "height_section": "100vh",
+        "desktop_gap_section": 0,
+        "mobile_gap_section": 0,
+        "desktop_padding_right_section": 0,
+        "desktop_padding_left_section": 0,
+        "desktop_padding_top_section": 36,
+        "desktop_padding_bottom_section": 36,
+        "mobile_padding_right_section": 0,
+        "mobile_padding_left_section": 0,
+        "mobile_padding_top_section": 20,
+        "mobile_padding_bottom_section": 20
+      }
+    }
+  },
+  "order": [
+    "main",
+    "blocks_aXpnVm",
+    "rich_text_TzXdeJ",
+    "17599757019b50281a",
+    "blocks_qqEc9D",
+    "rich_text_yV4867",
+    "rich_text_RPfbVG",
+    "image_video_rkjHYa",
+    "grid_images_ghPk8h"
+  ]
+}

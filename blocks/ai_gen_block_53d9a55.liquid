@@ -1,0 +1,951 @@
+{% doc %}
+  @prompt
+    Create a new Shopify Online Store 2.0 section with a two-column editorial layout in the Bonne Soirée style — minimal, timeless, refined, and inspired by luxury fashion editorials.
+    
+    Purpose:
+    
+    Display one editorial image alongside structured text content.
+    
+    The section should be fully customizable from the Shopify Theme Editor without requiring code changes.
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    LAYOUT
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Desktop:
+    
+    • Two-column layout.
+    • Image on the left.
+    • Text on the right.
+    • Columns should have balanced proportions.
+    • The text block must always be vertically centered relative to the image.
+    • Keep subtle spacing between image and text (clean editorial composition).
+    • Plenty of white space, but never excessive.
+    • Maximum section width around 1280px.
+    • Center the entire section horizontally.
+    
+    Mobile:
+    
+    • Stack the image above the text.
+    • Keep proportional spacing between the image and text.
+    • Maintain generous side padding.
+    • Preserve the selected text alignment.
+    • Fully responsive.
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    IMAGE
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Support independent Desktop and Mobile images.
+    
+    Settings:
+    
+    • Desktop image picker.
+    • Mobile image picker.
+    • If no mobile image is uploaded, automatically display the desktop image.
+    
+    Image behavior:
+    
+    • Preserve the original aspect ratio.
+    • width: 100%.
+    • height: auto.
+    • object-fit: contain.
+    • Never crop the image.
+    • No rounded corners.
+    • No borders.
+    • No shadows.
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    TEXT CONTENT
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Create THREE independent Rich Text blocks.
+    
+    Each block should be individually editable.
+    
+    Block 1
+    Main Title
+    
+    Block 2
+    First Subtitle
+    
+    Block 3
+    Second Subtitle / Body Text
+    
+    Each text block must support Shopify Rich Text formatting.
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    TYPOGRAPHY CONTROLS
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Each text block must have its own independent typography settings inside the Theme Editor.
+    
+    For EACH of the three text blocks include:
+    
+    • Shopify Font Picker (font family)
+    • Font size
+    • Font weight
+    • Letter spacing
+    • Line height
+    
+    Do not hardcode fonts.
+    
+    Default font:
+    Times New Roman (or the store's primary serif font).
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    TEXT ALIGNMENT
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Create one global Text Alignment setting.
+    
+    Options:
+    
+    • Left
+    • Center
+    • Right
+    
+    Default:
+    
+    Center
+    
+    The selected alignment must apply to all three text blocks.
+    
+    When Center is selected:
+    
+    • The entire text composition must be centered inside the right column.
+    • Not only the text itself, but the whole text group.
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    TEXT SPACING
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Include adjustable spacing controls for:
+    
+    • Title → Subtitle 1
+    • Subtitle 1 → Subtitle 2
+    
+    Allow independent spacing values.
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    BACKGROUND
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Background color selector.
+    
+    Default colors:
+    
+    • #FFFFFF
+    • #F9F8F5
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    SECTION SPACING
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Include editable controls for:
+    
+    • Top padding
+    • Bottom padding
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    OPTIONAL LAYOUT SETTINGS
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Include a Layout Direction selector.
+    
+    Options:
+    
+    • Image Left / Text Right (default)
+    • Text Left / Image Right
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    STYLE
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    The overall feeling should be elegant, minimal and editorial.
+    
+    Inspired by luxury fashion brands such as Toteme, Khaite, The Row and Sézane.
+    
+    The composition should resemble a printed fashion magazine.
+    
+    Use generous but balanced white space.
+    
+    The typography should feel premium and timeless.
+    
+    The section must be fully responsive and compatible with Shopify Online Store 2.0.
+    
+    ━━━━━━━━━━━━━━━━━━━━━━
+    BUTTON
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    Include one optional editorial button inside the text column.
+    
+    The button must appear directly below the text content (Main Title → First Subtitle → Second Subtitle), remaining inside the same text wrapper.
+    
+    It must never be rendered below the section or outside the two-column layout.
+    
+    The button should replicate the existing Bonne Soirée custom button component and follow exactly the same visual language.
+    
+    Design:
+    
+    • Rectangular shape.
+    • No border-radius (perfectly straight edges).
+    • Font: Times New Roman, serif.
+    • Font weight: 400.
+    • Uppercase text.
+    • Editorial and minimal appearance.
+    • Centered by default.
+    • Smooth transition:
+      transition: all 0.3s ease;
+    
+    Customization settings:
+    
+    • Button text
+    • Button link
+    • Show / Hide button
+    • Alignment (Left / Center / Right)
+    
+    Typography:
+    
+    • Shopify Font Picker
+    • Font size
+    • Letter spacing
+    
+    Colors:
+    
+    • Text color
+    • Background color
+    • Border color
+    • Border thickness (px)
+    
+    Spacing:
+    
+    • Horizontal padding
+    • Vertical padding
+    • Margin above the button
+    • Margin below the button
+    
+    Default appearance:
+    
+    • White background
+    • Black text
+    • 1px black border
+    • Rectangular shape
+    • No rounded corners
+    
+    Hover interaction:
+    
+    On hover:
+    
+    • Background becomes black (#000000).
+    • Text becomes off-white (#F5F1EB).
+    • Border becomes black (#000000).
+    • Maintain transition:
+      transition: all 0.3s ease;
+    
+    Keep the normal state colors completely customizable.
+    
+    The hover effect must work on deskt
+{% enddoc %}
+```liquid
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-section-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-editorial-container-{{ ai_gen_id }} {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-editorial-layout-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .ai-editorial-layout-{{ ai_gen_id }}.ai-editorial-reverse-{{ ai_gen_id }} {
+    direction: rtl;
+  }
+
+  .ai-editorial-layout-{{ ai_gen_id }}.ai-editorial-reverse-{{ ai_gen_id }} > * {
+    direction: ltr;
+  }
+
+  .ai-editorial-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+  }
+
+  .ai-editorial-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .ai-editorial-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-editorial-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+  }
+
+  .ai-editorial-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-editorial-image-mobile-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-editorial-text-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-editorial-text-wrapper-{{ ai_gen_id }}.ai-editorial-align-center-{{ ai_gen_id }} {
+    align-items: center;
+  }
+
+  .ai-editorial-text-wrapper-{{ ai_gen_id }}.ai-editorial-align-right-{{ ai_gen_id }} {
+    align-items: flex-end;
+  }
+
+  .ai-editorial-text-wrapper-{{ ai_gen_id }}.ai-editorial-align-left-{{ ai_gen_id }} {
+    align-items: flex-start;
+  }
+
+  .ai-editorial-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-size: {{ block.settings.title_font_size }}px;
+    letter-spacing: {{ block.settings.title_letter_spacing }}px;
+    line-height: {{ block.settings.title_line_height }};
+    margin: 0;
+  }
+
+  .ai-editorial-subtitle-1-{{ ai_gen_id }} {
+    font-family: {{ block.settings.subtitle_1_font.family }}, {{ block.settings.subtitle_1_font.fallback_families }};
+    font-weight: {{ block.settings.subtitle_1_font.weight }};
+    font-size: {{ block.settings.subtitle_1_font_size }}px;
+    letter-spacing: {{ block.settings.subtitle_1_letter_spacing }}px;
+    line-height: {{ block.settings.subtitle_1_line_height }};
+    margin: 0;
+    margin-top: {{ block.settings.title_to_subtitle_1_spacing }}px;
+  }
+
+  .ai-editorial-subtitle-2-{{ ai_gen_id }} {
+    font-family: {{ block.settings.subtitle_2_font.family }}, {{ block.settings.subtitle_2_font.fallback_families }};
+    font-weight: {{ block.settings.subtitle_2_font.weight }};
+    font-size: {{ block.settings.subtitle_2_font_size }}px;
+    letter-spacing: {{ block.settings.subtitle_2_letter_spacing }}px;
+    line-height: {{ block.settings.subtitle_2_line_height }};
+    margin: 0;
+    margin-top: {{ block.settings.subtitle_1_to_subtitle_2_spacing }}px;
+  }
+
+  .ai-editorial-button-wrapper-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.button_margin_top }}px;
+    margin-bottom: {{ block.settings.button_margin_bottom }}px;
+    display: flex;
+    justify-content: {{ block.settings.button_alignment }};
+  }
+
+  .ai-editorial-button-{{ ai_gen_id }} {
+    display: inline-block;
+    font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
+    font-weight: {{ block.settings.button_font.weight }};
+    font-size: {{ block.settings.button_font_size }}px;
+    letter-spacing: {{ block.settings.button_letter_spacing }}px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }};
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-editorial-button-{{ ai_gen_id }}:hover {
+    background-color: #000000;
+    color: #F5F1EB;
+    border-color: #000000;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-editorial-layout-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .ai-editorial-layout-{{ ai_gen_id }}.ai-editorial-reverse-{{ ai_gen_id }} {
+      direction: ltr;
+    }
+
+    .ai-editorial-image-desktop-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-editorial-image-mobile-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-editorial-container-{{ ai_gen_id }} {
+      padding: 0 16px;
+    }
+  }
+{% endstyle %}
+
+<editorial-section-{{ ai_gen_id }}
+  class="ai-editorial-section-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-editorial-container-{{ ai_gen_id }}">
+    <div class="ai-editorial-layout-{{ ai_gen_id }} {% if block.settings.layout_direction == 'text_left' %}ai-editorial-reverse-{{ ai_gen_id }}{% endif %}">
+      <div class="ai-editorial-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image_desktop %}
+          <img
+            src="{{ block.settings.image_desktop | image_url: width: 2000 }}"
+            alt="{{ block.settings.image_desktop.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image_desktop.width }}"
+            height="{{ block.settings.image_desktop.height }}"
+            class="ai-editorial-image-{{ ai_gen_id }} ai-editorial-image-desktop-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-editorial-image-placeholder-{{ ai_gen_id }} ai-editorial-image-desktop-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-editorial-empty-state-{{ ai_gen_id }}">
+              Next, add a desktop image
+            </div>
+          </div>
+        {% endif %}
+
+        {% if block.settings.image_mobile %}
+          <img
+            src="{{ block.settings.image_mobile | image_url: width: 1000 }}"
+            alt="{{ block.settings.image_mobile.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image_mobile.width }}"
+            height="{{ block.settings.image_mobile.height }}"
+            class="ai-editorial-image-{{ ai_gen_id }} ai-editorial-image-mobile-{{ ai_gen_id }}"
+          >
+        {% elsif block.settings.image_desktop %}
+          <img
+            src="{{ block.settings.image_desktop | image_url: width: 1000 }}"
+            alt="{{ block.settings.image_desktop.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image_desktop.width }}"
+            height="{{ block.settings.image_desktop.height }}"
+            class="ai-editorial-image-{{ ai_gen_id }} ai-editorial-image-mobile-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-editorial-image-placeholder-{{ ai_gen_id }} ai-editorial-image-mobile-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-editorial-empty-state-{{ ai_gen_id }}">
+              Next, add a mobile image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-editorial-text-wrapper-{{ ai_gen_id }} ai-editorial-align-{{ block.settings.text_alignment }}-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <div class="ai-editorial-title-{{ ai_gen_id }}">
+            {{ block.settings.title }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.subtitle_1 != blank %}
+          <div class="ai-editorial-subtitle-1-{{ ai_gen_id }}">
+            {{ block.settings.subtitle_1 }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.subtitle_2 != blank %}
+          <div class="ai-editorial-subtitle-2-{{ ai_gen_id }}">
+            {{ block.settings.subtitle_2 }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_button and block.settings.button_text != blank %}
+          <div class="ai-editorial-button-wrapper-{{ ai_gen_id }}">
+            <a
+              href="{{ block.settings.button_link }}"
+              class="ai-editorial-button-{{ ai_gen_id }}"
+            >
+              {{ block.settings.button_text }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</editorial-section-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class EditorialSection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('editorial-section-{{ ai_gen_id }}', EditorialSection{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Editorial layout",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Layout direction",
+      "options": [
+        {
+          "value": "image_left",
+          "label": "Image left / Text right"
+        },
+        {
+          "value": "text_left",
+          "label": "Text left / Image right"
+        }
+      ],
+      "default": "image_left"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "header",
+      "content": "Main title"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>Timeless Elegance</p>"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_font_weight",
+      "label": "Font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "title_letter_spacing",
+      "label": "Letter spacing",
+      "min": -2,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "header",
+      "content": "First subtitle"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle_1",
+      "label": "Subtitle 1",
+      "default": "<p>Crafted for the modern woman</p>"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtitle_1_font",
+      "label": "Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_1_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subtitle_1_font_weight",
+      "label": "Font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "subtitle_1_letter_spacing",
+      "label": "Letter spacing",
+      "min": -2,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_1_line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "header",
+      "content": "Second subtitle"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle_2",
+      "label": "Subtitle 2",
+      "default": "<p>Discover our curated collection of refined essentials</p>"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtitle_2_font",
+      "label": "Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_2_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "subtitle_2_font_weight",
+      "label": "Font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "subtitle_2_letter_spacing",
+      "label": "Letter spacing",
+      "min": -2,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "subtitle_2_line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "header",
+      "content": "Text spacing"
+    },
+    {
+      "type": "range",
+      "id": "title_to_subtitle_1_spacing",
+      "label": "Title to subtitle 1",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subtitle_1_to_subtitle_2_spacing",
+      "label": "Subtitle 1 to subtitle 2",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_alignment",
+      "label": "Button alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Button font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Button letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "label": "Button border thickness",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Button horizontal padding",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Button vertical padding",
+      "min": 5,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_margin_top",
+      "label": "Button margin top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_margin_bottom",
+      "label": "Button margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial layout"
+    }
+  ]
+}
+{% endschema %}
+```

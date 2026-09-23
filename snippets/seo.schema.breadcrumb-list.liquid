@@ -1,0 +1,90 @@
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {% render 'seo.schema.breadcrumb-item',
+        url: shop.url,
+        name: shop.name,
+        position: 1
+      %}
+      {% case template %}
+        {% when 'collection' %}
+          {% render 'seo.schema.breadcrumb-item',
+            url: collection.url,
+            name: collection.title,
+            position: 2,
+            collection_item: collection,
+            first: true
+          %}
+        {% when 'product' %}
+          {% assign main_collection = product.metafields.custom.main_collection.value %}
+          
+          {% if main_collection %}
+            {% render 'seo.schema.breadcrumb-item',
+              url: main_collection.url,
+              name: main_collection.title,
+              position: 2,
+              collection_item: main_collection,
+              first: true
+            %}
+            ,
+            {% capture collection_position %}
+              {% render 'seo.schema.breadcrumb-item-counter',
+                position: 2,
+                collection_item: main_collection
+              %}
+            {% endcapture %}
+            {% assign collection_position = 2 | plus: collection_position | plus: 1 %}
+
+            {% render 'seo.schema.breadcrumb-item',
+              url: product.url,
+              name: product.title,
+              position: collection_position
+            %}
+          {% elsif collection.url %}
+            {% render 'seo.schema.breadcrumb-item',
+              url: collection.url,
+              name: collection.title,
+              position: 2,
+            %}
+            ,{% render 'seo.schema.breadcrumb-item',
+              url: product.url,
+              name: product.title,
+              position: collection_position
+            %}
+          {% elsif product.url %}
+          ,{% render 'seo.schema.breadcrumb-item',
+            url: product.url,
+            name: product.title,
+            position: 2
+          %}
+          {% endif %}
+        {% when 'page' %}
+          {% render 'seo.schema.breadcrumb-item',
+            url: page.url,
+            name: page.title,
+            position: 2
+          %}
+        {% when 'blog' %}
+          {% render 'seo.schema.breadcrumb-item',
+            url: blog.url,
+            name: blog.title,
+            position: 2
+          %}
+        {% when 'article' %}
+          {% render 'seo.schema.breadcrumb-item',
+            url: blog.url,
+            name: blog.title,
+            position: 2
+          %}
+          {% render 'seo.schema.breadcrumb-item',
+            url: article.url,
+            name: article.title,
+            position: 3
+          %}
+      {% endcase %}
+    ]
+  }
+</script>
+

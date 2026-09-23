@@ -1,0 +1,1106 @@
+{% doc %}
+  @prompt
+    Create a new footer section inspired by the Bonne Soirée aesthetic.
+    
+    Structure:
+    
+    4 columns total.
+    
+    Column 1: logo da marca.
+    
+    Column 2: “Institucional” (links: Quem somos, Trabalhe conosco, Pontos de venda).
+    
+    Column 3: “Ajuda e suporte” (links: Trocas e devoluções, Política de privacidade, Termos de serviço, Meus pedidos).
+    
+    Column 4: “Atendimento” (e-mail, telefone, endereço e horários).
+    
+    À direita, uma área de newsletter com título “Bienvenue à Bonne Soirée” e campo de e-mail com botão com borda fina (igual ao botão editorial do site).
+    
+    Style:
+    
+    Fundo off-white (#F9F8F5).
+    
+    Tipografia serifada (Times New Roman ou similar).
+    
+    Linhas finas, espaçamento generoso e alinhamento central elegante.
+    
+    Créditos e métodos de pagamento na parte inferior, separados por uma linha fina.
+    
+    Responsividade:
+    
+    Empilhar colunas no mobile em uma única coluna, com espaçamento equilibrado.
+    
+    Newsletter centralizada abaixo das seções.
+    
+    A estética deve ser minimalista, editorial e sofisticada, consistente com o restante do site., Create a new footer section inspired by the Bonne Soirée aesthetic.
+    
+    Structure:
+    
+    4 columns total.
+    
+    Column 1: logo da marca.
+    
+    Column 2: “Institucional” (links: Quem somos, Trabalhe conosco, Pontos de venda).
+    
+    Column 3: “Ajuda e suporte” (links: Trocas e devoluções, Política de privacidade, Termos de serviço, Meus pedidos).
+    
+    Column 4: “Atendimento” (e-mail, telefone, endereço e horários).
+    
+    À direita, uma área de newsletter com título “Bienvenue à Bonne Soirée” e campo de e-mail com botão com borda fina (igual ao botão editorial do site).
+    
+    Style:
+    
+    Fundo off-white (#F9F8F5).
+    
+    Tipografia serifada (Times New Roman ou similar).
+    
+    Linhas finas, espaçamento generoso e alinhamento central elegante.
+    
+    Créditos e métodos de pagamento na parte inferior, separados por uma linha fina.
+    
+    Responsividade:
+    
+    Empilhar colunas no mobile em uma única coluna, com espaçamento equilibrado.
+    
+    Newsletter centralizada abaixo das seções.
+    
+    A estética deve ser minimalista, editorial e sofisticada, consistente com o restante do site., Remove all bold styling from the footer section.
+    Apply a consistent regular weight (400) for every text element — including headings, links, and form labels.
+    , In the “Ajuda e suporte” column, add two new links:
+    
+    Meus pedidos
+    
+    Cashback
+    
+    Then, slightly reduce the font size of all the smaller link items (those under the main column titles like “Atendimento” or “Institucional”).
+    Suggested size: around 14px desktop / 13px mobile, keeping Times New Roman and regular weight.
+    Do not change the column titles or the “Bienvenue à Bonne Soirée” section.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-footer-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 0;
+    font-family: {{ block.settings.font_family.family }}, serif;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-footer-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-footer-main-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 1.2fr;
+    gap: {{ block.settings.column_gap }}px;
+    margin-bottom: {{ block.settings.bottom_spacing }}px;
+  }
+
+  .ai-footer-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.link_spacing }}px;
+  }
+
+  .ai-footer-logo-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .ai-footer-logo-{{ ai_gen_id }} img {
+    max-width: {{ block.settings.logo_width }}px;
+    height: auto;
+  }
+
+  .ai-footer-logo-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: 60px;
+    background-color: #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .ai-footer-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 80px;
+    max-height: 40px;
+  }
+
+  .ai-footer-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 400;
+    margin-bottom: {{ block.settings.title_margin }}px;
+    color: {{ block.settings.title_color }};
+    letter-spacing: 0.5px;
+  }
+
+  .ai-footer-link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.link_size }}px;
+    font-weight: 400;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+  }
+
+  .ai-footer-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-footer-contact-info-{{ ai_gen_id }} {
+    font-size: {{ block.settings.contact_size }}px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: {{ block.settings.contact_color }};
+  }
+
+  .ai-footer-newsletter-{{ ai_gen_id }} {
+    padding-left: {{ block.settings.newsletter_padding }}px;
+    border-left: {{ block.settings.divider_thickness }}px solid {{ block.settings.divider_color }};
+  }
+
+  .ai-footer-newsletter-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.newsletter_title_size }}px;
+    font-weight: 400;
+    margin-bottom: {{ block.settings.newsletter_spacing }}px;
+    color: {{ block.settings.newsletter_title_color }};
+    font-style: italic;
+    letter-spacing: 0.3px;
+  }
+
+  .ai-footer-newsletter-form-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;
+  }
+
+  .ai-footer-newsletter-input-{{ ai_gen_id }} {
+    flex: 1;
+    padding: {{ block.settings.input_padding }}px;
+    border: {{ block.settings.input_border_thickness }}px solid {{ block.settings.input_border_color }};
+    background-color: transparent;
+    font-family: inherit;
+    font-size: {{ block.settings.input_size }}px;
+    font-weight: 400;
+    color: {{ block.settings.text_color }};
+    border-radius: 0;
+  }
+
+  .ai-footer-newsletter-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .ai-footer-newsletter-input-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.input_focus_color }};
+  }
+
+  .ai-footer-newsletter-button-{{ ai_gen_id }} {
+    padding: {{ block.settings.input_padding }}px {{ block.settings.button_padding }}px;
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }};
+    background-color: transparent;
+    color: {{ block.settings.button_text_color }};
+    font-family: inherit;
+    font-size: {{ block.settings.button_size }}px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-footer-newsletter-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    color: {{ block.settings.button_hover_text }};
+  }
+
+  .ai-footer-divider-{{ ai_gen_id }} {
+    height: {{ block.settings.divider_thickness }}px;
+    background-color: {{ block.settings.divider_color }};
+    margin: {{ block.settings.divider_margin }}px 0;
+  }
+
+  .ai-footer-bottom-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .ai-footer-credits-{{ ai_gen_id }} {
+    font-size: {{ block.settings.credits_size }}px;
+    font-weight: 400;
+    color: {{ block.settings.credits_color }};
+    letter-spacing: 0.3px;
+  }
+
+  .ai-footer-payment-methods-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .ai-footer-payment-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.payment_icon_size }}px;
+    height: auto;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-footer-payment-icon-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-footer-success-{{ ai_gen_id }} {
+    color: {{ block.settings.success_color }};
+    font-size: {{ block.settings.input_size }}px;
+    font-weight: 400;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .ai-footer-error-{{ ai_gen_id }} {
+    color: {{ block.settings.error_color }};
+    font-size: {{ block.settings.input_size }}px;
+    font-weight: 400;
+    margin-top: 8px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-footer-main-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .ai-footer-newsletter-{{ ai_gen_id }} {
+      grid-column: 1 / -1;
+      padding-left: 0;
+      border-left: none;
+      border-top: {{ block.settings.divider_thickness }}px solid {{ block.settings.divider_color }};
+      padding-top: {{ block.settings.mobile_gap }}px;
+      margin-top: {{ block.settings.mobile_gap }}px;
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-footer-main-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .ai-footer-logo-{{ ai_gen_id }} {
+      justify-content: center;
+      margin-bottom: {{ block.settings.mobile_spacing }}px;
+    }
+
+    .ai-footer-newsletter-form-{{ ai_gen_id }} {
+      flex-direction: column;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .ai-footer-bottom-{{ ai_gen_id }} {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .ai-footer-payment-methods-{{ ai_gen_id }} {
+      justify-content: center;
+    }
+
+    .ai-footer-link-{{ ai_gen_id }} {
+      font-size: 13px;
+    }
+
+    .ai-footer-contact-info-{{ ai_gen_id }} {
+      font-size: 13px;
+    }
+  }
+{% endstyle %}
+
+<footer class="ai-footer-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-footer-container-{{ ai_gen_id }}">
+    <div class="ai-footer-main-{{ ai_gen_id }}">
+      <div class="ai-footer-column-{{ ai_gen_id }}">
+        <div class="ai-footer-logo-{{ ai_gen_id }}">
+          {% if block.settings.logo %}
+            <img
+              src="{{ block.settings.logo | image_url: width: 400 }}"
+              alt="{{ shop.name }}"
+              width="{{ block.settings.logo_width }}"
+              height="auto"
+              loading="lazy"
+            >
+          {% else %}
+            <div class="ai-footer-logo-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-footer-column-{{ ai_gen_id }}">
+        <h3 class="ai-footer-title-{{ ai_gen_id }}">{{ block.settings.institutional_title }}</h3>
+        {% if block.settings.about_link %}
+          <a href="{{ block.settings.about_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.about_text }}</a>
+        {% endif %}
+        {% if block.settings.careers_link %}
+          <a href="{{ block.settings.careers_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.careers_text }}</a>
+        {% endif %}
+        {% if block.settings.stores_link %}
+          <a href="{{ block.settings.stores_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.stores_text }}</a>
+        {% endif %}
+      </div>
+
+      <div class="ai-footer-column-{{ ai_gen_id }}">
+        <h3 class="ai-footer-title-{{ ai_gen_id }}">{{ block.settings.support_title }}</h3>
+        {% if block.settings.returns_link %}
+          <a href="{{ block.settings.returns_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.returns_text }}</a>
+        {% endif %}
+        {% if block.settings.privacy_link %}
+          <a href="{{ block.settings.privacy_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.privacy_text }}</a>
+        {% endif %}
+        {% if block.settings.terms_link %}
+          <a href="{{ block.settings.terms_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.terms_text }}</a>
+        {% endif %}
+        {% if block.settings.orders_link %}
+          <a href="{{ block.settings.orders_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.orders_text }}</a>
+        {% endif %}
+        {% if block.settings.cashback_link %}
+          <a href="{{ block.settings.cashback_link }}" class="ai-footer-link-{{ ai_gen_id }}">{{ block.settings.cashback_text }}</a>
+        {% endif %}
+      </div>
+
+      <div class="ai-footer-column-{{ ai_gen_id }}">
+        <h3 class="ai-footer-title-{{ ai_gen_id }}">{{ block.settings.contact_title }}</h3>
+        <div class="ai-footer-contact-info-{{ ai_gen_id }}">
+          {% if block.settings.contact_email %}
+            <div>{{ block.settings.contact_email }}</div>
+          {% endif %}
+          {% if block.settings.contact_phone %}
+            <div>{{ block.settings.contact_phone }}</div>
+          {% endif %}
+          {% if block.settings.contact_address %}
+            <div>{{ block.settings.contact_address }}</div>
+          {% endif %}
+          {% if block.settings.contact_hours %}
+            <div>{{ block.settings.contact_hours }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-footer-newsletter-{{ ai_gen_id }}" style="max-width: 360px;">
+        <h3 class="ai-footer-newsletter-title-{{ ai_gen_id }}">{{ block.settings.newsletter_title }}</h3>
+        {% form 'customer' %}
+          <div class="ai-footer-newsletter-form-{{ ai_gen_id }}" style="display: flex
+;
+    flex-direction: column;gap: 12px;">
+            <input
+              type="email"
+              name="contact[email]"
+              class="ai-footer-newsletter-input-{{ ai_gen_id }}"
+              placeholder="{{ block.settings.email_placeholder }}"
+              value="{{ form.email }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="ai-footer-newsletter-error-{{ ai_gen_id }}"
+              {% endif %}
+              {% if form.posted_successfully? %}
+                aria-describedby="ai-footer-newsletter-success-{{ ai_gen_id }}"
+              {% endif %}
+              required
+            >
+              <input
+              type="number"
+              name="contact[number]"
+              class="ai-footer-newsletter-input-{{ ai_gen_id }}"
+              placeholder="Seu WhatsApp"
+              value="{{ form.number }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="number"
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="ai-footer-newsletter-error-{{ ai_gen_id }}"
+              {% endif %}
+              {% if form.posted_successfully? %}
+                aria-describedby="ai-footer-newsletter-success-{{ ai_gen_id }}"
+              {% endif %}
+              required
+            >
+            <button type="submit" class="ai-footer-newsletter-button-{{ ai_gen_id }}">
+              {{ block.settings.button_text }}
+            </button>
+          </div>
+          {% if form.errors %}
+            <div id="ai-footer-newsletter-error-{{ ai_gen_id }}" class="ai-footer-error-{{ ai_gen_id }}">
+              {{ form.errors.messages.email }}
+            </div>
+          {% endif %}
+          {% if form.posted_successfully? %}
+            <div id="ai-footer-newsletter-success-{{ ai_gen_id }}" class="ai-footer-success-{{ ai_gen_id }}">
+              {{ block.settings.success_message }}
+            </div>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+
+    <div class="ai-footer-divider-{{ ai_gen_id }}"></div>
+
+    <div class="ai-footer-bottom-{{ ai_gen_id }}">
+      <div class="ai-footer-credits-{{ ai_gen_id }}">
+        {{ block.settings.copyright_text }}
+      </div>
+      
+      {% if block.settings.show_payment_methods %}
+        <div class="ai-footer-payment-methods-{{ ai_gen_id }}">
+          {% for i in (1..6) %}
+            {% assign payment_key = 'payment_icon_' | append: i %}
+            {% if block.settings[payment_key] %}
+              <img
+                src="{{ block.settings[payment_key] | image_url: width: 100 }}"
+                alt="Método de pagamento"
+                class="ai-footer-payment-icon-{{ ai_gen_id }}"
+                loading="lazy"
+              >
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer Bonne Soirée",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo da marca"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Largura do logo",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Seção Institucional"
+    },
+    {
+      "type": "text",
+      "id": "institutional_title",
+      "label": "Título da seção",
+      "default": "Institucional"
+    },
+    {
+      "type": "text",
+      "id": "about_text",
+      "label": "Texto 'Quem somos'",
+      "default": "Quem somos"
+    },
+    {
+      "type": "url",
+      "id": "about_link",
+      "label": "Link 'Quem somos'"
+    },
+    {
+      "type": "text",
+      "id": "careers_text",
+      "label": "Texto 'Trabalhe conosco'",
+      "default": "Trabalhe conosco"
+    },
+    {
+      "type": "url",
+      "id": "careers_link",
+      "label": "Link 'Trabalhe conosco'"
+    },
+    {
+      "type": "text",
+      "id": "stores_text",
+      "label": "Texto 'Pontos de venda'",
+      "default": "Pontos de venda"
+    },
+    {
+      "type": "url",
+      "id": "stores_link",
+      "label": "Link 'Pontos de venda'"
+    },
+    {
+      "type": "header",
+      "content": "Seção Ajuda e Suporte"
+    },
+    {
+      "type": "text",
+      "id": "support_title",
+      "label": "Título da seção",
+      "default": "Ajuda e suporte"
+    },
+    {
+      "type": "text",
+      "id": "returns_text",
+      "label": "Texto 'Trocas e devoluções'",
+      "default": "Trocas e devoluções"
+    },
+    {
+      "type": "url",
+      "id": "returns_link",
+      "label": "Link 'Trocas e devoluções'"
+    },
+    {
+      "type": "text",
+      "id": "privacy_text",
+      "label": "Texto 'Política de privacidade'",
+      "default": "Política de privacidade"
+    },
+    {
+      "type": "url",
+      "id": "privacy_link",
+      "label": "Link 'Política de privacidade'"
+    },
+    {
+      "type": "text",
+      "id": "terms_text",
+      "label": "Texto 'Termos de serviço'",
+      "default": "Termos de serviço"
+    },
+    {
+      "type": "url",
+      "id": "terms_link",
+      "label": "Link 'Termos de serviço'"
+    },
+    {
+      "type": "text",
+      "id": "orders_text",
+      "label": "Texto 'Meus pedidos'",
+      "default": "Meus pedidos"
+    },
+    {
+      "type": "url",
+      "id": "orders_link",
+      "label": "Link 'Meus pedidos'"
+    },
+    {
+      "type": "text",
+      "id": "cashback_text",
+      "label": "Texto 'Cashback'",
+      "default": "Cashback"
+    },
+    {
+      "type": "url",
+      "id": "cashback_link",
+      "label": "Link 'Cashback'"
+    },
+    {
+      "type": "header",
+      "content": "Seção Atendimento"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Título da seção",
+      "default": "Atendimento"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "E-mail",
+      "default": "contato@bonnesoiree.com.br"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Telefone",
+      "default": "(11) 9999-9999"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_address",
+      "label": "Endereço",
+      "default": "São Paulo, SP"
+    },
+    {
+      "type": "text",
+      "id": "contact_hours",
+      "label": "Horários",
+      "default": "Seg-Sex: 9h às 18h"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Título da newsletter",
+      "default": "Bienvenue à Bonne Soirée"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Placeholder do e-mail",
+      "default": "Seu e-mail"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do botão",
+      "default": "Inscrever"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Mensagem de sucesso",
+      "default": "Obrigado por se inscrever!"
+    },
+    {
+      "type": "header",
+      "content": "Rodapé"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Texto de direitos autorais",
+      "default": "© 2024 Bonne Soirée. Todos os direitos reservados."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_methods",
+      "label": "Mostrar métodos de pagamento",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_1",
+      "label": "Ícone de pagamento 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_2",
+      "label": "Ícone de pagamento 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_3",
+      "label": "Ícone de pagamento 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_4",
+      "label": "Ícone de pagamento 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_5",
+      "label": "Ícone de pagamento 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_icon_6",
+      "label": "Ícone de pagamento 6"
+    },
+    {
+      "type": "header",
+      "content": "Estilo e cores"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#F9F8F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#2c2c2c"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor dos títulos",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Cor dos links",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Cor dos links ao passar o mouse",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "contact_color",
+      "label": "Cor das informações de contato",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_title_color",
+      "label": "Cor do título da newsletter",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Cor das linhas divisórias",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Cor da borda do campo",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_color",
+      "label": "Cor da borda do campo em foco",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Cor do placeholder",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Cor da borda do botão",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Cor do texto do botão",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Cor de fundo do botão ao passar o mouse",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Cor do texto do botão ao passar o mouse",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "credits_color",
+      "label": "Cor dos créditos",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Cor da mensagem de sucesso",
+      "default": "#008060"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Cor da mensagem de erro",
+      "default": "#D82C0D"
+    },
+    {
+      "type": "header",
+      "content": "Tipografia"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Fonte",
+      "default": "times_new_roman_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho dos títulos",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho dos links",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "contact_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho das informações de contato",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "newsletter_title_size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do título da newsletter",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "input_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto dos campos",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do texto do botão",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "credits_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho dos créditos",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento da seção",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Largura máxima do container",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento entre colunas",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "link_spacing",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaçamento entre links",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Margem inferior dos títulos",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "newsletter_padding",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento da newsletter",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "newsletter_spacing",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaçamento do título da newsletter",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento inferior principal",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 20,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento mobile",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing",
+      "min": 15,
+      "max": 35,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento adicional mobile",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Bordas e divisórias"
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Espessura das linhas",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "divider_margin",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Margem das linhas divisórias",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "input_border_thickness",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Espessura da borda dos campos",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Espessura da borda do botão",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "input_padding",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding dos campos",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding horizontal do botão",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "payment_icon_size",
+      "min": 24,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Tamanho dos ícones de pagamento",
+      "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Bonne Soirée"
+    }
+  ]
+}
+{% endschema %}

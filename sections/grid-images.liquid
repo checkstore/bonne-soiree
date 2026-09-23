@@ -1,0 +1,353 @@
+{{ 'custom.grid-images.css' |  asset_url |  stylesheet_tag }}
+{% render 'variables.grid-images' %}
+
+<div class="container_title">
+    <p class="title_section">{{ section.settings.title_section }}</p>
+</div> 
+
+<div class="grid-image">
+    {% for block in section.blocks %}
+    <div class="container__grid-image container__grid-image--{{block.id}}">
+        <a href="{{ block.settings.link }}" class="link__grid-images">
+            <img src="{{ block.settings.image | img_url: 'master' }}" alt="" class="image__grid-image image__grid-image--{{block.id}}">
+            <div class="content__grid-image content__grid-image--{{block.id}}">
+                <div class="content__grid-image_text">
+                    <h3 class="title__grid-image">{{ block.settings.title }}</h3>
+                    <p class="description__grid-image">{{ block.settings.description }}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+    "name": "Grid Image",
+    "max_blocks": 3,
+    "settings": [
+        {
+        "type": "header",
+        "content": "Title section"
+        },
+        {
+        "type": "text",
+        "id": "title_section",
+        "label": "Title",
+        "default": "categorias"
+        },
+        {
+            "type": "range",
+            "id": "desktop_font_size_title",
+            "label": "Desktop font size",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 32
+        },
+        {
+            "type": "range",
+            "id": "tablet_font_size_title",
+            "label": "Tablet font size",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        },
+        {
+            "type": "range",
+            "id": "mobile_font_size_title",
+            "label": "Mobile font size",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 28
+        },
+        {
+        "type": "header",
+        "content": "Position title section"
+        },
+        {
+        "type": "select",
+        "id": "position_title_section",
+        "label": "Position title",
+        "default": "center",
+        "options": [
+            { "value": "flex-start", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "flex-end", "label": "Right" }
+        ]
+        },
+        {
+            "type": "header",
+            "content": "Desktop title padding"
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_right_title",
+            "label": "Right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_left_title",
+            "label": "Left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_top_title",
+            "label": "Top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_bottom_title",
+            "label": "Bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "Mobile title padding"
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_right_title",
+            "label": "Right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_left_title",
+            "label": "Left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_top_title",
+            "label": "Top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_bottom_title",
+            "label": "Bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+        "type": "header",
+        "content": "Height section"
+        },
+        {
+        "type": "select",
+        "id": "height_section",
+        "label": "Height section",
+        "default": "auto",
+        "options": [
+            { "value": "auto", "label": "Auto" },
+            { "value": "100vh", "label": "Full Screen" },
+            { "value": "490px", "label": "490px" },
+            { "value": "640px", "label": "640px" },
+            { "value": "700px", "label": "700px" },
+            { "value": "800px", "label": "800px" }
+        ]
+        },
+        {
+            "type": "header",
+            "content": "Desktop gap section"
+        },
+        {
+            "type": "range",
+            "id": "desktop_gap_section",
+            "label": "Gap section",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 36
+        },
+        {
+            "type": "header",
+            "content": "Mobile gap section"
+        },
+        {
+            "type": "range",
+            "id": "mobile_gap_section",
+            "label": "Gap section",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 20
+        },
+        {
+            "type": "header",
+            "content": "Desktop padding section"
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_right_section",
+            "label": "Right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_left_section",
+            "label": "Left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_top_section",
+            "label": "Top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 36
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_bottom_section",
+            "label": "Bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 36
+        },
+        {
+            "type": "header",
+            "content": "Mobile padding section"
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_right_section",
+            "label": "Right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_left_section",
+            "label": "Left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_top_section",
+            "label": "Top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_bottom_section",
+            "label": "Bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 20
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Title"
+                },
+                {
+                    "type": "text",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "SHOP NOW"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Desktop position text image"
+                },
+                {
+                    "type": "select",
+                    "id": "desktop_position_text_section",
+                    "label": "Position text",
+                    "default": "center",
+                    "options": [
+                        { "value": "flex-start", "label": "Top" },
+                        { "value": "center", "label": "Center" },
+                        { "value": "flex-end", "label": "Bottom" }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "Mobile position text image"
+                },
+                {
+                    "type": "select",
+                    "id": "mobile_position_text_section",
+                    "label": "Position text",
+                    "default": "center",
+                    "options": [
+                        { "value": "flex-start", "label": "Top" },
+                        { "value": "center", "label": "Center" },
+                        { "value": "flex-end", "label": "Bottom" }
+                    ]
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Grid Image",
+            "category": "Image"
+        }
+    ]
+}
+{% endschema %}

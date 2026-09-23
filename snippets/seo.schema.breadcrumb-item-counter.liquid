@@ -1,0 +1,22 @@
+{%- comment -%}
+  Usage:
+    {% render 'seo.schema.breadcrumb-item',
+      counter: 2,
+      collection_item: collection
+    %}
+{%- endcomment -%}
+
+{%- if collection_item != blank -%}
+  {%- assign main_collection = collection_item.metafields.custom.main_collection.value -%}
+  {%- if main_collection != blank and main_collection != nil -%}
+    {%- assign counter = counter | plus: 1 -%}
+    {% render 'seo.schema.breadcrumb-item-counter',
+      collection_item: main_collection,
+      counter: counter
+    %}
+  {% else %}
+    {{ counter | json }}
+  {%- endif -%}
+{%- else %}
+  {{ counter | json }}
+{%- endif -%}

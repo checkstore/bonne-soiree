@@ -1,0 +1,113 @@
+/* Geral */
+.section-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .preview_description {
+    transition: all 0.5s ease;
+    max-height: 1000px;
+    overflow: hidden;
+  }
+  
+  .preview_description:not(.closed_description) {
+    background: inherit;
+    background-clip: inherit;
+    -webkit-background-clip: inherit;
+    -webkit-text-fill-color: inherit;
+    transition: all 0.5s ease;
+  }
+  
+  .preview_description.closed_description {
+    -webkit-box-orient: vertical;
+    max-height: 80px;
+    transition: all 0.5s ease;
+  }
+
+  /* CollectionDescription */
+  .section-collection-description {
+    line-height: 26px;
+    position: relative;
+    /* margin: 0.5rem auto; */
+  }
+  
+  .section-collection-description p {
+    margin-bottom: 1rem;
+  }
+  
+  .section-collection-description .collection-description__actions {
+    left: 0;
+    right: 0;
+    display: block;
+    margin: 0 auto;
+    z-index: 9;
+  }
+  
+  .section-collection-description .collection-description__actions button {
+    transition: 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  
+  p.text-button-SEO {
+    margin: 0;
+  }
+
+  .group-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .imagem-invertida {
+    transform: rotate(180deg);
+  }
+
+  .content-description {
+    :is(a){
+        color: black;
+        text-decoration: underline;
+    }
+  }
+
+  .content-description.minus {
+    max-height: 270px;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+  }
+
+  .content-description.minus::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    background: linear-gradient(to bottom, #fff0 -219%, #f4f4f4);
+    padding: 0 10px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 76px;
+    width: 100%;
+  }
+
+  .toggle-link {
+      display: block;
+      margin-top: 10px;
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+  }
+  
+  .content-description + .toggle-link{
+    color: black;
+    clear: both;
+    display: flex;
+    justify-content: center;
+    padding-right: 68px;
+    margin-bottom: 20px;
+    padding-left: 65px;
+  }

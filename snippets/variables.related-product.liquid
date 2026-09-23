@@ -1,0 +1,108 @@
+<style>
+  .related-products {
+    --margin-top: {{ section.settings.margin_top }}px;
+    --margin-bottom: {{ section.settings.margin_bottom }}px;
+    --padding-lateral: {{ section.settings.padding_lateral }}px;
+    max-width: var(--page-width);
+    margin: var(--margin-top) auto var(--margin-bottom);
+    padding: 0 var(--padding-lateral);
+  }
+
+  h2.compre-junto {
+    --font-size-title-section: {{ section.settings.font_size_title_section }}px;
+    --color-title-section: {{ section.settings.color_title_section }};
+    --position-title-section: {{ section.settings.position_title_section }};
+    font-size: var(--font-size-title-section);
+    color: var(--color-title-section);
+    font-weight: 500;
+    justify-content: var(--position-title-section);
+    font-family: var(--font-family-primary);
+  }
+
+  .related-products__content {
+    --gap-between-products: {{ section.settings.gap_between_products }}px;
+    gap: var(--gap-between-products);
+  }
+
+  .main-card__container {
+    --product-card-style: {{ section.settings.product_card_style }};
+    flex-direction: var(--product-card-style);
+  }
+
+  .main-card__info {
+    --position-card-info-vertical: {{ section.settings.position_product_card_vertical }};
+    --position-card-info-horizontal: {{ section.settings.position_product_card_horizontal }};
+    --padding-lateral-card-info: {{ section.settings.padding_card_lateral }}px;
+    align-items: var(--position-card-info-horizontal);
+    justify-content: var(--position-card-info-vertical);
+    padding: 0 var(--padding-lateral-card-info);
+  }
+
+  p.related-product-title {
+    --font-size-product-title: {{ section.settings.font_size_title_product }}px;
+    --color-product-title: {{ section.settings.color_title_product }};
+    --align-text-product: {{ section.settings.text_align_product_card }};
+    color: var(--color-product-title);
+    font-size: var(--font-size-product-title);
+    text-align: var(--align-text-product);
+    font-family: var(--font-family-primary);
+  }
+
+  p.related-product-price {
+    --font-size-product-price: {{ section.settings.font_size_price_product }}px;
+    --color-product-price: {{ section.settings.color_price_product }};
+    --align-text-product: {{ section.settings.text_align_product_card }};
+    text-align: var(--align-text-product);
+    color: var(--color-product-price);
+    margin: 8px 0;
+    font-size: var(--font-size-product-price);
+    font-family: var(--font-family-primary);
+  }
+
+  select.related-product-variants {
+    --font-size-product-variants: {{ section.settings.font_size_variants_product }}px;
+    --color-product-variants: {{ section.settings.color_variants_product }};
+    --align-text-product: {{ section.settings.text_align_product_card }};
+    text-align: var(--align-text-product);
+    color: var(--color-product-variants);
+    font-size: var(--font-size-product-variants);
+    font-family: var(--font-family-primary);
+  }
+
+  button.btn__see-product {
+    --padding-button: {{ section.settings.padding_button }}px;
+    --margin-top-button: {{ section.settings.margin_top_button }}px;
+    --border-radius-button: {{ section.settings.border_radius_button }}px;
+    --font-size-text-button: {{ section.settings.font_size_text_button }}px;
+    --color-text-button: {{ section.settings.color_button_text }};
+    --color-background-button: {{ section.settings.color_button_background }};
+    --color-border-button: {{ section.settings.color_button_border }};
+
+    font-size: var(--font-size-text-button);
+    background: var(--color-background-button);
+    color: var(--color-text-button);
+    padding: var(--padding-button);
+    border: 1px solid var(--color-border-button);
+    margin-top: var(--margin-top-button);
+    border-radius: var(--border-radius-button);
+    font-family: var(--font-family-primary);
+    cursor: pointer;
+  }
+
+  button.btn__see-product:hover {
+    --color-text-button-hover: {{ section.settings.color_button_text_hover }};
+    --color-background-button-hover: {{ section.settings.color_button_background_hover }};
+    --color-border-button-hover: {{ section.settings.color_button_border_hover }};
+    background: var(--color-background-button-hover);
+    color: var(--color-text-button-hover);
+    border: 1px solid var(--color-border-button-hover);
+  }
+
+  
+  @media (max-width: 800px) {
+      body .related-products{
+        --padding-lateral-tablet: {{ section.settings.padding_lateral_tablet }}px;
+          padding: var(--padding-lateral-tablet);
+      }
+  }
+</style>

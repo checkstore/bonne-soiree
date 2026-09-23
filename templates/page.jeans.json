@@ -1,0 +1,192 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "1758200750047a7975": {
+      "type": "apps",
+      "blocks": {
+        "wishlist_plus_wishlist_page_section_tUt9NN": {
+          "type": "shopify://apps/wishlist-plus/blocks/wishlist-page-section/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "wishlist_plus_wishlist_page_section_tUt9NN"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "rich_text_UGp7LF": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_73hXci": {
+          "type": "heading",
+          "settings": {
+            "heading": "Le Denim",
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_73hXci"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 24
+      }
+    },
+    "blocks_P64L7W": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d59facf_WmhqRm": {
+          "type": "ai_gen_block_d59facf",
+          "settings": {
+            "text": "<h5>Clássico, essencial e sempre atual. Cada jeans Bonne Soirée traduz o olhar contemporâneo da marca sobre um ícone atemporal. Com lavagens sutis, recortes bem construídos e o toque effortless que atravessa o dia e a noite.</h5>",
+            "font_size": 20,
+            "line_height": 1.5,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_horizontal": 64,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d59facf_WmhqRm"
+      ],
+      "name": "Texto Times New Roman",
+      "settings": {}
+    },
+    "blocks_PQ9T8R": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2ad77b5_yUMFfJ": {
+          "type": "ai_gen_block_2ad77b5",
+          "name": "Editorial framed banner",
+          "settings": {
+            "image": "shopify://shop_images/BONNE_SOIREE_0995_1.webp",
+            "banner_height": 640,
+            "max_width": 1200,
+            "frame_background_color": "#ffffff",
+            "frame_padding": 60,
+            "image_border_radius": 0,
+            "shadow_opacity": 0,
+            "shadow_vertical": 8,
+            "shadow_blur": 24,
+            "show_content_overlay": false,
+            "heading": "",
+            "text": "",
+            "button_text": "",
+            "button_link": "",
+            "content_vertical_alignment": "center",
+            "content_horizontal_alignment": "center",
+            "text_alignment": "center",
+            "content_max_width": 400,
+            "content_background_color": "rgba(255, 255, 255, 0.9)",
+            "content_padding": 30,
+            "content_border_radius": 12,
+            "content_backdrop_blur": 4,
+            "heading_color": "#121212",
+            "heading_size": 32,
+            "heading_weight": "600",
+            "heading_margin_bottom": 16,
+            "text_color": "#666666",
+            "text_size": 16,
+            "text_margin_bottom": 20,
+            "button_background_color": "#121212",
+            "button_text_color": "#FFFFFF",
+            "button_hover_background_color": "#333333",
+            "button_hover_text_color": "#FFFFFF",
+            "button_border_color": "#121212",
+            "button_hover_border_color": "#333333",
+            "button_border_width": 0,
+            "button_font_size": 14,
+            "button_font_weight": "500",
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_ec75a37_fHLnhc": {
+          "type": "ai_gen_block_ec75a37",
+          "name": "Featured Collection",
+          "settings": {
+            "collection": "jeans",
+            "heading": "",
+            "description": "",
+            "text_alignment": "center",
+            "heading_size": 32,
+            "heading_color": "#121212",
+            "description_size": 16,
+            "description_color": "#666666",
+            "product_title_size": 16,
+            "product_title_color": "#121212",
+            "product_price_size": 14,
+            "product_price_color": "#121212",
+            "card_background_color": "#ffffff",
+            "card_border_radius": 8,
+            "card_padding": 16,
+            "section_padding_top": 40,
+            "section_padding_bottom": 40,
+            "section_padding_horizontal": 20,
+            "header_spacing": 32,
+            "title_spacing": 12,
+            "grid_spacing": 24
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2ad77b5_yUMFfJ",
+        "ai_gen_block_ec75a37_fHLnhc"
+      ],
+      "name": "Editorial feature",
+      "settings": {}
+    },
+    "1760038233b1f0c09c": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17600372582d8f096a": {
+      "type": "_blocks",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "1758200750047a7975",
+    "rich_text_UGp7LF",
+    "blocks_P64L7W",
+    "blocks_PQ9T8R",
+    "1760038233b1f0c09c",
+    "17600372582d8f096a"
+  ]
+}

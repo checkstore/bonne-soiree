@@ -1,0 +1,253 @@
+{{ 'custom.component-look-book.css' | asset_url | stylesheet_tag }}
+{{ 'custom.component-look-book.js' | asset_url | script_tag }}
+{% render 'variables.look-book' %}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{% assign LookPrincipal = product.metafields.custom.look_book.value %}
+{% if LookPrincipal != blank %}
+  <section id="section-{{ section.id }}" class="shop-the-look" style="margin-top:{{ section.settings.margin_top }}px; margin-bottom:{{ section.settings.margin_bottom }}px">
+    <div class="rulePercent"></div>
+    <div class="shop-the-look_custom-look">
+        
+        {% if LookPrincipal != blank %}
+          <div class="photo-block">
+            <div class="ruleAdmin"></div>
+            <img src="{{ LookPrincipal.img | img_url: 'master' }}" alt="Imagem selecionada">
+          </div>
+        {% endif %}
+
+        {% assign ListaProdutos = LookPrincipal.lista_de_produtos.value %} 
+        {% for look in ListaProdutos %}
+        {% assign produto = look.produto.value %}
+          <div class="lookbook-block">
+            <a href="#" data-order="{{ forloop.index }}" {% if forloop.index == 1 %}class="animateActive"{% endif %} data-handle="{{ produto.handle }}" style="left:{{ look.num_horizontal }}%; top:{{ look.num_vertical }}%"></a>
+          </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mobileTit">{{ section.settings.titleLook }}</h2>
+    <div id="shop-the-look_modal">
+      <h2>{{ section.settings.titleLook }}</h2>
+
+      <a href="#" title="Close" class="btn_closemodal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="#333333" d="M12 1C5.926 1 1 5.926 1 12s4.926 11 11 11 11-4.926 11-11S18.074 1 12 1zm5 14.586L14.586 17 12 14.414 9.414 17 7 14.586 9.586 12 7 9.414 9.414 7 12 9.586 14.586 7 17 9.414 14.414 12 17 14.586z"/>
+      </svg></a>
+      <div class="swiper-container">
+          <div class="swiper-wrapper">
+            
+            {% for look in ListaProdutos %}
+              {% assign produto = look.produto.value %}
+              <div class="swiper-slide" data-order="{{ forloop.index }}">
+                  <a href="/products/{{ produto.handle }}" title="{{ produto.handle }}">
+                    <img src="{{ produto.featured_image | img_url: 'large' }}" width="416" height="100%" alt="{{ produto.title }}">
+                  </a>
+                   {% comment %} <span class="collection">{{ produto.collections.first.title }}</span> {% endcomment %}
+                  <h3>{{ produto.title }}</h3>
+                  <div class="prices">
+                    {% assign compare_at_price = produto.compare_at_price | money %}
+                    {% assign price = produto.price | money %}
+                    {% if compare_at_price == price  %}
+                      <span class="price">{{ price }}</span>
+                    {% else %}
+                      <span class="compare_at_price">{{ compare_at_price }}</span>
+                      <span class="price">{{ price }}</span>
+                    {% endif %}
+                  </div>
+                  {% render 'installment', price: produto.price %}
+
+                  {% assign firstVariantId = "" %}
+                  {% assign hasAvailableVariant = false %}
+                  {% for variant in produto.variants %}
+                    {% if variant.available %}
+                      {% assign firstVariantId = variant.id %}
+                      {% assign hasAvailableVariant = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                  
+                  {% unless hasAvailableVariant %}
+                    {% if produto.variants.size > 0 %}
+                      {% assign firstVariantId = produto.variants.first.id %}
+                    {% endif %}
+                  {% endunless %}
+                  <a
+                  href="/products/{{ produto.handle }}"           
+                  class="full-unstyled-link-look hover lnkQuickView"
+                >
+                  <div class="variants_container" data-handle="{{ produto.handle }}">
+
+                    <product-form class="product-form" data-section-id="{{ section.id }}">
+                      {%- render 'loading-spinner' -%}
+                      <div class="product-form__error-message-wrapper" role="alert" hidden="">
+                          <span class="product-form__error-message"></span>
+                      </div>
+                      <form method="post" action="/cart/add" accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
+                          <input type="hidden" name="form_type" value="product">
+                          <input type="hidden" name="utf8" value="✓">
+                          <input type="hidden" name="id" value="{{ firstVariantId }}" class="product-variant-id">
+                          <div class="product-form__buttons">
+                              <p id="ProductSubmitButton-{{ section.id }}__main" type="submit" name="add" class="product-form__submit button button--full-width button--secondary" aria-haspopup="dialog">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M3.56409 4.35904V4.26623C3.56409 3.29192 4.03146 2.35752 4.86337 1.66858C5.69529 0.979635 6.82361 0.592592 8.00012 0.592592C9.17662 0.592592 10.3049 0.979635 11.1369 1.66858C11.9688 2.35752 12.4361 3.29192 12.4361 4.26623V4.35904H13.8379C14.3712 4.35904 14.8241 4.68309 14.9026 5.12006L15.1062 6.27474C15.5077 8.54699 15.5077 10.8563 15.1062 13.1286C15.0118 13.6621 14.7054 14.1544 14.2353 14.5275C13.7653 14.9006 13.1585 15.1334 12.5109 15.1889L11.9234 15.2392C9.3149 15.4635 6.68534 15.4635 4.0768 15.2392L3.48938 15.1889C2.84173 15.1334 2.23491 14.9006 1.76488 14.5275C1.29485 14.1544 0.988432 13.6621 0.894072 13.1286C0.492015 10.8561 0.492015 8.54723 0.894072 6.27474L1.0986 5.12006C1.13604 4.90859 1.26412 4.71533 1.45942 4.5756C1.65473 4.43587 1.90422 4.359 2.16231 4.35904H3.56409ZM7.24366 1.83235C7.69203 1.73679 8.16086 1.72744 8.61427 1.80502C9.06767 1.88261 9.49364 2.04506 9.85956 2.27995C10.2255 2.51484 10.5217 2.81595 10.7255 3.16022C10.9292 3.5045 11.0352 3.88282 11.0353 4.26623V4.35904H4.96494V4.26623C4.96503 3.70871 5.18895 3.16703 5.60147 2.72642C6.01398 2.28582 6.59167 1.9713 7.24366 1.83235ZM3.56409 5.51913V7.25928C3.56409 7.41312 3.63789 7.56065 3.76924 7.66943C3.9006 7.77821 4.07875 7.83933 4.26452 7.83933C4.45028 7.83933 4.62844 7.77821 4.75979 7.66943C4.89115 7.56065 4.96494 7.41312 4.96494 7.25928V5.51913H11.0353V7.25928C11.0353 7.41312 11.1091 7.56065 11.2404 7.66943C11.3718 7.77821 11.55 7.83933 11.7357 7.83933C11.9215 7.83933 12.0996 7.77821 12.231 7.66943C12.3623 7.56065 12.4361 7.41312 12.4361 7.25928V5.51913H13.5568L13.7203 6.44257C14.1022 8.60379 14.1022 10.7995 13.7203 12.9608C13.6711 13.2392 13.5113 13.4961 13.266 13.6908C13.0208 13.8855 12.7041 14.0069 12.3661 14.0358L11.7787 14.0853C9.26648 14.3018 6.73375 14.3018 4.22156 14.0853L3.6332 14.035C3.2954 14.006 2.97893 13.8845 2.73385 13.6898C2.48876 13.4951 2.32906 13.2383 2.27998 12.96C1.89769 10.7991 1.89769 8.60351 2.27998 6.44257L2.44341 5.51913H3.56409Z" fill="white"/>
+                                </svg>
+                              </p>
+                          </div>
+                          <input type="hidden" name="product-id" value="{{ firstVariantId }}">
+                          <input type="hidden" name="section-id" value="{{ section.id }}__main">
+                      </form>
+                    </product-form>
+                  
+                    {% comment %} {%- unless produto.has_only_default_variant -%}
+                      {%- for option in produto.options_with_values -%}
+                    
+                        {%- if section.settings.product_selector == 'radio' -%}
+                          <fieldset id="ProductSelect-option-{{ forloop.index0 }}" name="{{ option.name | handleize }}">
+                            <legend>
+                              {{ option.name | escape }}
+                            </legend>
+                            {%- for value in option.values -%}
+                              <!-- Check to see if there's a product size option. If there is a size, check to see if there's any availble for purchase. If not, set the variat control in a "disabled" state. -->
+                              {%- assign variant_label_state = true -%}
+                    
+                              {%- if produto.options.size == 1 -%}
+                                {%- unless produto.variants[forloop.index0].available -%}
+                                  {%- assign variant_label_state = false -%}
+                                {%- endunless -%}
+                              {%- endif -%}
+                    
+                              <input type="radio"
+                                {% if option.selected_value == value %} checked="checked"{% endif %}
+                                {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                                value="{{ value | escape }}"
+                                data-index="option{{ forloop.index }}"
+                                name="{{ option.name | handleize }}"
+                                id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+                              <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+                                {{ value | escape }}
+                              </label>
+                            {%- endfor -%}
+                          </fieldset>
+                        {%- else -%}
+                          <label for="ProductSelect-option-{{ forloop.index0 }}">
+                            {{ option.name | escape }}
+                          </label>
+                          <ul id="ProductSelect-{{ forloop.index0 }}" class="list-variants" data-index="option{{ forloop.index }}">
+                            {%- for value in option.values -%}
+                              <li data-value="{{ value | escape }}"{% if option.selected_value == value %} class="selected"{% endif %}>
+                                {{ value | escape }}
+                              </li> 
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
+                    
+                      {%- endfor -%}
+                    {%- endunless -%} {% endcomment %}
+
+                    {% if produto.metafields.custom.color %}
+                      <div class="color-variants">
+                        <ul class="color-variants__list">
+                          {% assign colors = produto.metafields.custom.color.value %}
+                          {% for color in colors %}
+                            {% liquid 
+                              if color.product.value.url != blank
+                                assign link_color = color.product.value.url
+                              else 
+                                assign link_color = produto.url
+                              endif
+                            %}
+                            <li 
+                              class="color-variants__item {% if link_color == produto.url %} color-variant__selected {% endif %}"
+                            >
+                              <a href="{{ link_color }}" style="background-color: {{ color.hexadecimal }};"></a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% endif %}
+                </div>
+                </a>
+              </div>
+            {% endfor %}
+
+          </div>
+          <div class="swiper-pagination swiper-pagination-look"></div>
+          <div class="swiper-button-prev swiper-button-prev-look"><svg width="17" height="31" viewBox="0 0 17 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.5 15.5L13.8333 31L16.5 27.9L5.83333 15.5L16.5 3.1L13.8333 0L0.5 15.5Z" fill="black" fill-opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="swiper-button-next swiper-button-next-look">
+            <svg width="17" height="31" viewBox="0 0 17 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.5 15.5L3.16667 31L0.5 27.9L11.1667 15.5L0.5 3.1L3.16667 0L16.5 15.5Z" fill="black" fill-opacity="0.3"/>
+              </svg>
+            </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+<!-- SCHEMA --> 
+{% schema %}
+{
+  "name": "Look Config Individual",
+  "settings": [
+    {
+      "type": "text",
+      "id": "titleLook",
+      "label": "t:sections.shop_the_look.settings.titleLook",
+      "default": "SHOP THE LOOK"
+    },
+    {
+      "type": "range",
+      "id": "desktop_font_size_title",
+      "label": "Desktop title font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "tablet_font_size_title",
+      "label": "Tablet title font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size_title",
+      "label": "Mobile title font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "t:sections.shop_the_look.settings.margin_top",
+      "min": 1,
+      "max": 100,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "t:sections.shop_the_look.settings.margin_bottom",
+      "min": 1,
+      "max": 100,
+      "default": 15
+    }
+  ],
+  "blocks": [
+    
+  ],
+  "presets": [
+    {
+      "name": "Look Config Individual"
+    }
+  ]
+}
+{% endschema %}
+
+

@@ -1,0 +1,376 @@
+{% doc %}
+  @prompt
+    Create a new section called “Featured Collection (2×2 Grid)” in the Bonne Soirée style — minimal, editorial, timeless, and clean.
+    
+    Functionality:
+    
+    Display 4 products from a selected collection by default.
+    
+    Products should automatically update if the collection changes.
+    
+    Layout:
+    
+    Desktop: 2 columns × 2 rows (default display of 4 products).
+    
+    Mobile: 2 columns × 2 rows (default display of 4 products).
+    
+    Maintain equal spacing between items — around 24px on desktop and 16px on mobile.
+    
+    Center the section on the page with soft side padding (40px desktop, 20px mobile).
+    
+    Product Card:
+    
+    Show product image, title, and price.
+    
+    Image ratio fixed to 4:5, using object-fit: cover.
+    
+    No rounded corners — images must have perfectly straight edges.
+    
+    border-radius: 0 !important;
+    
+    No shadows or borders; the layout should remain clean and minimal.
+    
+    Title and price left-aligned, using Times New Roman (or the store's primary serif font if available).
+    
+    Typography:
+    
+    Section title centered above the grid.
+    
+    Elegant serif typography consistent with Bonne Soirée branding.
+    
+    Plenty of white space between the title and the products.
+    
+    Settings:
+    
+    - Collection picker.
+    - Section heading text.
+    - Option to show or hide the section heading.
+    - Product count selector (default: 4, minimum: 2, maximum: 8).
+    
+    The section must be fully responsive and compatible with Shopify Online Store 2.0., Adjust the product grid sizing.
+    
+    Keep the layout as 2 columns × 2 rows, but make the product cards smaller.
+    
+    Set the section container to a maximum width of 1200px on desktop and center it horizontally.
+    
+    Each product card should have a maximum width of approximately 480px.
+    
+    Do not stretch the product cards to fill the entire screen width.
+    
+    Keep the product image ratio at 4:5 with object-fit: cover.
+    
+    Maintain 24px spacing between products on desktop and 16px on mobile.
+    
+    On mobile, keep 2 columns, with cards fitting naturally within the screen width.
+    
+    Keep all other styling and functionality unchanged., The cards are too small and too far apart.
+    
+    Keep the layout as 2 columns × 2 rows, but make the grid occupy around 85% of the page width.
+    
+    Remove any max-width applied to the product cards.
+    
+    Center the grid and reduce the gap between columns to about 16–20px.
+    
+    I want the layout to look like a standard Shopify collection grid, with large product cards filling the columns naturally., Keep the current alignment, spacing, 2-column grid, and overall layout exactly as they are.
+    
+    Only reduce the size of the product images.
+    
+    Adjust the desktop grid container from approximately 980px to approximately 820px–860px maximum width.
+    
+    Each product image should be approximately 400px–420px wide on desktop.
+    
+    Keep:
+    - 2 columns × 2 rows
+    - the current gap between columns
+    - the current centered alignment
+    - the 4:5 image ratio
+    - width: 100% inside each product card
+    - object-fit: cover
+    
+    Do not change the product titles, prices, spacing between cards, or mobile layout.
+    
+    The only change should be making the product cards and images slightly smaller while keeping the grid compact and centered., Keep everything exactly as it is.
+    
+    Only reduce the overall size of the product cards by approximately 10%.
+    
+    Set the grid container max-width to approximately 780px.
+    
+    Keep:
+    - the current alignment;
+    - the current spacing between products;
+    - the 2 × 2 layout;
+    - the current typography;
+    - the image ratio (4:5);
+    - the current mobile layout.
+    
+    Do not change anything else.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-featured-collection-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: 0 40px;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-collection-{{ ai_gen_id }} {
+      padding: 0 20px;
+    }
+  }
+
+  .ai-featured-collection__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-collection__header-{{ ai_gen_id }} {
+      margin-bottom: 40px;
+    }
+  }
+
+  .ai-featured-collection__title-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin: 0;
+    color: {{ block.settings.heading_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-collection__title-{{ ai_gen_id }} {
+      font-size: 24px;
+    }
+  }
+
+  .ai-featured-collection__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 18px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-collection__grid-{{ ai_gen_id }} {
+      gap: 16px;
+      max-width: 100%;
+    }
+  }
+
+  .ai-featured-collection__product-card-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+  }
+
+  .ai-featured-collection__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 125%;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border-radius: 0 !important;
+  }
+
+  .ai-featured-collection__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0 !important;
+  }
+
+  .ai-featured-collection__product-info-{{ ai_gen_id }} {
+    text-align: left;
+  }
+
+  .ai-featured-collection__product-title-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 0 6px 0;
+    color: {{ block.settings.product_title_color }};
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-collection__product-title-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+  }
+
+  .ai-featured-collection__product-price-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: {{ block.settings.product_price_color }};
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-collection__product-price-{{ ai_gen_id }} {
+      font-size: 13px;
+    }
+  }
+
+  .ai-featured-collection__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+  }
+{% endstyle %}
+
+<featured-collection-{{ ai_gen_id }}
+  class="ai-featured-collection-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_heading and block.settings.heading != blank %}
+    <div class="ai-featured-collection__header-{{ ai_gen_id }}">
+      <h2 class="ai-featured-collection__title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    </div>
+  {% endif %}
+
+  {% if block.settings.collection != blank %}
+    {% assign products_to_show = block.settings.product_count %}
+    {% assign collection_products = block.settings.collection.products %}
+    
+    {% if collection_products.size > 0 %}
+      <div class="ai-featured-collection__grid-{{ ai_gen_id }}">
+        {% for product in collection_products limit: products_to_show %}
+          <a
+            href="{{ product.url }}"
+            class="ai-featured-collection__product-card-{{ ai_gen_id }}"
+          >
+            <div class="ai-featured-collection__image-wrapper-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 800 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="ai-featured-collection__image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                >
+              {% else %}
+                <div class="ai-featured-collection__image-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+            <div class="ai-featured-collection__product-info-{{ ai_gen_id }}">
+              <h3 class="ai-featured-collection__product-title-{{ ai_gen_id }}">
+                {{ product.title }}
+              </h3>
+              <div class="ai-featured-collection__product-price-{{ ai_gen_id }}">
+                {{ product.price | money }}
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="ai-featured-collection__empty-state-{{ ai_gen_id }}">
+        The selected collection has no products.
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="ai-featured-collection__empty-state-{{ ai_gen_id }}">
+      Select a collection to display products.
+    </div>
+  {% endif %}
+</featured-collection-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FeaturedCollection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('featured-collection-{{ ai_gen_id }}', FeaturedCollection{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Featured collection grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_count",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading text",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Price color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection grid"
+    }
+  ]
+}
+{% endschema %}

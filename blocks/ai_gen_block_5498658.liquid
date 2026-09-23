@@ -1,0 +1,302 @@
+{% doc %}
+  @prompt
+    Create a section called “Editorial Quote” to display a centered quote with attribution underneath — inspired by luxury editorial layouts.
+    
+    Design & Layout
+    
+    Full-width section with a clean background (white or editable color).
+    
+    Quote text centered both horizontally and vertically.
+    
+    Optional top and bottom padding (default 80px desktop, 40px mobile).
+    
+    Use Times New Roman or the theme’s serif font.
+    
+    The quote text should support italic and bold styles within the editor.
+    
+    Typography
+    
+    Quote text: Times New Roman, 20–22px desktop / 18px mobile, regular 400, color #121212.
+    
+    Author line: smaller text (14–16px), all caps, letter-spacing 0.5px, color #666, positioned below the quote with margin-top ~16px.
+    
+    Both centered and responsive.
+    
+    Default content (editable)
+    
+    Quote:
+    “Romance is at the heart of Bonne Soirée’s designs.
+    From timeless cuts to delicate details,
+    each creation embodies understated elegance.”
+    
+    Author: – BAZAAR
+    
+    Schema (settings)
+    
+    quote_text (richtext, allows bold/italic)
+    
+    author (text, default “– Bazaar”)
+    
+    alignment (center | left | right, default center)
+    
+    text_color (color picker)
+    
+    background_color (color picker)
+    
+    font_size_quote (range 16–28px, default 20px)
+    
+    font_size_author (range 12–18px, default 14px)
+    
+    padding_top, padding_bottom (range sliders)
+    
+    Implementation notes
+    
+    Ensure text remains centered and responsive on all devices.
+    
+    Scope styles locally; no global typography overrides., Update the “Editorial Quote” section to include adjustable horizontal margins.
+    
+    Corrections:
+    
+    Add new settings for:
+    
+    Margin left (range slider, 0–120px, default 40px)
+    
+    Margin right (range slider, 0–120px, default 40px)
+    
+    These margins should apply to the quote text and author line together, reducing or increasing the whitespace on each side.
+    
+    Ensure responsiveness: margins should automatically scale down on mobile (50% of desktop value).
+    
+    Maintain all other styles and schema options exactly as they are.
+    
+    Scope margin styles only to this section., Update the “Editorial Quote” section so the quote and author text are properly centered within the page.
+    
+    Corrections:
+    
+    Wrap the quote content in a centered container (max-width: 900px; margin: 0 auto; text-align: center;).
+    
+    Ensure both the quote text and author line inherit text-align: center.
+    
+    Apply horizontal margins (left/right) inside that container, respecting the existing side margin settings.
+    
+    Keep vertical spacing, font sizes, and all current settings exactly as they are.
+    
+    Scope the centering styles to this section only.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-quote-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .ai-editorial-quote-wrapper-{{ ai_gen_id }} {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ai-editorial-quote-container-{{ ai_gen_id }} {
+    margin-left: {{ block.settings.margin_left }}px;
+    margin-right: {{ block.settings.margin_right }}px;
+    text-align: {{ block.settings.alignment }};
+  }
+
+  .ai-editorial-quote-text-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: {{ block.settings.font_size_quote }}px;
+    font-weight: 400;
+    color: {{ block.settings.text_color }};
+    line-height: 1.4;
+    margin: 0 0 16px 0;
+    text-align: center;
+  }
+
+  .ai-editorial-quote-author-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: {{ block.settings.font_size_author }}px;
+    font-weight: 400;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-editorial-quote-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.padding_top | times: 0.5 }}px;
+      padding-bottom: {{ block.settings.padding_bottom | times: 0.5 }}px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .ai-editorial-quote-container-{{ ai_gen_id }} {
+      margin-left: {{ block.settings.margin_left | times: 0.5 }}px;
+      margin-right: {{ block.settings.margin_right | times: 0.5 }}px;
+    }
+
+    .ai-editorial-quote-text-{{ ai_gen_id }} {
+      font-size: 18px;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-editorial-quote-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-editorial-quote-wrapper-{{ ai_gen_id }}">
+    <div class="ai-editorial-quote-container-{{ ai_gen_id }}">
+      {% if block.settings.quote_text != blank %}
+        <div class="ai-editorial-quote-text-{{ ai_gen_id }}">
+          {{ block.settings.quote_text }}
+        </div>
+      {% endif %}
+      
+      {% if block.settings.author != blank %}
+        <div class="ai-editorial-quote-author-{{ ai_gen_id }}">
+          {{ block.settings.author }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Editorial quote",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "quote_text",
+      "label": "Quote text",
+      "default": "<p>Romance is at the heart of Bonne Soirée's designs.<br>From timeless cuts to delicate details,<br>each creation embodies understated elegance.</p>"
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Author",
+      "default": "– BAZAAR"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_left",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Left margin",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_right",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Right margin",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "font_size_quote",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Quote font size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "font_size_author",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Author font size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial quote"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,482 @@
+{% doc %}
+  @prompt
+    Create a banner section with the features below:
+    
+    1. Separate image uploads
+    
+    One image upload for desktop (horizontal orientation).
+    
+    One image upload for mobile (vertical orientation).
+    
+    The section must automatically switch between them based on screen size.
+    
+    2. Random banner option
+    
+    Add a toggle to randomize the banner each time the page loads (if multiple banners exist).
+    
+    If only one banner is added, show it normally.
+    
+    3. Text content
+    
+    Add optional fields for:
+    
+    Title
+    
+    Subtitle (optional)
+    
+    Call-to-action button (label + link)
+    
+    4. Button styling
+    
+    Allow enabling/disabling the button.
+    
+    Ensure button text respects the theme’s text-transform (no forced uppercase/lowercase).
+    
+    5. Layout
+    
+    Banner must be fully clickable.
+    
+    Keep layout clean, minimal, stable, and responsive.
+    
+    Use object-fit: cover for images.
+    
+    Do not add any extra animations or hover effects., Please update this responsive banner section with the adjustments below:
+    
+    1. Font controls
+    Add theme editor settings to choose the font family for:
+    
+    Banner title
+    
+    Banner subtitle
+    Use the theme’s native font picker and ensure the selected fonts override any hard-coded font-family.
+    
+    2. Button shape
+    
+    Remove any default rounded corners.
+    
+    Make the button square (0px border-radius).
+    
+    Keep all other button styles exactly as they are.
+    
+    Do not change any other part of the section., Please update the banner section button styling with the adjustments below:
+    
+    1. Transparent background
+    
+    Allow the button to use transparent background when selected.
+    
+    Remove any requirement for a solid background color.
+    
+    2. Outline style
+    
+    Add settings for:
+    
+    Border color
+    
+    Border width (in px)
+    
+    The button should support a clean outline style exactly like the screenshot: transparent inside, visible border.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+  }
+
+  .ai-banner-link-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ai-banner-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: {{ block.settings.mobile_aspect_ratio }}%;
+  }
+
+  .ai-banner-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-banner-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-banner-content-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    z-index: 2;
+  }
+
+  .ai-banner-title-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.mobile_title_size }}px;
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-style: {{ block.settings.title_font.style }};
+    margin: 0 0 10px;
+  }
+
+  .ai-banner-subtitle-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.mobile_subtitle_size }}px;
+    font-family: {{ block.settings.subtitle_font.family }}, {{ block.settings.subtitle_font.fallback_families }};
+    font-weight: {{ block.settings.subtitle_font.weight }};
+    font-style: {{ block.settings.subtitle_font.style }};
+    margin: 0 0 20px;
+  }
+
+  .ai-banner-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: 0;
+    font-size: {{ block.settings.mobile_button_size }}px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-banner-image-wrapper-{{ ai_gen_id }} {
+      padding-bottom: {{ block.settings.desktop_aspect_ratio }}%;
+    }
+
+    .ai-banner-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.desktop_title_size }}px;
+    }
+
+    .ai-banner-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.desktop_subtitle_size }}px;
+    }
+
+    .ai-banner-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.desktop_button_size }}px;
+    }
+  }
+{% endstyle %}
+
+<random-banner-{{ ai_gen_id }} class="ai-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.banner_link != blank %}
+    <a href="{{ block.settings.banner_link }}" class="ai-banner-link-{{ ai_gen_id }}">
+  {% else %}
+    <div class="ai-banner-link-{{ ai_gen_id }}">
+  {% endif %}
+
+    <div class="ai-banner-image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.desktop_image != blank %}
+        <img
+          src="{{ block.settings.desktop_image | image_url: width: 2000 }}"
+          alt="{{ block.settings.desktop_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.desktop_image.width }}"
+          height="{{ block.settings.desktop_image.height }}"
+          class="ai-banner-image-{{ ai_gen_id }} ai-banner-desktop-{{ ai_gen_id }}"
+          style="display: none;"
+        >
+      {% endif %}
+
+      {% if block.settings.mobile_image != blank %}
+        <img
+          src="{{ block.settings.mobile_image | image_url: width: 1000 }}"
+          alt="{{ block.settings.mobile_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.mobile_image.width }}"
+          height="{{ block.settings.mobile_image.height }}"
+          class="ai-banner-image-{{ ai_gen_id }} ai-banner-mobile-{{ ai_gen_id }}"
+          style="display: none;"
+        >
+      {% endif %}
+
+      {% if block.settings.desktop_image == blank and block.settings.mobile_image == blank %}
+        <div class="ai-banner-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.title != blank or block.settings.subtitle != blank or block.settings.show_button %}
+      <div class="ai-banner-content-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-banner-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+
+        {% if block.settings.subtitle != blank %}
+          <p class="ai-banner-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+        {% endif %}
+
+        {% if block.settings.show_button and block.settings.button_label != blank %}
+          <span class="ai-banner-button-{{ ai_gen_id }}">{{ block.settings.button_label }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  {% if block.settings.banner_link != blank %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+</random-banner-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class RandomBanner{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.desktopImage = this.querySelector('.ai-banner-desktop-{{ ai_gen_id }}');
+        this.mobileImage = this.querySelector('.ai-banner-mobile-{{ ai_gen_id }}');
+        
+        this.handleResponsiveImages();
+        window.addEventListener('resize', () => this.handleResponsiveImages());
+      }
+
+      handleResponsiveImages() {
+        const isMobile = window.innerWidth < 750;
+        
+        if (this.mobileImage && this.desktopImage) {
+          if (isMobile) {
+            this.mobileImage.style.display = 'block';
+            this.desktopImage.style.display = 'none';
+          } else {
+            this.mobileImage.style.display = 'none';
+            this.desktopImage.style.display = 'block';
+          }
+        } else if (this.mobileImage) {
+          this.mobileImage.style.display = 'block';
+        } else if (this.desktopImage) {
+          this.desktopImage.style.display = 'block';
+        }
+      }
+    }
+
+    customElements.define('random-banner-{{ ai_gen_id }}', RandomBanner{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "range",
+      "id": "desktop_aspect_ratio",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Desktop aspect ratio",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_aspect_ratio",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile aspect ratio",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile title size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desktop_title_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop title size",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtitle_font",
+      "label": "Subtitle font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_subtitle_size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile subtitle size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "desktop_subtitle_size",
+      "min": 14,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop subtitle size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_size",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile button size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "desktop_button_size",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop button size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border width",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Link"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner"
+    }
+  ]
+}
+{% endschema %}

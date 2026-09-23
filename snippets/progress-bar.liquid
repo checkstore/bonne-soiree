@@ -1,0 +1,46 @@
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+<div class="container_progressbar {% if cart == empty %}progressbaris-empty{% endif %}">
+    <div class="progress-group">
+      <div id="progress" class="progress-bar">
+      </div>
+    </div>
+    <p id="message_progressbar"></p>
+</div>
+
+<script>
+  let freeShipping = {{ settings.free_shipping_value }};
+</script>
+
+<style>
+  .container_progressbar {
+    width: 100%;
+    margin: 20px 0px 20px 0px;
+    padding: 0px 20px;
+  } 
+  .container_progressbar .progress-group {
+    width: 100%;
+    height: 8px;
+    background-color: #f4f4f4;
+    /* border-radius: 25px; */
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+  .container_progressbar .progress-bar {
+      width: 0;
+      height: 8px;
+      background-color: #07b810;
+      /* border-radius: 25px; */
+      transition: width 1s;
+  }
+  .container_progressbar #message_progressbar {
+      color: #154734;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin: 0 0 10px;
+  }
+  .progressbaris-empty{
+    display: none;
+  }
+</style>

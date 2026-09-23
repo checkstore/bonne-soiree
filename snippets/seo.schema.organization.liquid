@@ -1,0 +1,60 @@
+{%- assign sameLinks = '' -%}
+
+{%- if settings.social_twitter_link and settings.social_twitter_link != '' -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_twitter_link -%}
+{%- endif -%}
+
+{%- if settings.social_facebook_link and settings.social_facebook_link != '' -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_facebook_link -%}
+{%- endif -%}
+
+{%- if settings.social_pinterest_link and settings.social_pinterest_link != '' -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_pinterest_link -%}
+{%- endif -%}
+
+{%- if settings.social_instagram_link and settings.social_instagram_link != '' -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_instagram_link -%}
+{%- endif -%}
+
+{%- if settings.social_tumblr_link and settings.social_tumblr_link != '' -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_tumblr_link -%}
+{%- endif -%}
+
+{%- if settings.social_snapchat_link -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_snapchat_link -%}
+{%- endif -%}
+
+{%- if settings.social_youtube_link and settings.social_youtube_link != '' -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_youtube_link -%}
+{%- endif -%}
+
+{%- if settings.social_vimeo_link -%}
+  {%- assign sameLinks = sameLinks | append: ':::' -%}
+  {%- assign sameLinks = sameLinks | append: settings.social_vimeo_link -%}
+{%- endif -%}
+
+{%- assign sameLinks = sameLinks | split: ':::' -%}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    {% if settings.logo %}"logo": "{{ settings.logo | image_url: width: 500 | prepend: "https:" }}",{% endif %}
+    "sameAs": [
+      {% for sameLink in sameLinks -%}
+        {% if sameLink != '' -%}
+          {{ sameLink | json }}{%- unless forloop.last -%},{% endunless -%}
+        {%- endif -%}
+      {% endfor %}
+    ],
+    "url": "{{ request.origin | append: page.url }}"
+  }
+</script>

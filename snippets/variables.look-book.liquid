@@ -1,0 +1,20 @@
+<style>
+    #shop-the-look_modal h2,
+    h2.mobileTit {
+        --desktop_font_size_title: {{ section.settings.desktop_font_size_title }}px;
+        font-size: var(--desktop_font_size_title);
+    }
+    @media screen and (max-width: 1023px) {
+        h2.mobileTit{
+            --tablet_font_size_title: {{ section.settings.tablet_font_size_title }}px;
+            font-size: var(--tablet_font_size_title);
+        } 
+    }
+    @media screen and (max-width: 500px) {
+        h2.mobileTit{
+            --mobile_font_size_title: {{ section.settings.mobile_font_size_title }}px;
+            font-size: var(--mobile_font_size_title);
+        } 
+    }
+    
+</style>

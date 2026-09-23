@@ -1,0 +1,285 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "rich_text_nm67jy": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Q9dx4F": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ collection.title }}",
+            "heading_size": "h2"
+          }
+        },
+        "text_4J4rfj": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>No fim da noite, alguém pergunta como ela consegue estar sempre tão bem vestida.</h4><h4>Ela sorri, como se a resposta fosse óbvia:</h4><h4><em>\"Voilà\".</em></h4>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Q9dx4F",
+        "text_4J4rfj"
+      ],
+      "custom_css": [
+        "h2.rich-text__heading {font-family: \"Times New Roman\", serif !important; font-weight: 400;}",
+        "span.metafield-multi_line_text_field {font-family: \"Times New Roman\", serif !important;}"
+      ],
+      "name": "Rich text (Title & Description)",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 44,
+        "padding_bottom": 52
+      }
+    },
+    "1741976979eccb442d": {
+      "type": "apps",
+      "blocks": {
+        "schema_breadcrumbs_by_bogdan_collection_block_JTX6rm": {
+          "type": "shopify://apps/schema-breadcrumbs/blocks/collection-block/b5b4b35d-8c76-40f1-b83c-b869ed5c50ef",
+          "settings": {
+            "home": "Home",
+            "home_link": "/",
+            "menu": "main-menu",
+            "separator": "›",
+            "custom_class": "",
+            "bb_show_hide": true,
+            "unclickable": false,
+            "enable_custom_feature": true,
+            "bb_capitalize": true,
+            "bb_font_size": 10,
+            "bb_padding": 9,
+            "bb_mobile_padding": 5,
+            "bb_top_padding": 0,
+            "bb_mobile_top_padding": 0,
+            "bb_margin": 0,
+            "bb_mobile_margin": 0,
+            "bb_align": "left",
+            "bb_color": "#767676",
+            "bb_hover_color": "",
+            "bb_home_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "schema_breadcrumbs_by_bogdan_collection_block_JTX6rm"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "metafield_still_image": false,
+        "products_per_page": 24,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": false,
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "columns_mobile": "2",
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "blocks_rEPV7y": {
+      "type": "_blocks",
+      "name": "Brand benefits",
+      "settings": {}
+    },
+    "1764954363f22aa26f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_8aab978_RmFtGm": {
+          "type": "ai_gen_block_8aab978",
+          "settings": {
+            "image_desktop": "shopify://shop_images/Copia_de_Bonne_Soiree-110_3d26ddc3-3819-4024-b185-c4a48153dd6d.jpg",
+            "image_mobile": "shopify://shop_images/Copia_de_Bonne_Soiree-229.jpg",
+            "banner_width_desktop": 100,
+            "image_scale_desktop": 50,
+            "image_border_radius_desktop": 0,
+            "image_border_width_desktop": 0,
+            "image_border_color_desktop": "#000000",
+            "image_inner_padding_desktop": 0,
+            "banner_width_mobile": 100,
+            "image_scale_mobile": 85,
+            "image_border_radius_mobile": 0,
+            "image_border_width_mobile": 0,
+            "image_border_color_mobile": "#000000",
+            "image_inner_padding_mobile": 0,
+            "enable_shadow": false,
+            "title": "Resort",
+            "subtitle": "",
+            "button_label": "DESCUBRA",
+            "button_link": "shopify://pages/resort",
+            "layout_position": "overlay",
+            "text_alignment": "center",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "title_font": "times_new_roman_n4",
+            "title_font_size": 30,
+            "title_letter_spacing": 0,
+            "title_color": "#ffffff",
+            "subtitle_font": "assistant_n4",
+            "subtitle_font_size": 12,
+            "subtitle_letter_spacing": 0,
+            "subtitle_color": "#ffffff",
+            "button_font": "assistant_n4",
+            "button_font_size": 10,
+            "button_letter_spacing": 0,
+            "button_text_color": "#ffffff",
+            "button_bg_color": "rgba(0,0,0,0)",
+            "button_border_color": "#ffffff",
+            "button_border_width": 1,
+            "button_border_radius": 0,
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_hover_text_color": "#000000",
+            "button_hover_bg_color": "#fbfaf7",
+            "button_hover_border_color": "#fbfaf7",
+            "section_margin_top": 0,
+            "section_margin_bottom": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_df60e56_q7pxCE": {
+          "type": "ai_gen_block_df60e56",
+          "name": "Brand benefits",
+          "settings": {
+            "item_1_title": "Frete Grátis",
+            "item_1_subtitle": "em compras a partir de R$ 2.000",
+            "item_1_link": "",
+            "item_2_title": "Trocas e devoluções facilitadas",
+            "item_2_subtitle": "processo simples e rápido",
+            "item_2_link": "",
+            "item_3_title": "Pagamentos seguros",
+            "item_3_subtitle": "em até 6x sem juros",
+            "item_3_link": "",
+            "item_4_title": "",
+            "item_4_subtitle": "",
+            "item_4_link": "",
+            "container_width": "contained",
+            "padding_top": 52,
+            "padding_bottom": 52,
+            "background_color": "#f9f8f5",
+            "text_color_primary": "#121212",
+            "text_color_secondary": "#666666",
+            "primary_font_size": 20,
+            "secondary_font_size": 12,
+            "show_divider_top": false,
+            "show_divider_bottom": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_8aab978_RmFtGm",
+        "ai_gen_block_df60e56_q7pxCE"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "collection_description_seo_VVB8wk": {
+      "type": "collection-description-SEO",
+      "custom_css": [],
+      "name": "Collection description (SEO)",
+      "settings": {
+        "max_width_SEO": 1100,
+        "color_background_SEO": "#f3f3f3",
+        "description_title_size_SEO": 18,
+        "description_title_weight_SEO": 500,
+        "padding_top_SEO": 35,
+        "padding_bottom_SEO": 30,
+        "color_text_SEO": "#000000",
+        "font_size_SEO": 12,
+        "percentage_text_SEO_desktop": 100,
+        "percentage_text_SEO_mobile": 68,
+        "text_button_SEO_preview": "",
+        "text_button_SEO_complete": "",
+        "font_size_button_SEO": 16,
+        "color_text_button_SEO": "#ffffff",
+        "icon_button_SEO": "shopify://shop_images/icone.png",
+        "width_icon_button_SEO": 20,
+        "opcao_checkbox": true,
+        "position_group_button_SEO": "row",
+        "gap_group_button_SEO": 10,
+        "position_button_SEO_vertical_desktop": 13,
+        "position_button_SEO_vertical_mobile": 15,
+        "position_button_SEO_horizontal": "center",
+        "color_button_SEO": "rgba(0,0,0,0)",
+        "paddind_vertical_button_SEO": 15,
+        "paddind_horizontal_button_SEO": 40,
+        "border_radius_button_SEO": 3,
+        "percentage_button_SEO_hover": 86,
+        "color_button_SEO_hover": "rgba(0,0,0,0)"
+      }
+    },
+    "1745863382a597ec92": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_aBArAK": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_aBArAK"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "rich_text_nm67jy",
+    "1741976979eccb442d",
+    "product-grid",
+    "blocks_rEPV7y",
+    "1764954363f22aa26f",
+    "collection_description_seo_VVB8wk",
+    "1745863382a597ec92"
+  ]
+}

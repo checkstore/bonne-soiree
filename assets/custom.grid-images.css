@@ -1,0 +1,97 @@
+.grid-image {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+.container_title {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    max-width: 100%;
+}
+.title_section {
+    margin: 0px;
+    color: #000;
+    text-align: center;
+    font-family: var(--font-family-secondary);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.container__grid-image {
+    position: relative; 
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+.link__grid-images {
+    text-decoration: none;
+}
+.image__grid-image {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.content__grid-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 96%;
+    height: 80%; 
+    display: flex;
+    justify-content: center;
+}
+.content__grid-image_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title__grid-image {
+    margin: 0px 0px 4px 0px; 
+    color: #FFF;
+    text-align: center;
+    font-family: var(--font-family-secondary);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.description__grid-image {
+    color: #FFF;
+    text-align: center;
+    font-family: var(--font-family-primary);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    margin: 5px auto;
+}
+@media screen and (max-width: 1550px) {
+    /* .title_section {
+      font-size: 40px;
+    } */
+  }
+  @media screen and (max-width: 1100px) {
+    /* .title_section {
+      font-size: 34px;
+    } */
+  }
+  @media screen and (max-width: 1023px) {
+    /* .title_section {
+      font-size: 40px;
+    } */
+  }
+  @media screen and (max-width: 500px) {
+
+    /* .title_section {
+      font-size: 32px;
+    } */
+  }

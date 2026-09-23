@@ -1,0 +1,270 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_YWjGit": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_7PWghJ": {
+          "type": "heading",
+          "settings": {
+            "heading": "Trocas e Devoluções",
+            "heading_size": "h1"
+          }
+        },
+        "text_jizH77": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>Se for necessário realizar uma troca ou devolução, nosso time está à disposição para auxiliar em cada etapa do processo.</h4>"
+          }
+        },
+        "button_pzhWqT": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_7PWghJ",
+        "text_jizH77",
+        "button_pzhWqT"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 36
+      }
+    },
+    "blocks_m6Pabt": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fe3f23d_ad9kAE": {
+          "type": "ai_gen_block_fe3f23d",
+          "settings": {
+            "heading": "",
+            "button_text": "Whatsapp",
+            "button_link": "https://wa.me/5511910910055",
+            "alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 56,
+            "text_color": "#000000",
+            "background_color": "#ffffff",
+            "border_color": "#000000",
+            "border_thickness": 1
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fe3f23d_ad9kAE"
+      ],
+      "name": "Editorial button",
+      "settings": {}
+    },
+    "rich_text_ezXkBV": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_zFVenc": {
+          "type": "heading",
+          "settings": {
+            "heading": "Política de Troca e Devolução",
+            "heading_size": "h2"
+          }
+        },
+        "text_gJBFXH": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>Devolução:</h4>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_zFVenc",
+        "text_gJBFXH"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 4
+      }
+    },
+    "blocks_dbBD88": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d59facf_McLmnN": {
+          "type": "ai_gen_block_d59facf",
+          "settings": {
+            "text": "<h4>O prazo para solicitar a devolução com estorno é de 7 (sete) dias corridos após o recebimento do pedido, seja por arrependimento, desistência, defeito, insatisfação ou qualquer outro motivo.</h4><h4>O estorno será realizado na mesma forma de pagamento da compra.</h4><h4>Para pagamentos via cartão de crédito, o valor poderá ser visualizado em até duas faturas subsequentes.</h4><h4>Para compras via PIX ou transferência bancária, a compensação ocorre em até 7 dias úteis</h4><h4>Os custos de frete não são incluídos no estorno ou cupom de crédito, exceto em casos de devolução integral do pedido.</h4><h4></h4>",
+            "font_size": 14,
+            "line_height": 1.5,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_horizontal": 72,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d59facf_McLmnN"
+      ],
+      "name": "Texto Times New Roman",
+      "settings": {}
+    },
+    "rich_text_qjHWFx": {
+      "type": "rich-text",
+      "blocks": {
+        "text_hGmiqG": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>Trocas:</h4>"
+          }
+        }
+      },
+      "block_order": [
+        "text_hGmiqG"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 4
+      }
+    },
+    "blocks_CietDT": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d59facf_pidzPL": {
+          "type": "ai_gen_block_d59facf",
+          "settings": {
+            "text": "<h4>O prazo para solicitar a troca é de <strong>30 dias corridos</strong> após a compra.<br/></h4><h4>Solicitações feitas fora desse prazo não poderão ser atendidas.</h4><h4>Produtos adquiridos em nosso e-commerce podem ser trocados na loja física, dentro do mesmo prazo. </h4><h4>No entanto, devoluções com estorno devem ser realizadas exclusivamente pelo e-commerce.</h4>",
+            "font_size": 14,
+            "line_height": 1.5,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_horizontal": 72,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d59facf_pidzPL"
+      ],
+      "name": "Texto Times New Roman",
+      "settings": {}
+    },
+    "rich_text_6Qtj6W": {
+      "type": "rich-text",
+      "blocks": {
+        "text_weCJrJ": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>Condições para troca e devolução:</h4>"
+          }
+        }
+      },
+      "block_order": [
+        "text_weCJrJ"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 4
+      }
+    },
+    "blocks_fFt86K": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d59facf_fTR4RE": {
+          "type": "ai_gen_block_d59facf",
+          "settings": {
+            "text": "<h4>Após a solicitação, disponibilizamos um código de autorização de postagem, válido por 7 dias corridos, para envio gratuito do produto pelos Correios.<br/>Após esse prazo, a solicitação será automaticamente cancelada.</h4><h4>~</h4><h4>Para que a troca ou devolução seja aceita, é necessário que:</h4><h4>- O produto esteja na embalagem original, com etiquetas e lacres intactos;<br/></h4><h4>- Não apresente indícios de uso, odor ou danos;<br/></h4><h4>- Todos os acessórios sejam devolvidos, se houver;<br/></h4><h4>- A nota fiscal acompanhe o produto.<br/></h4><h4>~</h4><h4>Nossa equipe fará a análise do item no prazo de 10 dias corridos, contando a partir do recebimento.<br/>Caso ele não atenda aos critérios acima, o pedido será devolvido ao remetente.</h4><h4>~</h4><h4>Após a aprovação, entraremos em contato por e-mail para que você escolha a opção desejada:</h4><h4>- Troca de produto<br/>- Reembolso<br/>- Crédito no site ou crédito na loja</h4><h4><br/>Em caso de segunda troca, os custos de envio serão de responsabilidade do cliente.</h4>",
+            "font_size": 14,
+            "line_height": 1.5,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 20,
+            "padding_bottom": 56,
+            "padding_horizontal": 72,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d59facf_fTR4RE"
+      ],
+      "name": "Texto Times New Roman",
+      "settings": {}
+    },
+    "1758200750047a7975": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_YWjGit",
+    "blocks_m6Pabt",
+    "rich_text_ezXkBV",
+    "blocks_dbBD88",
+    "rich_text_qjHWFx",
+    "blocks_CietDT",
+    "rich_text_6Qtj6W",
+    "blocks_fFt86K",
+    "1758200750047a7975"
+  ]
+}

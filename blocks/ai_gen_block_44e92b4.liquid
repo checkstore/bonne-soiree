@@ -1,0 +1,602 @@
+{% doc %}
+  @prompt
+    Create a “Shop the Look” section to display curated complementary products on product pages.
+    
+    Functionality
+    
+    The look = current product + up to 4 manually selected complementary products.
+    
+    Each card shows: product image (3:4 ratio, rounded corners), title, and price.
+    
+    The section automatically detects the current product and includes it in the total look.
+    
+    Display total look price (sum of all items).
+    
+    Add a single “Add entire look to bag” button — when clicked, add all items (including current product) to the cart via Shopify AJAX API.
+    
+    Each product card links to its product page.
+    
+    Design & typography
+    
+    Match the visual style of the “Recently Viewed” section.
+    
+    Font: Times New Roman, regular (400), color #121212 for both title and price.
+    
+    Title size: 16px; Price size: 14px.
+    
+    Grid: 3 columns desktop, 2 mobile; white background, soft shadows, 6px rounded corners.
+    
+    Section heading: “Shop the Look” (Times New Roman, regular, centered).
+    
+    Button: outlined, black text, white background, invert on hover.
+    
+    Adjustable top/bottom padding (80px / 60px defaults).
+    
+    Schema settings
+    
+    heading (text) — default “Shop the Look”
+    
+    products (product pickers, up to 4 items)
+    
+    show_total_price (boolean)
+    
+    button_text (text) — default “Add entire look to bag”
+    
+    padding_top, padding_bottom (range sliders)
+    
+    Other details
+    
+    Use /products/{handle}.js to fetch product data and calculate total dynamically.
+    
+    Ensure AJAX add-to-cart works for multiple items at once.
+    
+    Lazy-load images and scope all CSS to this section only., 1. Image & card size
+    
+    Reduce overall card size so it feels visually balanced with the “Recently Viewed” section.
+    
+    Keep the 3:4 image ratio, same rounded corners, and white background.
+    
+    Maintain equal spacing between cards (consistent padding and gap).
+    
+    2. Center alignment
+    
+    Center the product grid horizontally within the section.
+    
+    When there is only 1 product, it should appear perfectly centered.
+    
+    When there are 2 products, align both around the center (not left-aligned).
+    
+    Maintain responsiveness on mobile (2 columns).
+    
+    3. Typography
+    
+    Use Times New Roman for all text inside this section.
+    
+    Product title: 16px, weight 400, color #121212.
+    
+    Price: 14px, weight 400 (no bold), color #121212.
+    
+    Section heading “Shop the Look”: Times New Roman, regular, 20px, centered.
+    
+    4. General
+    
+    Keep the same logic and functionality (total price + add-to-cart for all items).
+    
+    Scope all style changes inside this section only (no global CSS edits).
+    
+    Preserve existing paddings and hover effects., Update the “Shop the Look” section heading style.
+    
+    Increase the heading font size to match the “Vistos Recentemente” section title.
+    
+    Use Times New Roman, weight 400 (regular), color #121212.
+    
+    Font size: around 20–22px on desktop, 18px on mobile.
+    
+    Keep it centered with the same top/bottom spacing as “Vistos Recentemente.”
+    
+    Scope this style only within the “Shop the Look” section (no global edits).
+    
+    Apply Times New Roman to the “Total do look” text and its price value.
+    
+    Font weight: 400 (regular), color #121212, size 16px.
+    
+    Ensure it visually matches the product titles and prices in this same section.
+    
+    Keep alignment centered and spacing consistent.
+    
+    Scope this font style inside this section only (no global font change)., Update the “Shop the Look” section typography.
+    
+    Apply Times New Roman to all product prices within this section.
+    
+    Font weight: 400 (regular), color #121212, font size 14px.
+    
+    Ensure the “Total do look” text and price also use Times New Roman, same color and weight.
+    
+    Keep spacing, layout, and functionality exactly as they are.
+    
+    Scope all font changes inside this section only (no global CSS edits).
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-shop-the-look-{{ ai_gen_id }} {
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    background-color: #ffffff;
+  }
+
+  .ai-shop-the-look-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-shop-the-look-heading-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #121212;
+    text-align: center;
+    margin: 0 0 40px;
+  }
+
+  .ai-shop-the-look-grid-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .ai-shop-the-look-card-{{ ai_gen_id }} {
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    width: calc(33.333% - 11px);
+    max-width: 280px;
+  }
+
+  .ai-shop-the-look-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-shop-the-look-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .ai-shop-the-look-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-shop-the-look-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-shop-the-look-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.3;
+  }
+
+  .ai-shop-the-look-current-badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #121212;
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Times New Roman', serif;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .ai-shop-the-look-content-{{ ai_gen_id }} {
+    padding: 12px;
+  }
+
+  .ai-shop-the-look-title-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #121212;
+    margin: 0 0 8px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .ai-shop-the-look-price-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #121212;
+    margin: 0;
+  }
+
+  .ai-shop-the-look-total-section-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .ai-shop-the-look-total-price-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #121212;
+    margin: 0 0 20px;
+  }
+
+  .ai-shop-the-look-total-price-{{ ai_gen_id }} span {
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    color: #121212;
+  }
+
+  .ai-shop-the-look-button-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #121212;
+    background: #ffffff;
+    border: 1px solid #121212;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .ai-shop-the-look-button-{{ ai_gen_id }}:hover {
+    background: #121212;
+    color: #ffffff;
+  }
+
+  .ai-shop-the-look-button-{{ ai_gen_id }}:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .ai-shop-the-look-loading-{{ ai_gen_id }} {
+    display: none;
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+  }
+
+  .ai-shop-the-look-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-shop-the-look-heading-{{ ai_gen_id }} {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .ai-shop-the-look-card-{{ ai_gen_id }} {
+      width: calc(50% - 8px);
+      max-width: none;
+    }
+
+    .ai-shop-the-look-content-{{ ai_gen_id }} {
+      padding: 10px;
+    }
+
+    .ai-shop-the-look-title-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .ai-shop-the-look-price-{{ ai_gen_id }} {
+      font-size: 13px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-shop-the-look-grid-{{ ai_gen_id }} {
+      gap: 12px;
+    }
+  }
+{% endstyle %}
+
+<shop-the-look-{{ ai_gen_id }}
+  class="ai-shop-the-look-{{ ai_gen_id }}"
+  data-current-product="{{ product.id }}"
+  data-current-variant="{{ product.selected_or_first_available_variant.id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-shop-the-look-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-shop-the-look-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    {% assign has_products = false %}
+    {% if product %}
+      {% assign has_products = true %}
+    {% endif %}
+    {% for i in (1..4) %}
+      {% assign product_key = 'product_' | append: i %}
+      {% if block.settings[product_key] != blank %}
+        {% assign has_products = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_products %}
+      <div class="ai-shop-the-look-grid-{{ ai_gen_id }}" id="ai-shop-the-look-grid-{{ ai_gen_id }}">
+        {% if product %}
+          <a href="{{ product.url }}" class="ai-shop-the-look-card-{{ ai_gen_id }}" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-price="{{ product.selected_or_first_available_variant.price }}">
+            <div class="ai-shop-the-look-image-wrapper-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 400 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="ai-shop-the-look-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="400"
+                  height="533"
+                >
+              {% else %}
+                <div class="ai-shop-the-look-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              <div class="ai-shop-the-look-current-badge-{{ ai_gen_id }}">Produto atual</div>
+            </div>
+            <div class="ai-shop-the-look-content-{{ ai_gen_id }}">
+              <h3 class="ai-shop-the-look-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+              <p class="ai-shop-the-look-price-{{ ai_gen_id }}">{{ product.selected_or_first_available_variant.price | money }}</p>
+            </div>
+          </a>
+        {% endif %}
+
+        {% for i in (1..4) %}
+          {% assign product_key = 'product_' | append: i %}
+          {% assign selected_product = block.settings[product_key] %}
+          {% if selected_product != blank %}
+            <a href="{{ selected_product.url }}" class="ai-shop-the-look-card-{{ ai_gen_id }}" data-product-id="{{ selected_product.id }}" data-variant-id="{{ selected_product.selected_or_first_available_variant.id }}" data-price="{{ selected_product.selected_or_first_available_variant.price }}">
+              <div class="ai-shop-the-look-image-wrapper-{{ ai_gen_id }}">
+                {% if selected_product.featured_image %}
+                  <img
+                    src="{{ selected_product.featured_image | image_url: width: 400 }}"
+                    alt="{{ selected_product.featured_image.alt | escape }}"
+                    class="ai-shop-the-look-image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="400"
+                    height="533"
+                  >
+                {% else %}
+                  <div class="ai-shop-the-look-image-placeholder-{{ ai_gen_id }}">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="ai-shop-the-look-content-{{ ai_gen_id }}">
+                <h3 class="ai-shop-the-look-title-{{ ai_gen_id }}">{{ selected_product.title }}</h3>
+                <p class="ai-shop-the-look-price-{{ ai_gen_id }}">{{ selected_product.selected_or_first_available_variant.price | money }}</p>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if block.settings.show_total_price %}
+        <div class="ai-shop-the-look-total-section-{{ ai_gen_id }}">
+          <p class="ai-shop-the-look-total-price-{{ ai_gen_id }}" id="ai-shop-the-look-total-{{ ai_gen_id }}">
+            Total do look: <span id="ai-shop-the-look-total-amount-{{ ai_gen_id }}">Calculando...</span>
+          </p>
+        </div>
+      {% endif %}
+
+      <div style="text-align: center;">
+        <button
+          type="button"
+          class="ai-shop-the-look-button-{{ ai_gen_id }}"
+          id="ai-shop-the-look-add-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_text }}
+        </button>
+        <div class="ai-shop-the-look-loading-{{ ai_gen_id }}" id="ai-shop-the-look-loading-{{ ai_gen_id }}">
+          Adicionando produtos ao carrinho...
+        </div>
+      </div>
+    {% else %}
+      <div class="ai-shop-the-look-empty-state-{{ ai_gen_id }}">
+        Selecione produtos para criar o look completo
+      </div>
+    {% endif %}
+  </div>
+</shop-the-look-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ShopTheLook{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.products = [];
+        this.totalPrice = 0;
+      }
+
+      connectedCallback() {
+        this.collectProducts();
+        this.calculateTotal();
+        this.setupEventListeners();
+      }
+
+      collectProducts() {
+        const cards = this.querySelectorAll('.ai-shop-the-look-card-{{ ai_gen_id }}');
+        this.products = Array.from(cards).map(card => ({
+          id: card.dataset.productId,
+          variantId: card.dataset.variantId,
+          price: parseInt(card.dataset.price)
+        }));
+      }
+
+      calculateTotal() {
+        this.totalPrice = this.products.reduce((sum, product) => sum + product.price, 0);
+        const totalElement = this.querySelector('#ai-shop-the-look-total-amount-{{ ai_gen_id }}');
+        if (totalElement) {
+          totalElement.textContent = this.formatMoney(this.totalPrice);
+        }
+      }
+
+      formatMoney(cents) {
+        return new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }).format(cents / 100);
+      }
+
+      setupEventListeners() {
+        const addButton = this.querySelector('#ai-shop-the-look-add-button-{{ ai_gen_id }}');
+        const loadingElement = this.querySelector('#ai-shop-the-look-loading-{{ ai_gen_id }}');
+
+        if (addButton) {
+          addButton.addEventListener('click', async () => {
+            if (this.products.length === 0) return;
+
+            addButton.disabled = true;
+            loadingElement.style.display = 'block';
+
+            try {
+              const items = this.products.map(product => ({
+                id: product.variantId,
+                quantity: 1
+              }));
+
+              const response = await fetch('/cart/add.js', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ items })
+              });
+
+              if (response.ok) {
+                window.location.href = '/cart';
+              } else {
+                throw new Error('Erro ao adicionar produtos');
+              }
+            } catch (error) {
+              console.error('Erro:', error);
+              alert('Erro ao adicionar produtos ao carrinho. Tente novamente.');
+            } finally {
+              addButton.disabled = false;
+              loadingElement.style.display = 'none';
+            }
+          });
+        }
+      }
+    }
+
+    customElements.define('shop-the-look-{{ ai_gen_id }}', ShopTheLook{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Shop the Look",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título da seção",
+      "default": "Shop the Look"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_total_price",
+      "label": "Mostrar preço total",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do botão",
+      "default": "Adicionar look completo ao carrinho"
+    },
+    {
+      "type": "header",
+      "content": "Produtos complementares"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Produto 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Produto 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Produto 3"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Produto 4"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Espaçamento superior",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Espaçamento inferior",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the Look"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,158 @@
+{% render 'variables.featured-blog-style' %}
+
+
+
+{% if section.settings.blog != blank %}
+  <div class="blog-section page-width {% if settings.full_width %} blog-section-two {% endif %}">
+    <h2 class="blog-section__title blog_h2">{{ section.settings.title }}</h2>
+    {% assign blog = blogs[section.settings.blog] %}
+    {% assign articles = blog.articles  %}
+  
+    <!-- Swiper -->
+    <div class="swiper mySwiper-for-blog-{{ section.id }}">
+      <div class="swiper-wrapper blog__swiper-wrapper">
+        {% for article in articles %}
+        <div class="swiper-slide custom__swiper-slide-blog">
+          <div class="blog-post">
+            {% if article.image %}
+            <a href="{{ article.url }}" class="blog-post__image-link">
+              <img src="{{ article.image | img_url: '480x480' }}" alt="{{ article.title | escape }}" class="blog-post__image">
+            </a>
+            {% endif %}
+            <div class="blog-content-infos">
+              {% if section.settings.show_tag %}
+                <span class="blog-post__span">{{ article.tags }}</span>
+              {% endif %}
+              {% if section.settings.show_title %}
+                <h3 class="blog-post__title blog__common-content"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              {% endif %}
+              {% if section.settings.show_date %}
+                <p class="blog-post__date blog__common-content">{{ article.published_at | date: "%d de %B de %Y" }}</p>
+              {% endif %}
+              {% if section.settings.show_snippet %}
+                <p class="blog-post__snippet blog__common-content">{{ article.content | strip_html | truncatewords: 20 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="buttons-swiper__container">
+        <div class="swiper-button-prev--{{ section.id }} swiper-button-prev swiper-blog-prev"></div>
+        <div class="swiper-button-next--{{ section.id }} swiper-button-next swiper-blog-next"></div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var mySwiper = new Swiper('.mySwiper-for-blog-{{ section.id }}', {
+      slidesPerView: 1,
+      slidesPerGroup:1,
+      spaceBetween: 10,
+      loop: true, 
+      navigation: {
+        nextEl: '.swiper-button-next--{{ section.id }}',
+        prevEl: '.swiper-button-prev--{{ section.id }}',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2.5,
+          spaceBetween: 20
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30
+        },
+      }  
+    });
+  });
+  
+
+</script>
+
+{% schema %}
+
+{
+  "name": "Blog Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Últimas do Blog"
+    },
+    {
+      "type": "range",
+      "id": "desktop_font_size_title",
+      "label": "Desktop title font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "tablet_font_size_title",
+      "label": "Tablet title font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size_title",
+      "label": "Mobile title font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Selecionar Blog"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag",
+      "label": "Mostrar Tag do Post",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Mostrar Título do Post",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Mostrar Data de Publicação",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_snippet",
+      "label": "Mostrar Resumo do Post",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Section",
+      "category": "Blog",
+      "settings": {
+        "title": "Blog",
+        "blog": "news"
+      }
+    }
+  ]
+}
+
+{% endschema %}

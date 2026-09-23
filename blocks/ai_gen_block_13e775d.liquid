@@ -1,0 +1,315 @@
+{% doc %}
+  @prompt
+    Create a sticky announcement bar with a built-in countdown timer, without any close/dismiss button.
+    
+    Requirements:
+    
+    1. Behavior
+    
+    The bar must be fixed at the top of the page and always visible (no option to close or hide).
+    
+    Show a message field (short text).
+    
+    Show a countdown timer that updates every second.
+    
+    Countdown format: Hours : Minutes : Seconds (no days).
+    
+    2. End date
+    
+    Add a setting for selecting the end date & time.
+    
+    When the timer reaches zero, show a custom message field (e.g. “O Le Marché terminou”).
+    
+    3. Layout
+    
+    Mobile and desktop must display the message + timer on one single row.
+    
+    Keep the bar compact and elegant.
+    
+    Remove all labels (“H”, “M”, “S”).
+    
+    4. Styling
+    
+    Add:
+    
+    Background color picker
+    
+    Text color picker
+    
+    Font picker (must support Times New Roman)
+    
+    Font-size setting
+    
+    Padding controls (top and bottom)
+    
+    The timer numbers and the message text must use the selected font.
+    
+    5. Do NOT include
+    
+    No close, dismiss, or “X” button.
+    
+    No animations or extra icons.
+    
+    6. Don’t change anything else
+    
+    Keep the bar minimal, clean and fully responsive., Please update the sticky countdown bar with the following adjustments:
+    
+    1. End date and time
+    
+    Replace the current date selector with a full datetime picker.
+    
+    The user must be able to set both:
+    
+    Date
+    
+    Hour and minute
+    
+    The countdown must calculate based on the exact timestamp.
+    
+    2. Hide the bar when time runs out
+    
+    When the countdown reaches zero, the entire announcement bar should automatically hide itself.
+    
+    Do not show a message; simply remove the bar from view.
+    
+    No fade animation required (unless already implemented).
+    
+    3. Keep everything else exactly as currently implemented
+    
+    Same layout
+    
+    Same font options
+    
+    Same styling
+    
+    Same “no close button” rule
+    
+    Same behavior of showing only Hours : Minutes : Seconds
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-announcement-bar-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    padding: {{ block.settings.padding_top }}px 20px {{ block.settings.padding_bottom }}px;
+    z-index: 9999;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-style: {{ block.settings.font_family.style }};
+  }
+
+  .ai-announcement-bar-{{ ai_gen_id }}.hidden {
+    display: none;
+  }
+
+  .ai-announcement-bar-content-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .ai-announcement-bar-message-{{ ai_gen_id }} {
+    font-size: {{ block.settings.font_size }}px;
+    margin: 0;
+  }
+
+  .ai-announcement-bar-timer-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: {{ block.settings.font_size }}px;
+  }
+
+  .ai-announcement-bar-timer-number-{{ ai_gen_id }} {
+    font-variant-numeric: tabular-nums;
+    min-width: 1.5em;
+    text-align: center;
+  }
+
+  .ai-announcement-bar-timer-separator-{{ ai_gen_id }} {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-announcement-bar-content-{{ ai_gen_id }} {
+      gap: 10px;
+    }
+  }
+{% endstyle %}
+
+<announcement-bar-{{ ai_gen_id }}
+  class="ai-announcement-bar-{{ ai_gen_id }}"
+  data-end-date="{{ block.settings.end_date }}"
+  data-end-time="{{ block.settings.end_time }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-announcement-bar-content-{{ ai_gen_id }}">
+    <div class="ai-announcement-bar-message-{{ ai_gen_id }}">
+      {{ block.settings.message }}
+    </div>
+    <div class="ai-announcement-bar-timer-{{ ai_gen_id }}">
+      <span class="ai-announcement-bar-timer-number-{{ ai_gen_id }}" data-hours>00</span>
+      <span class="ai-announcement-bar-timer-separator-{{ ai_gen_id }}">:</span>
+      <span class="ai-announcement-bar-timer-number-{{ ai_gen_id }}" data-minutes>00</span>
+      <span class="ai-announcement-bar-timer-separator-{{ ai_gen_id }}">:</span>
+      <span class="ai-announcement-bar-timer-number-{{ ai_gen_id }}" data-seconds>00</span>
+    </div>
+  </div>
+</announcement-bar-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AnnouncementBar{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.endDate = null;
+        this.timerInterval = null;
+      }
+
+      connectedCallback() {
+        const endDateStr = this.getAttribute('data-end-date');
+        const endTimeStr = this.getAttribute('data-end-time');
+        
+        if (!endDateStr || !endTimeStr) return;
+
+        const dateTimeStr = endDateStr + 'T' + endTimeStr;
+        this.endDate = new Date(dateTimeStr).getTime();
+        
+        this.hoursElement = this.querySelector('[data-hours]');
+        this.minutesElement = this.querySelector('[data-minutes]');
+        this.secondsElement = this.querySelector('[data-seconds]');
+
+        this.updateTimer();
+        this.timerInterval = setInterval(() => this.updateTimer(), 1000);
+      }
+
+      disconnectedCallback() {
+        if (this.timerInterval) {
+          clearInterval(this.timerInterval);
+        }
+      }
+
+      updateTimer() {
+        const now = new Date().getTime();
+        const distance = this.endDate - now;
+
+        if (distance < 0) {
+          clearInterval(this.timerInterval);
+          this.hideBar();
+          return;
+        }
+
+        const hours = Math.floor(distance / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        this.hoursElement.textContent = String(hours).padStart(2, '0');
+        this.minutesElement.textContent = String(minutes).padStart(2, '0');
+        this.secondsElement.textContent = String(seconds).padStart(2, '0');
+      }
+
+      hideBar() {
+        this.classList.add('hidden');
+      }
+    }
+
+    customElements.define('announcement-bar-{{ ai_gen_id }}', AnnouncementBar{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Countdown bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message",
+      "default": "Le Marché termina em"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End date",
+      "info": "Format: YYYY-MM-DD (e.g., 2025-12-31)"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End time",
+      "info": "Format: HH:MM (e.g., 23:59)"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown bar"
+    }
+  ]
+}
+{% endschema %}

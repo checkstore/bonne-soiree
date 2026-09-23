@@ -1,0 +1,551 @@
+{% doc %}
+  @prompt
+    Create a new section with a two-column editorial layout.
+    The image should be aligned to the left and the text to the right, following a minimal and balanced composition (similar to an editorial magazine layout).
+    
+    Specifications:
+    
+    The image should maintain its original aspect ratio (object-fit: contain) and have subtle margins (not large gaps).
+    
+    The text column should be aligned vertically centered to the image height.
+    
+    Background color: #FFFFFF or #F9F8F5 (off-white).
+    
+    Font for the text: Times New Roman, regular weight, line-height around 1.6 for readability.
+    
+    The section should support rich text (title + paragraph).
+    
+    Keep the composition clean, with ample white space but not exaggerated — think of a printed magazine layout.
+    
+    On mobile, the image should stack above the text, keeping proportional spacing."
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-layout-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-editorial-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ block.settings.horizontal_padding }}px;
+  }
+
+  .ai-editorial-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: center;
+    min-height: {{ block.settings.min_height }}px;
+  }
+
+  .ai-editorial-image-column-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: {{ block.settings.image_padding }}px;
+  }
+
+  .ai-editorial-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+  }
+
+  .ai-editorial-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .ai-editorial-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-editorial-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    opacity: 0.3;
+  }
+
+  .ai-editorial-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    font-family: 'Times New Roman', serif;
+  }
+
+  .ai-editorial-text-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: {{ block.settings.text_padding }}px;
+  }
+
+  .ai-editorial-title-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    line-height: {{ block.settings.title_line_height }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_margin }}px 0;
+  }
+
+  .ai-editorial-text-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: {{ block.settings.text_size }}px;
+    font-weight: {{ block.settings.text_weight }};
+    line-height: {{ block.settings.text_line_height }};
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  .ai-editorial-text-{{ ai_gen_id }} p {
+    margin: 0 0 1em 0;
+  }
+
+  .ai-editorial-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  {% if block.settings.layout == 'image_right' %}
+    .ai-editorial-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .ai-editorial-image-column-{{ ai_gen_id }} {
+      order: 2;
+    }
+    
+    .ai-editorial-text-column-{{ ai_gen_id }} {
+      order: 1;
+    }
+  {% endif %}
+
+  @media screen and (max-width: 749px) {
+    .ai-editorial-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.mobile_gap }}px;
+      min-height: auto;
+    }
+
+    .ai-editorial-image-column-{{ ai_gen_id }},
+    .ai-editorial-text-column-{{ ai_gen_id }} {
+      order: unset;
+    }
+
+    .ai-editorial-image-column-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_image_padding }}px;
+    }
+
+    .ai-editorial-text-column-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_text_padding }}px;
+    }
+
+    .ai-editorial-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_title_size }}px;
+      margin-bottom: {{ block.settings.mobile_title_margin }}px;
+    }
+
+    .ai-editorial-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_text_size }}px;
+    }
+
+    .ai-editorial-container-{{ ai_gen_id }} {
+      padding: 0 {{ block.settings.mobile_horizontal_padding }}px;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-editorial-layout-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-editorial-container-{{ ai_gen_id }}">
+    <div class="ai-editorial-grid-{{ ai_gen_id }}">
+      <div class="ai-editorial-image-column-{{ ai_gen_id }}">
+        <div class="ai-editorial-image-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.image %}
+            <img
+              src="{{ block.settings.image | image_url: width: 1200 }}"
+              alt="{{ block.settings.image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+              class="ai-editorial-image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-editorial-image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-editorial-empty-state-{{ ai_gen_id }}">
+                Add an image to complete the editorial layout
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-editorial-text-column-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-editorial-title-{{ ai_gen_id }}">
+            {{ block.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.text != blank %}
+          <div class="ai-editorial-text-{{ ai_gen_id }}">
+            {{ block.settings.text }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Editorial layout",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "image_left",
+          "label": "Image left"
+        },
+        {
+          "value": "image_right",
+          "label": "Image right"
+        }
+      ],
+      "default": "image_left"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Minimum height",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_padding",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Image padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>Editorial title</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>This is the editorial text content. It supports rich text formatting and maintains the elegant typography of a magazine layout with proper line spacing and readability.</p>"
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Text padding",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "label": "Title line height",
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Title bottom margin",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "label": "Text weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "text_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Text line height",
+      "default": 1.6
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "select",
+      "id": "background_color",
+      "label": "Background color",
+      "options": [
+        {
+          "value": "#FFFFFF",
+          "label": "White"
+        },
+        {
+          "value": "#F9F8F5",
+          "label": "Off-white"
+        }
+      ],
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Mobile settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile gap",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile title size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_margin",
+      "min": 10,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile title margin",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_padding",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile image padding",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_padding",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile text padding",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "mobile_horizontal_padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile horizontal padding",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial layout"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,710 @@
+{% doc %}
+  @prompt
+    Create a “Compre por Faixa de Preço” section with the following structure and behavior:
+    
+    1. Título da seção
+    
+    Campo de texto para o título (ex.: “Compre por Faixa de Preço”).
+    
+    Opções:
+    
+    Escolher fonte (font picker)
+    
+    Tamanho do título em px
+    
+    Alinhamento (left / center / right)
+    
+    Cor do texto
+    
+    2. Cards de preço (mínimo 1, máximo 6)
+    
+    Cada card deve ter:
+    
+    Conteúdo customizável:
+    
+    Campo de texto pequeno (ex.: “ATÉ” ou “ACIMA DE”)
+    
+    Campo de texto grande para o preço (ex.: “R$150”, “R$500”)
+    
+    Botão com texto personalizado (ex.: “SHOP NOW”)
+    
+    Campo de link para onde o card deve levar
+    
+    Design do card:
+    
+    Fundo customizável (cor picker)
+    
+    Texto em cor customizável
+    
+    Espaço ajustável entre cards
+    
+    Card com formato retangular e sem arredondamento
+    
+    Título grande e centralizado
+    
+    Botão na parte inferior do card
+    
+    Possibilidade de background transparente
+    
+    Borda customizável (cor + espessura)
+    
+    Hover customizável (cor de fundo, texto e borda)
+    
+    Tamanho da fonte ajustável
+    
+    3. Layout
+    
+    Cards alinhados em uma única linha no desktop.
+    
+    No mobile, os cards devem virar carrossel horizontal com scroll lateral, sem setas.
+    
+    Espaçamento ajustável entre os cards.
+    
+    Margem superior e inferior da seção ajustável em px.
+    
+    Controle de cor de fundo da seção.
+    
+    4. Responsividade
+    
+    Desktop: até 6 cards por linha
+    
+    Tablet: 3 por linha
+    
+    Mobile: carrossel com 1 card por vez ou 1.2 cards (estilo “corte”).
+    
+    5. Comportamento
+    
+    Cada card deve ser completamente clicável via link configurado.
+    
+    Se o botão tiver texto vazio, não renderizar o botão.
+    
+    Se o card tiver algum campo vazio, renderizar apenas o conteúdo preenchido.
+    
+    6. Estilo geral
+    
+    Layout minimalista e premium.
+    
+    Sem animações de zoom ou hover nos cards (só no botão).
+    
+    Alinhado com estética fashion editorial., Please update the price range buttons section with the changes below:
+    
+    Number of cards
+    
+    Limit the section to exactly 5 cards maximum, not 6.
+    
+    The editor must allow adding up to 5 items only.
+    
+    Mobile layout
+    
+    Improve the mobile visualization so that all options are clearly visible without feeling hidden in a carousel.
+    
+    On mobile, do NOT use a horizontal carousel.
+    
+    Instead, display the cards in a grid layout:
+    
+    2 cards per row
+    
+    The last row can have 1 card (for a total of 5).
+    
+    Cards should be slightly smaller on mobile to keep a clean look, but all 5 options must be easy to see by simply scrolling down.
+    
+    Do not change anything else in the section (desktop layout, styles, links, or hover behavior).
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-price-range-section-{{ ai_gen_id }} {
+    background-color: {{ block.settings.section_bg_color }};
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-price-range-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-price-range-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-size: {{ block.settings.title_size }}px;
+    text-align: {{ block.settings.title_alignment }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.card_spacing }}px 0;
+  }
+
+  .ai-price-range-cards-wrapper-{{ ai_gen_id }} {
+    overflow: visible;
+  }
+
+  .ai-price-range-cards-{{ ai_gen_id }} {
+    display: grid;
+    gap: {{ block.settings.card_spacing }}px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .ai-price-range-card-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px;
+    background-color: {{ block.settings.card_bg_color }};
+    border: {{ block.settings.card_border_thickness }}px solid {{ block.settings.card_border_color }};
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-height: 250px;
+  }
+
+  .ai-price-range-card-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.card_hover_bg_color }};
+    border-color: {{ block.settings.card_hover_border_color }};
+  }
+
+  .ai-price-range-card-content-{{ ai_gen_id }} {
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-price-range-card-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_label_font_size }}px;
+    color: {{ block.settings.card_text_color }};
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .ai-price-range-card-{{ ai_gen_id }}:hover .ai-price-range-card-label-{{ ai_gen_id }} {
+    color: {{ block.settings.card_hover_text_color }};
+  }
+
+  .ai-price-range-card-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_price_font_size }}px;
+    color: {{ block.settings.card_text_color }};
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .ai-price-range-card-{{ ai_gen_id }}:hover .ai-price-range-card-price-{{ ai_gen_id }} {
+    color: {{ block.settings.card_hover_text_color }};
+  }
+
+  .ai-price-range-card-button-{{ ai_gen_id }} {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }};
+    font-size: {{ block.settings.button_font_size }}px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .ai-price-range-card-{{ ai_gen_id }}:hover .ai-price-range-card-button-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-price-range-cards-{{ ai_gen_id }} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-price-range-cards-{{ ai_gen_id }} {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-price-range-cards-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ai-price-range-card-{{ ai_gen_id }} {
+      padding: 30px 15px;
+      min-height: 200px;
+    }
+
+    .ai-price-range-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
+
+    .ai-price-range-card-price-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.card_price_font_size }}px * 0.85);
+    }
+
+    .ai-price-range-card-label-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.card_label_font_size }}px * 0.9);
+    }
+
+    .ai-price-range-card-button-{{ ai_gen_id }} {
+      padding: 10px 20px;
+      font-size: calc({{ block.settings.button_font_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-price-range-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-price-range-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <h2 class="ai-price-range-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    {% endif %}
+
+    <div class="ai-price-range-cards-wrapper-{{ ai_gen_id }}">
+      <div class="ai-price-range-cards-{{ ai_gen_id }}">
+        {% for i in (1..5) %}
+          {% liquid
+            assign card_enabled_key = 'card_' | append: i | append: '_enabled'
+            assign card_label_key = 'card_' | append: i | append: '_label'
+            assign card_price_key = 'card_' | append: i | append: '_price'
+            assign card_button_key = 'card_' | append: i | append: '_button_text'
+            assign card_link_key = 'card_' | append: i | append: '_link'
+
+            assign card_enabled = block.settings[card_enabled_key]
+            assign card_label = block.settings[card_label_key]
+            assign card_price = block.settings[card_price_key]
+            assign card_button = block.settings[card_button_key]
+            assign card_link = block.settings[card_link_key]
+          %}
+
+          {% if card_enabled %}
+            <a
+              href="{{ card_link }}"
+              class="ai-price-range-card-{{ ai_gen_id }}"
+            >
+              <div class="ai-price-range-card-content-{{ ai_gen_id }}">
+                {% if card_label != blank %}
+                  <p class="ai-price-range-card-label-{{ ai_gen_id }}">{{ card_label }}</p>
+                {% endif %}
+                {% if card_price != blank %}
+                  <p class="ai-price-range-card-price-{{ ai_gen_id }}">{{ card_price }}</p>
+                {% endif %}
+              </div>
+              {% if card_button != blank %}
+                <div class="ai-price-range-card-button-{{ ai_gen_id }}">{{ card_button }}</div>
+              {% endif %}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Compre por Faixa de Preço",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Título da seção"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Título",
+      "default": "Compre por Faixa de Preço"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Fonte do título",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do título",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Alinhamento do título",
+      "options": [
+        {
+          "value": "left",
+          "label": "Esquerda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Direita"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do título",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Estilo da seção"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Cor de fundo da seção",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margem superior",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margem inferior",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_spacing",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento entre cards",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Estilo dos cards"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Cor de fundo",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Cor do texto",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "card_border_thickness",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Espessura da borda",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Cor da borda",
+      "default": "#E0E0E0"
+    },
+    {
+      "type": "range",
+      "id": "card_label_font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da fonte do label",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_price_font_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho da fonte do preço",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Hover dos cards"
+    },
+    {
+      "type": "color",
+      "id": "card_hover_bg_color",
+      "label": "Cor de fundo no hover",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_hover_text_color",
+      "label": "Cor do texto no hover",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_hover_border_color",
+      "label": "Cor da borda no hover",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Estilo do botão"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Cor de fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Cor do texto",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Espessura da borda",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Cor da borda",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da fonte",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Hover do botão"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Cor de fundo no hover",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Cor do texto no hover",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Cor da borda no hover",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_1_enabled",
+      "label": "Ativar card 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_1_label",
+      "label": "Label",
+      "default": "ATÉ"
+    },
+    {
+      "type": "text",
+      "id": "card_1_price",
+      "label": "Preço",
+      "default": "R$150"
+    },
+    {
+      "type": "text",
+      "id": "card_1_button_text",
+      "label": "Texto do botão",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "card_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_2_enabled",
+      "label": "Ativar card 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_2_label",
+      "label": "Label",
+      "default": "ATÉ"
+    },
+    {
+      "type": "text",
+      "id": "card_2_price",
+      "label": "Preço",
+      "default": "R$300"
+    },
+    {
+      "type": "text",
+      "id": "card_2_button_text",
+      "label": "Texto do botão",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "card_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_3_enabled",
+      "label": "Ativar card 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_3_label",
+      "label": "Label",
+      "default": "ATÉ"
+    },
+    {
+      "type": "text",
+      "id": "card_3_price",
+      "label": "Preço",
+      "default": "R$500"
+    },
+    {
+      "type": "text",
+      "id": "card_3_button_text",
+      "label": "Texto do botão",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "card_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_4_enabled",
+      "label": "Ativar card 4",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_4_label",
+      "label": "Label",
+      "default": "ATÉ"
+    },
+    {
+      "type": "text",
+      "id": "card_4_price",
+      "label": "Preço",
+      "default": "R$700"
+    },
+    {
+      "type": "text",
+      "id": "card_4_button_text",
+      "label": "Texto do botão",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "card_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_5_enabled",
+      "label": "Ativar card 5",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_5_label",
+      "label": "Label",
+      "default": "ACIMA DE"
+    },
+    {
+      "type": "text",
+      "id": "card_5_price",
+      "label": "Preço",
+      "default": "R$700"
+    },
+    {
+      "type": "text",
+      "id": "card_5_button_text",
+      "label": "Texto do botão",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "card_5_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compre por Faixa de Preço"
+    }
+  ]
+}
+{% endschema %}

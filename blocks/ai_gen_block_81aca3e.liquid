@@ -1,0 +1,483 @@
+{% doc %}
+  @prompt
+    Create a homepage section announcing the Personal Shopper service, with the following structure:
+    
+    1. Layout & content
+    
+    Add a title field (e.g. Personal Shopper Bonne Soirée).
+    
+    Add a subtitle/description field (2–3 lines) explaining the service, for example:
+    “Consultoria 1:1 para ajudar você a escolher peças que combinam com seu estilo, ocasião e guarda-roupa.”
+    
+    Add a CTA button with customizable label + link (ex: “Agendar agora”).
+    
+    2. Design
+    
+    Clean, minimal layout aligned with the brand.
+    
+    Allow text alignment options: left, center, right.
+    
+    Add a setting to upload an image (photo or banner) related to the service.
+    
+    Image should be optional — if no image is uploaded, the section becomes text-only.
+    
+    Use object-fit: cover for the image.
+    
+    3. Typography
+    
+    Add font picker for:
+    
+    Title
+    
+    Description
+    
+    Button text
+    
+    Add font-size controls in px for all three elements.
+    
+    4. Button style
+    
+    Transparent background option
+    
+    Border color & border width settings
+    
+    0px border radius (square button)
+    
+    Hover color settings (background, text, border)
+    
+    5. Spacing
+    
+    Add top and bottom padding controls.
+    
+    6. No animation by default
+    
+    Disable hover zoom or movement on the image.
+    
+    Keep the section simple, elegant, and fully responsive., Please update this Personal Shopper section to allow customizing the background color., Please update this Personal Shopper section with the changes below:
+    
+    1. Button font size minimum
+    
+    Allow the button font size to go down to 10px (the current minimum is 12px).
+    
+    Update the slider/input so the minimum accepted value is 10px.
+    
+    Keep all other button settings exactly as they are.
+    
+    2. Description as title-style text
+    
+    Treat the description text as a heading-style element.
+    
+    It should use the same styling rules as the title (font picker, weight, rendering).
+    
+    Keep the description as a separate field, but apply heading-level typography.
+    
+    Do not change anything else in the section., Please update this Personal Shopper section to allow customizing the top and bottom margins.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-personal-shopper-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.margin_top }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-personal-shopper-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-personal-shopper-content-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .ai-personal-shopper-text-{{ ai_gen_id }} {
+    flex: 1;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-personal-shopper-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-style: {{ block.settings.title_font.style }};
+    font-size: {{ block.settings.title_font_size }}px;
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+
+  .ai-personal-shopper-description-{{ ai_gen_id }} {
+    font-family: {{ block.settings.description_font.family }}, {{ block.settings.description_font.fallback_families }};
+    font-weight: {{ block.settings.description_font.weight }};
+    font-style: {{ block.settings.description_font.style }};
+    font-size: {{ block.settings.description_font_size }}px;
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+
+  .ai-personal-shopper-button-{{ ai_gen_id }} {
+    display: inline-block;
+    font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
+    font-weight: {{ block.settings.button_font.weight }};
+    font-style: {{ block.settings.button_font.style }};
+    font-size: {{ block.settings.button_font_size }}px;
+    padding: 12px 32px;
+    text-decoration: none;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    {% if block.settings.button_transparent %}
+      background-color: transparent;
+      color: {{ block.settings.button_text_color }};
+      border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    {% else %}
+      background-color: {{ block.settings.button_bg_color }};
+      color: {{ block.settings.button_text_color }};
+      border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    {% endif %}
+  }
+
+  .ai-personal-shopper-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  .ai-personal-shopper-image-wrapper-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-personal-shopper-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-personal-shopper-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-personal-shopper-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-personal-shopper-content-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .ai-personal-shopper-text-{{ ai_gen_id }} {
+      text-align: center;
+    }
+
+    .ai-personal-shopper-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_font_size }}px * 0.8);
+    }
+
+    .ai-personal-shopper-description-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.description_font_size }}px * 0.9);
+    }
+
+    .ai-personal-shopper-button-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.button_font_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-personal-shopper-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-personal-shopper-container-{{ ai_gen_id }}">
+    <div class="ai-personal-shopper-content-{{ ai_gen_id }}">
+      <div class="ai-personal-shopper-text-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-personal-shopper-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-personal-shopper-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.button_label != blank %}
+          <a
+            href="{{ block.settings.button_link }}"
+            class="ai-personal-shopper-button-{{ ai_gen_id }}"
+          >
+            {{ block.settings.button_label }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if block.settings.image != blank %}
+        <div class="ai-personal-shopper-image-wrapper-{{ ai_gen_id }}">
+          <img
+            src="{{ block.settings.image | image_url: width: 1200 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-personal-shopper-image-{{ ai_gen_id }}"
+          >
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Personal Shopper",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Personal Shopper Bonne Soirée"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição",
+      "default": "<p>Consultoria 1:1 para ajudar você a escolher peças que combinam com seu estilo, ocasião e guarda-roupa.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Agendar agora"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "header",
+      "content": "Imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Alinhamento do texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Esquerda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Direita"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tipografia do título"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Fonte do título",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Tamanho da fonte",
+      "min": 16,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Tipografia da descrição"
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font",
+      "label": "Fonte da descrição",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "label": "Tamanho da fonte",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Tipografia do botão"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Fonte do botão",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Tamanho da fonte",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Estilo do botão"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_transparent",
+      "label": "Fundo transparente",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Cor de fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Cor do texto",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Cor da borda",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Largura da borda",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Estilo do botão ao passar o mouse"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Cor de fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Cor do texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Cor da borda",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margem superior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margem inferior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espaçamento superior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espaçamento inferior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Personal Shopper"
+    }
+  ]
+}
+{% endschema %}

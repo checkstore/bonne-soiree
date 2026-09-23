@@ -1,0 +1,818 @@
+{% doc %}
+  @prompt
+    Create a full-width section with a warm off-white background. The section should have a compact, elegant and editorial appearance.
+    Inside the section, create one centered horizontal container with two columns placed close together. Do not create a full-width 50/50 split. The image and text should behave as one centered composition.
+    LEFT COLUMN — IMAGE
+    Add an editable image picker for an illustration.
+    Display the image proportionally using object-fit: contain. Never crop or distort the image.
+    Add an editable range control in the Shopify Theme Editor for the image width/size.
+    RIGHT COLUMN — CONTENT
+    Add:
+    editable heading
+    editable paragraph
+    editable button label
+    editable button link
+    Center-align the content by default.
+    The heading should read “PERSONAL SHOPPER”.
+    The paragraph should appear directly below the heading, followed by an outlined rectangular button reading “ENTRE EM CONTATO”.
+    Vertically center the image and the entire text block with each other.
+    Keep approximately 50–70px of horizontal space between the illustration and text by default.
+    SECTION SIZE & SPACING CONTROLS
+    Add editable controls in the Shopify Theme Editor for:
+    section height or minimum height
+    section maximum content width
+    top padding
+    bottom padding
+    left and right padding
+    horizontal gap between image and text
+    background color
+    The merchant must be able to make the entire section taller or shorter directly from the Theme Editor without editing code.
+    The image must not automatically increase the section height. It should scale proportionally to fit within the selected section dimensions.
+    TYPOGRAPHY CONTROLS
+    Add independent typography controls for the heading, paragraph and button.
+    For the heading, provide editable settings for:
+    font family
+    font size
+    font weight
+    letter spacing
+    line height
+    text color
+    uppercase / normal text transform
+    For the paragraph, provide editable settings for:
+    font family
+    font size
+    font weight
+    letter spacing
+    line height
+    text color
+    maximum text width
+    For the button, provide editable settings for:
+    font family
+    font size
+    font weight
+    letter spacing
+    text color
+    border color
+    border thickness
+    button width
+    button height
+    horizontal padding
+    vertical padding
+    Do not force the heading, paragraph and button to use the same typography. They must be independently customizable.
+    Whenever possible, allow the font-family controls to use fonts already available in the Shopify theme.
+    LAYOUT CONTROLS
+    Add Theme Editor controls for:
+    image width
+    text column width
+    gap between image and text
+    content alignment
+    vertical alignment
+    overall content width
+    Keep the default desktop composition centered on the page rather than stretched across the full screen.
+    DESKTOP
+    Display the illustration on the left and text on the right.
+    Keep the entire composition centered horizontally and vertically inside the section.
+    The illustration should be slightly taller than the complete text block.
+    Do not use a 50/50 full-width column layout.
+    MOBILE
+    Stack the illustration above the text and center everything.
+    Add separate mobile controls for:
+    image width
+    heading font size
+    paragraph font size
+    button font size
+    top padding
+    bottom padding
+    spacing between image and text
+    Make sure desktop customization does not create oversized elements on mobile.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-personal-shopper-section-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    padding-left: {{ block.settings.padding_horizontal }}px;
+    padding-right: {{ block.settings.padding_horizontal }}px;
+    min-height: {{ block.settings.section_min_height }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-personal-shopper-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_content_width }}px;
+    width: 100%;
+    display: flex;
+    align-items: {{ block.settings.vertical_alignment }};
+    justify-content: center;
+    gap: {{ block.settings.horizontal_gap }}px;
+  }
+
+  .ai-personal-shopper-image-column-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.image_width }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-personal-shopper-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .ai-personal-shopper-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .ai-personal-shopper-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+  }
+
+  .ai-personal-shopper-text-column-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.text_column_width }}px;
+    display: flex;
+    flex-direction: column;
+    align-items: {{ block.settings.content_alignment }};
+    justify-content: center;
+    text-align: {{ block.settings.content_alignment }};
+    gap: 16px;
+  }
+
+  .ai-personal-shopper-heading-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.heading_font_size }}px;
+    letter-spacing: {{ block.settings.heading_letter_spacing }}px;
+    line-height: {{ block.settings.heading_line_height }};
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+    {% if block.settings.heading_text_transform == 'uppercase' %}
+      text-transform: uppercase;
+    {% endif %}
+  }
+
+  .ai-personal-shopper-paragraph-{{ ai_gen_id }} {
+    font-family: {{ block.settings.paragraph_font.family }}, {{ block.settings.paragraph_font.fallback_families }};
+    font-weight: {{ block.settings.paragraph_font.weight }};
+    font-size: {{ block.settings.paragraph_font_size }}px;
+    letter-spacing: {{ block.settings.paragraph_letter_spacing }}px;
+    line-height: {{ block.settings.paragraph_line_height }};
+    color: {{ block.settings.paragraph_color }};
+    margin: 0;
+    max-width: {{ block.settings.paragraph_max_width }}px;
+  }
+
+  .ai-personal-shopper-button-{{ ai_gen_id }} {
+    font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
+    font-weight: {{ block.settings.button_font.weight }};
+    font-size: {{ block.settings.button_font_size }}px;
+    letter-spacing: {{ block.settings.button_letter_spacing }}px;
+    color: {{ block.settings.button_text_color }};
+    background-color: transparent;
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }};
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    width: {{ block.settings.button_width }}px;
+    height: {{ block.settings.button_height }}px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-personal-shopper-button-{{ ai_gen_id }}:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-personal-shopper-section-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.mobile_padding_top }}px;
+      padding-bottom: {{ block.settings.mobile_padding_bottom }}px;
+    }
+
+    .ai-personal-shopper-container-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .ai-personal-shopper-image-column-{{ ai_gen_id }} {
+      width: {{ block.settings.mobile_image_width }}%;
+    }
+
+    .ai-personal-shopper-text-column-{{ ai_gen_id }} {
+      width: 100%;
+      align-items: center;
+      text-align: center;
+    }
+
+    .ai-personal-shopper-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_heading_font_size }}px;
+    }
+
+    .ai-personal-shopper-paragraph-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_paragraph_font_size }}px;
+    }
+
+    .ai-personal-shopper-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_button_font_size }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-personal-shopper-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-personal-shopper-container-{{ ai_gen_id }}">
+    <div class="ai-personal-shopper-image-column-{{ ai_gen_id }}">
+      {% if block.settings.image %}
+        <img
+          src="{{ block.settings.image | image_url: width: 1000 }}"
+          alt="{{ block.settings.image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.image.width }}"
+          height="{{ block.settings.image.height }}"
+          class="ai-personal-shopper-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-personal-shopper-image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-personal-shopper-text-column-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-personal-shopper-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+
+      {% if block.settings.paragraph != blank %}
+        <p class="ai-personal-shopper-paragraph-{{ ai_gen_id }}">{{ block.settings.paragraph }}</p>
+      {% endif %}
+
+      {% if block.settings.button_label != blank %}
+        <a
+          href="{{ block.settings.button_link }}"
+          class="ai-personal-shopper-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Personal shopper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "range",
+      "id": "section_min_height",
+      "label": "Section minimum height",
+      "min": 200,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "max_content_width",
+      "label": "Maximum content width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FAF8F5"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Left and right padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "horizontal_gap",
+      "label": "Gap between image and text",
+      "min": 20,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "header",
+      "content": "Content layout"
+    },
+    {
+      "type": "range",
+      "id": "text_column_width",
+      "label": "Text column width",
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading text",
+      "default": "PERSONAL SHOPPER"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "heading_text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Paragraph"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph",
+      "label": "Paragraph text",
+      "default": "Precisa de ajuda para escolher o look perfeito? Nossa equipe está pronta para te atender."
+    },
+    {
+      "type": "font_picker",
+      "id": "paragraph_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "paragraph_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "paragraph_line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "paragraph_color",
+      "label": "Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_max_width",
+      "label": "Maximum text width",
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "ENTRE EM CONTATO"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "label": "Border thickness",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_width",
+      "label": "Button width",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "label": "Button height",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Vertical padding",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Mobile settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Spacing between image and text",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_width",
+      "label": "Image width",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_font_size",
+      "label": "Heading font size",
+      "min": 12,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_paragraph_font_size",
+      "label": "Paragraph font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_font_size",
+      "label": "Button font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Personal shopper"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

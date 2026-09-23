@@ -1,0 +1,43 @@
+<script>
+    function setSectionStyle() {
+      const mainContainer = document.querySelector('.container__collection-section');
+      const textContainer = document.querySelector('.container__collection-text');
+      const swiperContainer = document.querySelector('.main__container--swiper-collection');
+      const btnContainer = document.querySelector('.btn--stylish');
+      // const btnNotStylish = document.querySelector('.collection__view-all .btn-not--stylish');
+  
+      const adjustStyleBasedOnWidth = () => {
+        if ({{ section.settings.layout_style | json}} === 'stylish') {
+          if (window.innerWidth < 1024) {
+              mainContainer.classList.remove('container__stylish--container');
+              textContainer.classList.remove('container__stylish--text');
+              swiperContainer.classList.remove('main__container--stylish-swiper');
+          } else {
+              mainContainer.classList.add('container__stylish--container');
+              textContainer.classList.add('container__stylish--text');
+              swiperContainer.classList.add('main__container--stylish-swiper');
+          }
+        };
+      };
+      
+      // const ajustWhichBtn = () => {
+      //   if (btnContainer || btnNotStylish) {
+      //     if (window.innerWidth < 1024) {
+      //       btnContainer.style.display = 'none';
+      //       btnNotStylish.style.display = 'inline-flex';
+      //     } else {
+      //       btnContainer.style.display = 'inline-flex';
+      //       btnNotStylish.style.display = 'none';
+      //     }
+      //   }
+      // }
+    
+      window.addEventListener('resize', adjustStyleBasedOnWidth);
+      // window.addEventListener('resize', ajustWhichBtn);
+    
+      adjustStyleBasedOnWidth();
+      // ajustWhichBtn();
+  } 
+  window.addEventListener('load', setSectionStyle);
+</script>
+  

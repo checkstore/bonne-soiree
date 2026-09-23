@@ -1,0 +1,46 @@
+{% render 'variables.blogs-page' %}
+
+<div class="blog-collection page-width {% if settings.full_width %} blog-collection-full {% endif %}">
+    {% if section.settings.title != blank %}
+        <h2 class="blogs__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% assign posts = blogs.news.articles %}
+    <div class="blog-posts">
+        {% for post in posts %}
+            <div class="blog-post">
+                <a href="{{ post.url }}" class="blog-post__link">
+                    <img class="blog-post__img" src="{{ post.image | img_url: '480x400' }}">
+                </a>
+                <div class="blog-content-infos">
+                    <span class="blog-post__tags">{{ post.tags }}</span>
+                    <h2 class="title__btn"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+                    <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
+                    {% comment %} <a href="{{ post.url }}">Leia mais</a> {% endcomment %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "Página de Blogs",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Título da Página",
+            "default": "Bem-vindo à nossa coleção de blogs!"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Página de Blogs",
+            "category": "Blog"
+        }
+    ]
+}
+{% endschema %}
+

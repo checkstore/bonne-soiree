@@ -1,0 +1,323 @@
+{% doc %}
+  @prompt
+    Create an announcement bar section with a horizontal scrolling effect.
+    
+    Requirements:
+    
+    Scrolling behavior
+    
+    Text must scroll horizontally in a continuous loop (marquee-style).
+    
+    Smooth, linear movement (no jumps).
+    
+    Add a setting to control scroll speed.
+    
+    Content
+    
+    Allow adding multiple messages separated by a divider (e.g., • or |).
+    
+    Messages should loop infinitely across the screen.
+    
+    Appearance settings
+    
+    Background color picker.
+    
+    Text color picker.
+    
+    Font family selector (use theme font picker).
+    
+    Font size control (in px).
+    
+    Text weight control (regular/bold).
+    
+    Layout
+    
+    Full-width section.
+    
+    Fixed height that adapts to font size.
+    
+    Keep everything minimal and aligned with fashion brand styling.
+    
+    Mobile behavior
+    
+    Must scroll smoothly on mobile as well.
+    
+    Do not stack text — always horizontal.
+    
+    Do not add any hover effects or animations other than the horizontal scroll.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-announcement-bar-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    overflow: hidden;
+    position: relative;
+    height: {{ block.settings.bar_height }}px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ai-announcement-bar-track-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: ai-scroll-{{ ai_gen_id }} {{ block.settings.scroll_speed }}s linear infinite;
+  }
+
+  .ai-announcement-bar-content-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    padding-right: 40px;
+  }
+
+  .ai-announcement-bar-message-{{ ai_gen_id }} {
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-size: {{ block.settings.font_size }}px;
+    color: {{ block.settings.text_color }};
+    {% if block.settings.text_weight == 'bold' %}
+      font-weight: 700;
+    {% else %}
+      font-weight: 400;
+    {% endif %}
+  }
+
+  .ai-announcement-bar-divider-{{ ai_gen_id }} {
+    margin: 0 20px;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.font_size }}px;
+  }
+
+  @keyframes ai-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-announcement-bar-{{ ai_gen_id }} {
+      height: {{ block.settings.bar_height | times: 0.8 }}px;
+    }
+
+    .ai-announcement-bar-message-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+    }
+
+    .ai-announcement-bar-divider-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+      margin: 0 15px;
+    }
+  }
+{% endstyle %}
+
+<announcement-bar-{{ ai_gen_id }}
+  class="ai-announcement-bar-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-announcement-bar-track-{{ ai_gen_id }}">
+    <div class="ai-announcement-bar-content-{{ ai_gen_id }}">
+      {% if block.settings.message_1 != blank %}
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_1 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_2 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_2 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_3 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_3 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_4 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_4 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_5 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_5 }}</span>
+      {% endif %}
+    </div>
+
+    <div class="ai-announcement-bar-content-{{ ai_gen_id }}">
+      {% if block.settings.message_1 != blank %}
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_1 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_2 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_2 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_3 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_3 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_4 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_4 }}</span>
+      {% endif %}
+
+      {% if block.settings.message_5 != blank %}
+        <span class="ai-announcement-bar-divider-{{ ai_gen_id }}">{{ block.settings.divider }}</span>
+        <span class="ai-announcement-bar-message-{{ ai_gen_id }}">{{ block.settings.message_5 }}</span>
+      {% endif %}
+    </div>
+  </div>
+</announcement-bar-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AnnouncementBar{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-announcement-bar-track-{{ ai_gen_id }}');
+        this.setupScrolling();
+      }
+
+      setupScrolling() {
+        if (!this.track) return;
+        
+        const content = this.track.querySelector('.ai-announcement-bar-content-{{ ai_gen_id }}');
+        if (!content) return;
+      }
+    }
+
+    customElements.define('announcement-bar-{{ ai_gen_id }}', AnnouncementBar{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "text",
+      "id": "message_1",
+      "label": "Message 1",
+      "default": "Free shipping on orders over R$300"
+    },
+    {
+      "type": "text",
+      "id": "message_2",
+      "label": "Message 2",
+      "default": "New collection available now"
+    },
+    {
+      "type": "text",
+      "id": "message_3",
+      "label": "Message 3",
+      "default": "Shop the latest trends"
+    },
+    {
+      "type": "text",
+      "id": "message_4",
+      "label": "Message 4"
+    },
+    {
+      "type": "text",
+      "id": "message_5",
+      "label": "Message 5"
+    },
+    {
+      "type": "text",
+      "id": "divider",
+      "label": "Divider",
+      "default": "•"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "label": "Text weight",
+      "options": [
+        {
+          "value": "regular",
+          "label": "Regular"
+        },
+        {
+          "value": "bold",
+          "label": "Bold"
+        }
+      ],
+      "default": "regular"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Bar height",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll speed",
+      "default": 30
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+{% endschema %}

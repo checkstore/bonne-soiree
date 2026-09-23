@@ -1,0 +1,668 @@
+{% comment %}
+    DataLayer GTM Shopify
+    Version: 1.0.0
+    Author: Nicolas Perejon
+    Date: 04/2024
+
+    ---
+
+    English:
+    - viewPromotionEvent: Event triggered when a banner is viewed.
+    - selectPromotionEvent: Event triggered when a banner is clicked.
+    - viewCartEvent: Event triggered when the cart is viewed.
+    - addToCartEvent: Event triggered when a product is added to the cart.
+    - removeFromCartEvent: Event triggered when a product is removed from the cart.
+    - viewItemListEvent: Event triggered when a list of products is viewed.
+    - viewItemEvent: Event triggered when a product is viewed.
+    - addToWishlistEvent: Event triggered when a product is added to the wishlist.
+    - signInEvent: Event triggered when the user logs in.
+    - signUpEvent: Event triggered when the user signs up.
+    - purchaseEvent: Event triggered when a purchase is made.
+    - selectItemEvent: Event triggered when a product is selected.
+
+    Português:
+    - viewPromotionEvent: Evento disparado quando um banner é visualizado.
+    - selectPromotionEvent: Evento disparado quando um banner é clicado.
+    - viewCartEvent: Evento disparado quando o carrinho é visualizado.
+    - addToCartEvent: Evento disparado quando um produto é adicionado ao carrinho.
+    - removeFromCartEvent: Evento disparado quando um produto é removido do carrinho.
+    - viewItemListEvent: Evento disparado quando uma lista de produtos é visualizada.
+    - viewItemEvent: Evento disparado quando um produto é visualizado.
+    - addToWishlistEvent: Evento disparado quando um produto é adicionado à lista de desejos.
+    - signInEvent: Evento disparado quando o usuário faz login.
+    - signUpEvent: Evento disparado quando o usuário se cadastra.
+    - purchaseEvent: Evento disparado quando uma compra é realizada.
+    - selectItemEvent: Evento disparado quando um produto é selecionado.
+
+    ---
+
+    productObject: (productUrlList <Array>){
+        currency: <String>,
+        value: <Number>,
+        items: [
+            {
+                index: <Number>,
+                item_id: <Number>,
+                item_name: <String>,
+                quantity: <Number>,
+                item_category: <String>,
+                item_category2: <String>,
+                item_category3: <String>,
+                ...,
+                item_variant: <String> (only if exists variant that is not "Default Title"),
+                item_brand: <String>,
+                price: <Number>,
+                discount: <Number>, (only if exists discount)
+                discount_percentage: <Number>, (only if exists discount)
+            }
+        ]
+    }
+
+    cartObject: {
+        currency: <String>, ("BRL")
+        value: <Number>, 59.99
+        items: [
+            {
+                index: <Number>,
+                item_id: <String>,
+                item_name: <String>,
+                quantity: <Number>,
+                item_category: <String>,
+                item_category2: <String>,
+                item_category3: <String>,
+                ...,
+                item_variant: <String>,
+                item_brand: <String>,
+                price: <Number>,
+                discount: <Number> (only if exists discount),
+                discount_percentage: <Number> (only if exists discount),
+            }
+        ]
+    }
+
+    sign_method: <String> (e.g. "email", "sms", "social login")
+
+    DebugMode: <Boolean> (default: false)
+    - If true, the object will be displayed in the console.
+
+    The only layer that knows the front-end is the GTMScarfme class.
+    The GTMScarfme class is responsible for triggering the events according to the page.
+{% endcomment %}
+
+{% comment %}
+    To implement the purchase event, you need to add the following code to the order status page.
+    function purchaseEvent() {
+        dataLayer.push({
+            event: "purchase",
+            event_source: 'frontend',
+            ecommerce: {
+                transaction_id: "{{ order.order_number }}",
+                currency: "{{ shop.currency }}",
+                tax: {{ order.tax_price | money_without_currency }},
+                shipping: {{ order.shipping_price | money_without_currency }},
+                value: {{ order.total_price | money_without_currency }},
+                coupon: "{% for discount in order.discount_applications %}{{ discount.title }}{% if forloop.last == false %}| {% endif %}{% endfor %}",
+                shipping_tier: "{{ shipping_method.title }}",
+                payment_type: "{% if order.gateway == 'shopify_payments' %}Credit Card{% else %}{{ order.gateway }}{% endif %}",
+                items: [
+                    {% for line_item in order.line_items %}
+                        {% assign discount = line_item.original_price | minus: line_item.final_price %}
+                        {
+                            item_id: "{{ line_item.product_id }}",
+                            item_name: "{{ line_item.title }}",
+                            {% if discount > 0 %}
+                                item_discount: {{ discount | money_without_currency }},
+                                item_discount_percentage: {{ discount | divided_by: line_item.original_price | times: 100 }},
+                            {% endif %}
+                            index: {{ forloop.index0 }},
+                            item_brand: "{{ line_item.vendor }}",
+                            item_variant: "{{ line_item.variant_id }}",
+                            price: {{ line_item.final_price | money_without_currency }},
+                            quantity: {{ line_item.quantity }}
+                        }
+                        {% unless forloop.last %},{% endunless %}
+                    {% endfor %}
+                ]
+            }
+        });
+    }
+{% endcomment %}
+
+<script>
+    class FetchData {
+        async getCart() {
+            const response = await fetch(window.Shopify.routes.root + 'cart.json');
+            const data = await response.json();
+            return data;
+        }
+
+        async getProducts(params = '') {
+            const response = await fetch(window.Shopify.routes.root + 'products.json' + params);
+            const data = await response.json();
+            return data;
+        }
+
+        /*
+            Remember to remove all query strings before use this method
+            Ex: 
+            - https://example.com/products/product-name?variant=1234567890 -> https://example.com/products/product-name
+        */
+        async getProductByUrl(url) {
+            const response = await fetch(url + '.json');
+            const data = await response.json();
+            return data;
+        }
+
+        async getCollection(url, params = '') {
+            const responseCollection = await fetch(url + '.json?' + params);
+            let dataCollection = await responseCollection.json();
+            if (dataCollection.collection) {
+                dataCollection = dataCollection.collection;
+            }
+
+            const responseProducts = await fetch(url + '/products.json?' + params);
+            const dataProducts = await responseProducts.json();
+            return {
+                id: dataCollection.id,
+                title: dataCollection.title,
+                products: dataProducts.products
+            };
+        }
+    }
+
+    class DataLayerGTMShopify {
+        constructor() {
+            window.dataLayer = window.dataLayer || [];
+  		    dataLayer.push({ ecommerce: null });
+            this.fetchData = new FetchData();
+        }
+
+        viewPromotionEvent(banner_type, banner_img_url, banner_text, banner_link_url, banner_position, debugMode = false) {
+            const viewPromotionObject = {
+                event: 'view_promotion',
+                banner_type,
+                banner_image_url,
+                banner_text,
+                banner_link_url,
+                banner_position,
+                event_source: 'frontend'
+            };
+
+            if (debugMode) console.debug(viewPromotionObject);
+            dataLayer.push(viewPromotionObject);
+        }
+
+        selectPromotionEvent(banner_type, banner_img_url, banner_text, banner_link_url, banner_position, debugMode = false) {
+            const selectPromotionObject = {
+                event: 'select_promotion',
+                banner_type,
+                banner_image_url,
+                banner_text,
+                banner_link_url,
+                banner_position,
+                event_source: 'frontend'
+            };
+
+            if (debugMode) console.debug(selectPromotionObject);      
+            dataLayer.push(selectPromotionObject);
+        }
+
+        viewCartEvent(cartObject, debugMode = false) {
+            const viewCartObject = {
+				"event": "view_cart",
+				"event_source": "frontend",
+				"ecommerce": cartObject
+			};
+
+            if (debugMode) console.debug(viewCartObject);
+			dataLayer.push(viewCartObject);
+		}
+
+        addToCartEvent(productObject, debugMode = false) {
+            const addToCartObject = {
+                "event": "add_to_cart",
+                "event_source": "frontend",
+                "ecommerce": productObject
+            };
+
+            if (debugMode) console.debug(addToCartObject);
+            dataLayer.push(addToCartObject);
+		}
+
+        removeFromCartEvent(productObject, debugMode = false) {
+            const removeFromCartObject = {
+				"event": "remove_from_cart",
+				"event_source": "frontend",
+				"ecommerce": productObject
+			};
+
+            if (debugMode) console.debug(removeFromCartObject);
+			dataLayer.push(removeFromCartObject);
+		}
+        
+        viewItemListEvent(productObject, debugMode = false) {
+            const viewItemListObject = {
+                "event": "view_item_list",
+                "event_source": "frontend",
+                "ecommerce": productObject
+            };
+
+            if (debugMode) console.debug(viewItemListObject);
+            dataLayer.push(viewItemListObject);
+        }
+
+        viewItemEvent(productObject, debugMode = false) {
+            const viewItemObject = {
+                "event": "view_item",
+                "event_source": "frontend",
+                "ecommerce": productObject
+            };
+
+            if (debugMode) console.debug(viewItemObject);
+            dataLayer.push(viewItemObject);
+        }
+
+        selectItemEvent(productObject, collectionObject, debugMode = false) {
+            const selectItemObject = {
+                "event": "select_item",
+                "event_source": "frontend",
+                "item_list_id": collectionObject.item_list_id,
+		        "item_list_name": collectionObject.item_list_name,
+                "ecommerce": productObject
+            };
+
+            if (debugMode) console.debug(selectItemObject);
+            dataLayer.push(selectItemObject);
+        }
+
+        addToWishlistEvent(productObject, debugMode = false) {
+            const addToWishlistObject = {
+                "event": "add_to_wishlist",
+                "event_source": "frontend",
+                "ecommerce": productObject
+            };
+
+            if (debugMode) console.debug(addToWishlistObject);
+            dataLayer.push(addToWishlistObject);
+        }
+
+        signInEvent(sign_method, debugMode = false) {
+            const signInObject = {
+                "event": "sign_in",
+                "method": sign_method,
+                "event_source": "frontend"
+            };
+
+            if (debugMode) console.debug(signInObject);
+            dataLayer.push(signInObject);
+        }
+
+        signUpEvent(sign_method, debugMode = false) {
+            const signUpObject = {
+                "event": "sign_up",
+                "method": sign_method,
+                "event_source": "frontend"
+            };
+
+            if (debugMode) console.debug(signUpObject);
+            dataLayer.push(signUpObject);
+        }
+
+        async cartObjectGenerator() {
+            const cartObject = {
+                currency: 'BRL',
+                value: 0,
+                items: []
+            };
+
+            const cart = await this.fetchData.getCart();
+            cartObject.value = cart.total_price / 100;
+            
+            cart.items.forEach(async (item, index) => {
+                const product = {
+                    index: index,
+                    item_id: item.id,
+                    item_name: item.product_title,
+                    quantity: item.quantity,
+                    item_category: item.product_type,
+                    item_brand: item.vendor,
+                    price: item.price / 100,
+                    item_variant: item.variant_id
+                };
+
+                const productURL = item.url.split('?')[0];
+                let productData = await this.fetchData.getProductByUrl(productURL);
+                productData = productData.product;
+
+                const variant = productData.variants.find(variant => variant.id === product.item_variant);
+                if (variant.compare_at_price) {
+                    product.discount = variant.compare_at_price - variant.price;
+                    product.discount_percentage = (1 - (variant.price / variant.compare_at_price)) * 100;
+                    product.discount_percentage = Math.round(product.discount_percentage * 100) / 100;
+                }
+                
+                cartObject.items.push(product);
+            });
+
+            return cartObject;
+        }
+
+        async productObjectGenerator(productUrlList, totalValue = true) {
+            const productObject = {
+                currency: Shopify.currency.active,
+                items: []
+            };
+
+            if (totalValue) {
+                productObject.value = 0;
+            }
+
+            const productItemList = await Promise.all(productUrlList.map(async productUrl => {
+                const productUrlToRequest = productUrl.split('?')[0];
+                const productVariant = productUrl.match(/variant=(\d+)/) ? productUrl.match(/variant=(\d+)/)[1] : null;
+
+                const { product } = await this.fetchData.getProductByUrl(productUrlToRequest);
+                product.requested_variant = productVariant;
+
+                return product;
+            }));
+
+            productObject.items = productItemList.map((product, index) => {
+                if (product.variants.length >= 1) {
+                    const variant = product.request_variant ? product.variants.find(variant => variant.id === request_variant) : product.variants[0];
+                    product.item_variant = variant.id,
+                    product.price = variant.price;
+
+                    if (variant.compare_at_price) {
+                        product.discount = variant.compare_at_price - variant.price;
+                        product.discount_percentage = (1 - (variant.price / variant.compare_at_price)) * 100;
+                        product.discount_percentage = Math.round(product.discount_percentage * 100) / 100;
+                    }
+                }
+
+                const itemObject = {
+                    index: index,
+                    item_id: product.id,
+                    item_name: product.title,
+                    quantity: 1,
+                    item_category: product.product_type,
+                    item_brand: product.vendor,
+                    price: product.price,
+                    item_variant: product.item_variant
+                };
+
+                if (product.discount) {
+                    itemObject.discount = product.discount;
+                    itemObject.discount_percentage = product.discount_percentage;
+                }
+
+                return itemObject;
+            });
+            
+            if (totalValue) productObject.value = productObject.items.reduce((acc, item) => acc + parseFloat(item.price), 0);
+
+            return productObject;
+        }
+
+        async collectionObjectGenerator(collection_handle) {
+            const collectionObject = {
+                currency: 'BRL',
+                value: 0,
+                items: []
+            };
+
+            let collectionUrl = collection_handle;
+            let params;
+            if (collectionUrl.includes('?')) {
+                params = collectionUrl.split('?')[1];
+                collectionUrl = collectionUrl.split('?')[0];
+            }
+            
+            const collection = await this.fetchData.getCollection(collectionUrl, params);
+            collectionObject.item_list_id = collection.id;
+            collectionObject.item_list_name = collection.title;
+            collectionObject.currency = window.Shopify.currency.active;
+            collectionObject.items = collection.products.map((product, index) => {
+                let price = product.variants[0].price / 100;
+                price = Math.round(price * 100) / 100;
+                price = price.toFixed(2);
+    
+                return {
+                    index: index,
+                    item_id: product.id,
+                    item_name: product.title,
+                    quantity: 1,
+                    item_category: product.product_type,
+                    item_brand: product.vendor,
+                    price: price,
+                    item_variant: product.variants[0].title
+                };
+            });
+
+            return collectionObject;
+        }
+
+        async cartEventsObserver(
+            cartSelector,
+            productsCart,
+            quantityPlus,
+            quantityMinus,
+            quantityDelete,
+            productLinkSelector
+        ) {
+            const cartDrawer = document.querySelector(cartSelector);
+
+            const setupCartItemsObserver = async () => {
+                const productsFromCartDrawer = document.querySelectorAll(productsCart);
+                productsFromCartDrawer.forEach(async (item) => {
+                    if (item.dataset.listenersSet == 'true') {
+                        return;
+                    }
+
+                    const quantityPlusSelector = item.querySelectorAll(quantityPlus);
+                    const quantityMinusSelector = item.querySelectorAll(quantityMinus);
+                    const quantityDeleteSelector = item.querySelectorAll(quantityDelete);
+                    const productLink = item.querySelector(productLinkSelector).href;
+
+                    const productObject = await this.productObjectGenerator([productLink], false);
+                    const quantityPlusListener = (e) => {
+                        this.addToCartEvent(productObject, true);
+                    }
+
+                    const quantityMinusListener = (e) => {
+                        this.removeFromCartEvent(productObject, true);
+                    }
+
+                    const quantityDeleteListener = (e) => {
+                        this.removeFromCartEvent(productObject, true);
+                    }
+
+                    quantityPlusSelector.forEach((button) => {
+                        if (item.dataset.listenersSet == 'true') {
+                            return;
+                        }
+                        button.addEventListener('click', quantityPlusListener);
+                    });
+
+                    quantityMinusSelector.forEach((button) => {
+                        if (item.dataset.listenersSet == 'true') {
+                            return;
+                        }
+                        button.addEventListener('click', quantityMinusListener);
+                    });
+
+                    quantityDeleteSelector.forEach((button) => {
+                        if (item.dataset.listenersSet == 'true') {
+                            return;
+                        }
+                        button.addEventListener('click', quantityDeleteListener);
+                    });
+
+                    item.dataset.listenersSet = 'true';
+                });
+            }
+
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.addedNodes.length) {
+                        setupCartItemsObserver();
+                    }
+                });
+            });
+
+            observer.observe(cartDrawer, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        async productListObserver(
+            productListSelector,
+            productSelector,
+            productLinkSelector,
+            collectionObject,
+            productListObserver = false,
+        )
+        {
+            const productListElement = document.querySelector(productListSelector);
+            const products = productListElement.querySelectorAll(productSelector);
+
+            const setupProductListObserver = () => {
+                products.forEach((product) => {
+                    if (product.dataset.listenersSet == 'true') {
+                        return;
+                    }
+                    const productLink = product.querySelector(productLinkSelector).href;
+                    product.addEventListener('pointerdown', async (e) => {
+                        const productObject = await this.productObjectGenerator([productLink], false);
+
+                        this.selectItemEvent(productObject, collectionObject, true);
+                    });
+
+                    product.dataset.listenersSet = 'true';
+                });
+            }
+
+            if (productListObserver) {
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.addedNodes.length) {
+                            setupProductListObserver();
+                        }
+                    });
+                });
+                observer.observe(productListElement, {
+                    childList: true,
+                    subtree: true
+                });
+            }
+            
+            setupProductListObserver();
+        }
+    }
+
+    class GTMBonneSoiree extends DataLayerGTMShopify {
+        constructor() {
+            super();
+
+            this._triggerPageEvents();
+        }
+
+        _triggerPageEvents() {
+            let page = window.location.pathname;
+            page = page.split('?')[0];
+
+            if (page != '/cart') this._cart_drawer();
+
+            switch (true) {
+                case page == '/cart':
+                    this._page_cart();
+                    break;
+                case /\/products\/.+/.test(page):
+                    this._page_product('.product-form__submit[type="submit"]');
+                    break;
+                case /\/collections\/.+/.test(page):
+                    this._page_collection();
+                    break;
+                case page == '/':
+                    this._page_home();
+                    break;
+                default:
+                    console.info('GTM - Page not registered with events');
+                    break;
+            }
+        }
+
+        async _page_cart() {
+            const cartObject = await this.cartObjectGenerator();
+            this.viewCartEvent(cartObject, true);
+            this.cartEventsObserver(
+                'cart-items', // Cart Drawer Selector
+                '.cart-item', // Products Cart Selector
+                'quantity-input [name="plus"]', // Quantity Plus Selector
+                'quantity-input [name="minus"]', // Quantity Minus Selector
+                'cart-remove-button a', // Quantity Delete Selector
+                'a.cart-item__name[href]' // Product Link Selector
+            );
+        }
+
+        async _page_product(addToCartSelector) {
+            const productUrl = window.location.href;
+            const productObject = await this.productObjectGenerator([productUrl]);
+
+            this.viewItemEvent(productObject, true);
+            
+            const addToCartButton = document.querySelectorAll(addToCartSelector);
+            addToCartButton.forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    this.addToCartEvent(productObject, true);
+                });
+            });
+        }
+
+        async _page_collection() {
+            const collectionUrl = window.location.href;
+            const collectionObject = await this.collectionObjectGenerator(collectionUrl);
+            this.viewItemListEvent(collectionObject, true);
+
+            await this.productListObserver(
+                '#ProductGridContainer',
+                '.product-card',
+                'a.product-card-title[href]',
+                collectionObject,
+                true,
+            );
+        }
+
+        async _page_home() {
+            const collectionUrl = window.location.origin + '/collections/all'; 
+            const collectionObject = await this.collectionObjectGenerator(collectionUrl);
+
+            const collectionTabsProductGrids = document.querySelectorAll('.product-grid');
+            collectionTabsProductGrids.forEach(async (collectionTabsProductGrid) => {
+                this.productListObserver(
+                    `#${collectionTabsProductGrid.id}`,
+                    '.card__content',
+                    '.card__heading a[href]',
+                    collectionObject,
+                    false
+                );
+            });
+        }
+
+        async _cart_drawer() {
+            this.cartEventsObserver(
+                '#CartDrawer', // Cart Drawer Selector
+                '.cart-item', // Products Cart Selector
+                'quantity-input button[name="plus"]', // Quantity Plus Selector
+                'quantity-input button[name="minus"]', // Quantity Minus Selector
+                '.cart-remove-button', // Quantity Delete Selector
+                'a.cart-item__name[href]' // Product Link Selector
+            );
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const gtmBonneSoiree = new GTMBonneSoiree();
+    });
+</script>

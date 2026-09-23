@@ -1,0 +1,312 @@
+{{ 'component-cart.css' | asset_url | stylesheet_tag }}
+{{ 'component-totals.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
+  id="main-cart-footer"
+  data-id="{{ section.id }}"
+>
+  <div class="page-width cart-ftr">
+    <div class="cart__footer isolate section-{{ section.id }}-padding">
+      <div class="cart__blocks"> 
+         
+        <h1 class="title-order">
+          {{ 'customer.order-sumary.title' | t }}
+          <span class="qty-items-pedido">
+            ( {{ cart.items | size }} 
+            {% if cart.items.size > 1 %} 
+              {{ 'customer.order-sumary.orders_numbers' | t }}
+            {% else %} 
+              {{ 'customer.order-sumary.order_number' | t }} 
+            {% endif %})
+          </span>
+        </h1>
+
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'subtotal' -%}
+              <div class="js-contents" {{ block.shopify_attributes }}>
+                <div>
+                  {%- if cart.cart_level_discount_applications.size > 0 -%}
+                    <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                      {%- for discount in cart.cart_level_discount_applications -%}
+                        <li class="discounts__discount discounts__discount--position">
+                          {%- render 'icon-discount' -%}
+                          {{ discount.title }}
+                          (-{{ discount.total_allocated_amount | money }})
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </div>
+                
+                <div class="totals">
+                  <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
+                  <p class="totals__total-value">{{ cart.total_price | money }}</p>
+                </div>
+                
+                <div class="drawer__free_shipping">
+                  <span class="drawer__free_shipping_text">
+                    {% assign free_shipping_value = settings.free_shipping_value %}
+                    {% assign cart_price = cart.total_price | divided_by: 100 %}
+                    {% if cart_price >= free_shipping_value %}
+                      <span class="group-text"><p>{{ 'sections.cart.free_shipping.free_shipping_achieved_html' | t }}</p><p>R$00</p></span>
+                    {% else %}
+                      {% assign free_shipping_value = free_shipping_value | times: 100 %}
+                      {% assign free_shipping_value = free_shipping_value | money %}
+                      <span>{{ 'sections.cart.free_shipping.free_shipping_over_html' | t: value: free_shipping_value }}</span>
+                    {% endif %}
+                  </span>
+                </div> 
+
+                <style>
+                  .drawer__free_shipping {
+                      margin: 10px 0;
+                     
+                  }
+
+                  .drawer__free_shipping_text p b,
+                  .drawer__free_shipping_text span b{
+                      font-weight: 400;
+                      font-size: 14px;
+                  }
+
+                  span.group-text {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                  }
+
+                  .group-text p {
+                    margin: 0;
+                  }
+                  
+                  
+                </style>
+
+               
+
+                {% comment %} <small class="tax-note caption-large rte">
+                  {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                    {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- elsif cart.taxes_included -%}
+                    {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+                  {%- elsif shop.shipping_policy.body != blank -%}
+                    {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                  {%- else -%}
+                    {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                  {%- endif -%}
+                </small> {% endcomment %}
+              </div>
+              <div class="shipping-calculator js-shipping-calculator">
+                <h3 class="shipping__title">Calcule seu frete:</h3>
+                <div class="shipping__form">
+              
+                  {% if template contains 'product' %}
+                    {% assign v = product.selected_or_first_available_variant %}
+                    <input
+                      type="hidden"
+                      name="variant_id"
+                      value="{{ v.id }}" />
+                  {% else %}
+                    {%- for product in collections['all'].products limit: 1 -%}
+                      {% assign v = product.selected_or_first_available_variant %}
+                      <input
+                        type="hidden"
+                        name="variant_id"
+                        value="{{ v.id }}" />
+                    {% endfor %}
+                  {% endif %}
+              
+                  <div class="form__item">
+                    <input
+                      type="text"
+                      class="form__zip js-zip"
+                      placeholder="CEP"
+                      onfocus="VMasker(this).maskPattern(['99999-999'][0]);" />
+                    <button class="button button--primary js-button">Calcular</button>
+                  </div>
+                </div>
+                <div class="shipping__response"></div>
+              </div>
+            {% render 'shipping-calculator' %}
+                    
+              {% comment %} {%- if settings.show_cart_note -%}
+                <cart-note class="cart__note field">
+                  <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
+                  <textarea
+                    class="text-area field__input"
+                    name="note"
+                    form="cart"
+                    id="Cart-note"
+                    placeholder="{{ 'sections.cart.note' | t }}"
+                  >{{ cart.note }}</textarea>
+                </cart-note>
+              {%- endif -%} {% endcomment %}
+
+              {%- if settings.show_cart_note -%}
+                <div class="gift-message">
+                  <label class="label-cart-note" for="toggle-gift-message">
+                    {{ 'sections.cart.note' | t }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="11" viewBox="0 0 10 11" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M5.83333 1.33339C5.83333 1.11238 5.74554 0.900418 5.58926 0.744138C5.43298 0.587858 5.22101 0.500061 5 0.500061C4.77899 0.500061 4.56702 0.587858 4.41074 0.744138C4.25446 0.900418 4.16667 1.11238 4.16667 1.33339V4.66673H0.833333C0.61232 4.66673 0.400357 4.75452 0.244077 4.9108C0.0877967 5.06708 0 5.27905 0 5.50006C0 5.72107 0.0877967 5.93304 0.244077 6.08932C0.400357 6.2456 0.61232 6.33339 0.833333 6.33339H4.16667V9.66673C4.16667 9.88774 4.25446 10.0997 4.41074 10.256C4.56702 10.4123 4.77899 10.5001 5 10.5001C5.22101 10.5001 5.43298 10.4123 5.58926 10.256C5.74554 10.0997 5.83333 9.88774 5.83333 9.66673V6.33339H9.16667C9.38768 6.33339 9.59964 6.2456 9.75592 6.08932C9.9122 5.93304 10 5.72107 10 5.50006C10 5.27905 9.9122 5.06708 9.75592 4.9108C9.59964 4.75452 9.38768 4.66673 9.16667 4.66673H5.83333V1.33339Z" fill="black"/>
+                    </svg>
+                  </label>
+                  <input class="check-cart-note" type="checkbox" id="toggle-gift-message" class="toggle-gift-message"/>
+                  <cart-note id="element-cart-note" class="cart__note field" style="display: none;">              
+                    <textarea
+                      class="text-area field__input text-area--page-cart
+                      name="note"
+                      form="cart"
+                      id="Cart-note"
+                      placeholder="{{ 'sections.cart.note' | t }}"
+                      style="display: none;"
+                    >{{ cart.note }}</textarea>
+                  </cart-note>
+                </div>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    var toggleGiftMessage = document.getElementById('toggle-gift-message');
+                    var giftMessageTextarea = document.getElementById('Cart-note');
+                    var elementCartNote = document.getElementById('element-cart-note');
+              
+              
+                    toggleGiftMessage.addEventListener('change', function() {
+                      if (this.checked) {
+                        giftMessageTextarea.style.display = 'block';
+                        elementCartNote.style.display = 'block';
+                      } else {
+                        giftMessageTextarea.style.display = 'none';
+                        elementCartNote.style.display = 'none';
+                      }
+                    });
+                  });
+                </script>
+              {%- endif -%}
+            {%- else -%}
+              <div class="cart__ctas" {{ block.shopify_attributes }}>
+                <noscript>
+                  <button type="submit" class="cart__update-button button button--secondary" form="cart">
+                    {{ 'sections.cart.update' | t }}
+                  </button>
+                </noscript>
+
+                <button
+                  type="submit"
+                  id="checkout"
+                  class="cart__checkout-button button"
+                  name="checkout"
+                  {% if cart == empty %}
+                    disabled
+                  {% endif %}
+                  form="cart"
+                >
+                  {{ 'sections.cart.checkout' | t }}
+                </button>
+                <a href="{{ routes.all_products_collection_url }}" class="underlined-link continue-comprando">
+                  {{- 'general.continue_shopping' | t -}}
+                </a>
+              </div>
+
+              {%- if additional_checkout_buttons -%}
+                <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+                  {{ content_for_additional_checkout_buttons }}
+                </div>
+              {%- endif -%}
+          {%- endcase -%}
+        {% endfor %}
+
+        <div id="cart-errors"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function isIE() {
+      const ua = window.navigator.userAgent;
+      const msie = ua.indexOf('MSIE ');
+      const trident = ua.indexOf('Trident/');
+
+      return msie > 0 || trident > 0;
+    }
+
+    if (!isIE()) return;
+    const cartSubmitInput = document.createElement('input');
+    cartSubmitInput.setAttribute('name', 'checkout');
+    cartSubmitInput.setAttribute('type', 'hidden');
+    document.querySelector('#cart').appendChild(cartSubmitInput);
+    document.querySelector('#checkout').addEventListener('click', function (event) {
+      document.querySelector('#cart').submit();
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.main-cart-footer.name",
+  "class": "cart__footer-wrapper",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subtotal",
+      "name": "t:sections.main-cart-footer.blocks.subtotal.name",
+      "limit": 1
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.main-cart-footer.blocks.buttons.name",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

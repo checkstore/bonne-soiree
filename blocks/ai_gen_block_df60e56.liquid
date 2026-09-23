@@ -1,0 +1,464 @@
+{% doc %}
+  @prompt
+    Create a “Brand Benefits” section: a minimal full-width band with 3 columns (desktop) and stacked items on mobile.
+    
+    Design
+    
+    Background: soft neutral (#F5F1EB or theme equivalent), full-bleed; content container max-width ~1200px.
+    
+    Typography: Times New Roman, regular (no bold).
+    
+    Each item centered with headline (20–24px, tracking slightly increased) and small subtext (12–14px, muted #666).
+    
+    Spacing generous (top/bottom 40–64px), equal gutters between columns.
+    
+    Optional thin top/bottom divider (hairline).
+    
+    Default content (editable)
+    
+    Frete Grátis — em compras a partir de R$ 2.000
+    
+    Trocas e devoluções facilitadas — processo simples e rápido
+    
+    Pagamentos seguros — em até 6x sem juros
+    
+    Schema (settings)
+    
+    items (repeater, 3–4 max): for each item → title (text), subtitle (text), icon (optional image/SVG), link (optional).
+    
+    background_color, text_color_primary, text_color_secondary.
+    
+    container_width (contained | full).
+    
+    padding_top, padding_bottom sliders.
+    
+    show_divider_top, show_divider_bottom (booleans).
+    
+    Responsive
+    
+    Desktop: 3 equal columns; Mobile: stack items (1 per row) with comfortable spacing.
+    
+    Constraints
+    
+    Scope all CSS to this section only; no global edits.
+    
+    Use semantic markup (section, h3, p) and accessible links/icons., Update the “Brand Benefits” section so that text colors can be customized directly in the editor.
+    
+    Corrections:
+    
+    Add color picker settings for:
+    
+    Primary text color (titles)
+    
+    Secondary text color (subtitles)
+    
+    Ensure both colors override default values (e.g. #121212 for titles, #666 for subtitles).
+    
+    Keep the background color setting as is (still editable).
+    
+    Apply chosen colors consistently across desktop and mobile.
+    
+    Do not change layout, spacing, or existing schema structure.
+    
+    Scope all styles to this section only., Corrections:
+    
+    Add new settings to control:
+    
+    Primary text color (titles) — color picker
+    
+    Secondary text color (subtitles) — color picker
+    
+    Primary font size (titles) — range slider, default 20–24px
+    
+    Secondary font size (subtitles) — range slider, default 12–14px
+    
+    Ensure these settings override the default values and apply responsively (desktop & mobile).
+    
+    Maintain current layout, spacing, and schema options (background color, padding, dividers, etc.).
+    
+    Apply all typography settings only within this section (no global changes).
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-brand-benefits-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    width: 100%;
+    {% if block.settings.show_divider_top %}
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    {% endif %}
+    {% if block.settings.show_divider_bottom %}
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    {% endif %}
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-brand-benefits-container-{{ ai_gen_id }} {
+    {% if block.settings.container_width == 'contained' %}
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    {% else %}
+      width: 100%;
+      padding: 0 20px;
+    {% endif %}
+  }
+
+  .ai-brand-benefits-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    align-items: center;
+  }
+
+  .ai-brand-benefits-item-{{ ai_gen_id }} {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ai-brand-benefits-icon-{{ ai_gen_id }} {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .ai-brand-benefits-icon-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-brand-benefits-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ai-brand-benefits-title-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: {{ block.settings.primary_font_size }}px;
+    font-weight: normal;
+    color: {{ block.settings.text_color_primary }};
+    margin: 0;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+
+  .ai-brand-benefits-subtitle-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-size: {{ block.settings.secondary_font_size }}px;
+    font-weight: normal;
+    color: {{ block.settings.text_color_secondary }};
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .ai-brand-benefits-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ai-brand-benefits-link-{{ ai_gen_id }}:hover .ai-brand-benefits-title-{{ ai_gen_id }} {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-brand-benefits-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .ai-brand-benefits-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.primary_font_size | times: 0.9 }}px;
+      color: {{ block.settings.text_color_primary }};
+    }
+
+    .ai-brand-benefits-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.secondary_font_size | times: 0.9 }}px;
+      color: {{ block.settings.text_color_secondary }};
+    }
+
+    .ai-brand-benefits-container-{{ ai_gen_id }} {
+      padding: 0 16px;
+    }
+  }
+{% endstyle %}
+
+<section class="ai-brand-benefits-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-brand-benefits-container-{{ ai_gen_id }}">
+    <div class="ai-brand-benefits-grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign title_key = 'item_' | append: i | append: '_title'
+          assign subtitle_key = 'item_' | append: i | append: '_subtitle'
+          assign icon_key = 'item_' | append: i | append: '_icon'
+          assign link_key = 'item_' | append: i | append: '_link'
+          
+          assign title = block.settings[title_key]
+          assign subtitle = block.settings[subtitle_key]
+          assign icon = block.settings[icon_key]
+          assign link = block.settings[link_key]
+        %}
+
+        {% if title != blank or subtitle != blank %}
+          <div class="ai-brand-benefits-item-{{ ai_gen_id }}">
+            {% if link != blank %}
+              <a href="{{ link }}" class="ai-brand-benefits-link-{{ ai_gen_id }}">
+            {% endif %}
+            
+            {% if icon != blank %}
+              <div class="ai-brand-benefits-icon-{{ ai_gen_id }}">
+                <img
+                  src="{{ icon | image_url: width: 80 }}"
+                  alt="{{ title | escape }}"
+                  loading="lazy"
+                  width="40"
+                  height="40"
+                >
+              </div>
+            {% endif %}
+
+            <div class="ai-brand-benefits-content-{{ ai_gen_id }}">
+              {% if title != blank %}
+                <h3 class="ai-brand-benefits-title-{{ ai_gen_id }}">{{ title }}</h3>
+              {% endif %}
+              {% if subtitle != blank %}
+                <p class="ai-brand-benefits-subtitle-{{ ai_gen_id }}">{{ subtitle }}</p>
+              {% endif %}
+            </div>
+
+            {% if link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand benefits",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Benefit 1"
+    },
+    {
+      "type": "text",
+      "id": "item_1_title",
+      "label": "Title",
+      "default": "Frete Grátis"
+    },
+    {
+      "type": "text",
+      "id": "item_1_subtitle",
+      "label": "Subtitle",
+      "default": "em compras a partir de R$ 2.000"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_1_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "url",
+      "id": "item_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 2"
+    },
+    {
+      "type": "text",
+      "id": "item_2_title",
+      "label": "Title",
+      "default": "Trocas e devoluções facilitadas"
+    },
+    {
+      "type": "text",
+      "id": "item_2_subtitle",
+      "label": "Subtitle",
+      "default": "processo simples e rápido"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_2_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "url",
+      "id": "item_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 3"
+    },
+    {
+      "type": "text",
+      "id": "item_3_title",
+      "label": "Title",
+      "default": "Pagamentos seguros"
+    },
+    {
+      "type": "text",
+      "id": "item_3_subtitle",
+      "label": "Subtitle",
+      "default": "em até 6x sem juros"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_3_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "url",
+      "id": "item_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 4"
+    },
+    {
+      "type": "text",
+      "id": "item_4_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "item_4_subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_4_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "url",
+      "id": "item_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "options": [
+        {
+          "value": "contained",
+          "label": "Contained"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ],
+      "default": "contained"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F5F1EB"
+    },
+    {
+      "type": "color",
+      "id": "text_color_primary",
+      "label": "Primary text color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "text_color_secondary",
+      "label": "Secondary text color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "primary_font_size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Primary font size",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "secondary_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Secondary font size",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Dividers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider_top",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider_bottom",
+      "label": "Show bottom divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand benefits"
+    }
+  ]
+}
+{% endschema %}

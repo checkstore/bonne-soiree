@@ -1,0 +1,580 @@
+{% doc %}
+  @prompt
+    Create a responsive video banner section from scratch with the following behavior:
+    
+    1. Video source
+    
+    Add a video upload field for desktop (MP4 / WebM).
+    
+    Add a video upload field for mobile (MP4 / WebM).
+    
+    On desktop, use the desktop video.
+    
+    On mobile, use the mobile video.
+    
+    If the mobile video is empty, use the desktop video as fallback.
+    
+    2. Video sizing (very important)
+    
+    The video must:
+    
+    Always use width: 100%; and height: auto;
+    
+    Not use aspect-ratio, fixed height, or object-fit.
+    
+    The full video frame must be visible (no cropping, no masking).
+    
+    The banner height should follow the natural aspect ratio of the video.
+    
+    3. Video behavior
+    
+    The <video> element must:
+    
+    autoplay
+    
+    loop
+    
+    be muted
+    
+    play inline on mobile (no fullscreen forced)
+    
+    4. Optional content
+    
+    Add optional fields for:
+    
+    Title
+    
+    Subtitle
+    
+    Button label + link
+    
+    Text and button should be positioned over the video or below it, but:
+    
+    If the field is empty, that element should not render.
+    
+    5. Style (keep it minimal)
+    
+    No hover zoom or movement on the video.
+    
+    Simple, minimal layout that works on desktop and mobile.
+    
+    Please keep the code as simple as possible and do not add extra sizing logic beyond width: 100%; height: auto;., The video banner section was created, but the video does not appear on the page, make the video appear correctly., Please update this video banner section with the adjustments below:
+    
+    1. Title font control
+    
+    Add a font picker in the theme editor for the title.
+    
+    The selected font-family must correctly override any default styling.
+    
+    Do not change subtitle or button fonts — only the title.
+    
+    2. Button border customization
+    Add the following settings for the CTA button:
+    
+    Border color picker
+    
+    Border width control (in px)
+    
+    Border style (solid)
+    
+    Keep border-radius at 0px (square button)
+    
+    Button background must remain optional/transparent (no forced background).
+    
+    Requirements:
+    
+    These settings must update instantly and not break layout, alignment, or video behavior.
+    
+    Do not change anything else in the section., Please update this video banner section to allow customizing the CTA button size.
+    
+    Requirements:
+    
+    Button size controls
+    
+    Add theme editor settings for:
+    
+    Button padding (top/bottom and left/right) in px
+    
+    Button font size in px
+    
+    Button width option:
+    
+    Auto (fits text)
+    
+    Full width
+    
+    Keep existing button styling
+    
+    Keep the border color, border width, transparent background and 0px border-radius exactly as they are.
+    
+    Do not change any other part of the section
+    
+    Don’t modify title, video behavior, layout, alignment, etc., Please update this video banner section so the CTA button background can be fully transparent.
+    
+    Requirements:
+    
+    Transparent background option
+    
+    Add a setting in the theme editor to choose the button background color, including the ability to set it to transparent.
+    
+    Remove any hard-coded background color applied to the button.
+    
+    Keep existing styles
+    
+    Preserve the button’s border settings (color + width).
+    
+    Keep border-radius at 0px (square button).
+    
+    Do not override the text color setting.
+    
+    No other changes
+    
+    Do not modify layout, video behavior, title styling, or any other part of the section., Please update this video banner section to add hover styling for the CTA button.
+    
+    Requirements:
+    
+    Hover color settings
+    
+    Add theme editor settings for:
+    • Hover background color
+    • Hover text color
+    • Hover border color
+    
+    When the user hovers over the button, these colors must replace the default ones.
+    
+    Transition
+    
+    Add a smooth transition (e.g. 0.2s ease) for the hover effect.
+    
+    Do not change anything else
+    
+    Keep the current button shape (0px border-radius), border width, transparency options, and overall layout exactly as they are.
+    
+    Do not modify video behavior or text settings.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-video-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-video-banner__video-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-video-banner__desktop-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-video-banner__mobile-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-video-banner__desktop-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-video-banner__mobile-{{ ai_gen_id }} {
+      display: block;
+    }
+  }
+
+  .ai-video-banner__content-{{ ai_gen_id }} {
+    {% if block.settings.content_position == 'overlay' %}
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+      width: 90%;
+      max-width: 600px;
+    {% else %}
+      padding: 40px 20px;
+      text-align: center;
+    {% endif %}
+  }
+
+  .ai-video-banner__title-{{ ai_gen_id }} {
+    margin: 0 0 16px;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.text_color }};
+    font-weight: 600;
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-style: {{ block.settings.title_font.style }};
+  }
+
+  .ai-video-banner__subtitle-{{ ai_gen_id }} {
+    margin: 0 0 24px;
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-video-banner__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    {% if block.settings.button_bg_color != blank and block.settings.button_bg_color != 'rgba(0,0,0,0)' %}
+      background-color: {{ block.settings.button_bg_color }};
+    {% else %}
+      background-color: transparent;
+    {% endif %}
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 0px;
+    font-size: {{ block.settings.button_font_size }}px;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    {% if block.settings.button_width == 'full' %}
+      width: 100%;
+    {% endif %}
+  }
+
+  .ai-video-banner__button-{{ ai_gen_id }}:hover {
+    {% if block.settings.button_hover_bg_color != blank and block.settings.button_hover_bg_color != 'rgba(0,0,0,0)' %}
+      background-color: {{ block.settings.button_hover_bg_color }};
+    {% else %}
+      background-color: transparent;
+    {% endif %}
+    {% if block.settings.button_hover_text_color != blank %}
+      color: {{ block.settings.button_hover_text_color }};
+    {% endif %}
+    {% if block.settings.button_hover_border_color != blank %}
+      border-color: {{ block.settings.button_hover_border_color }};
+    {% endif %}
+  }
+
+  .ai-video-banner__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    min-height: 400px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-video-banner__placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-video-banner__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-video-banner__title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.7);
+    }
+
+    .ai-video-banner__subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.8);
+    }
+
+    .ai-video-banner__content-{{ ai_gen_id }} {
+      {% if block.settings.content_position == 'overlay' %}
+        width: 85%;
+      {% else %}
+        padding: 30px 16px;
+      {% endif %}
+    }
+
+    .ai-video-banner__placeholder-{{ ai_gen_id }} {
+      min-height: 300px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-video-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.video_desktop != blank or block.settings.video_mobile != blank %}
+    {% if block.settings.video_desktop != blank %}
+      <video
+        class="ai-video-banner__video-{{ ai_gen_id }} ai-video-banner__desktop-{{ ai_gen_id }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      >
+        {% for source in block.settings.video_desktop.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+      </video>
+    {% endif %}
+
+    {% if block.settings.video_mobile != blank %}
+      <video
+        class="ai-video-banner__video-{{ ai_gen_id }} ai-video-banner__mobile-{{ ai_gen_id }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      >
+        {% for source in block.settings.video_mobile.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+      </video>
+    {% elsif block.settings.video_desktop != blank %}
+      <video
+        class="ai-video-banner__video-{{ ai_gen_id }} ai-video-banner__mobile-{{ ai_gen_id }}"
+        autoplay
+        loop
+        muted
+        playsinline
+      >
+        {% for source in block.settings.video_desktop.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+      </video>
+    {% endif %}
+  {% else %}
+    <div class="ai-video-banner__placeholder-{{ ai_gen_id }}">
+      {{ 'image' | placeholder_svg_tag }}
+      <div class="ai-video-banner__empty-state-{{ ai_gen_id }}">
+        Next, add a video
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.title != blank or block.settings.subtitle != blank or block.settings.button_label != blank %}
+    <div class="ai-video-banner__content-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-video-banner__title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-video-banner__subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+
+      {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+        <a href="{{ block.settings.button_link }}" class="ai-video-banner__button-{{ ai_gen_id }}">
+          {{ block.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Video banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "Desktop video"
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Mobile video"
+    },
+    {
+      "type": "paragraph",
+      "content": "If mobile video is empty, desktop video will be used as fallback."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        {
+          "value": "overlay",
+          "label": "Over video"
+        },
+        {
+          "value": "below",
+          "label": "Below video"
+        }
+      ],
+      "default": "overlay"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Button hover style"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color"
+    },
+    {
+      "type": "header",
+      "content": "Button size"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top/bottom",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding left/right",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "button_width",
+      "label": "Button width",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "full",
+          "label": "Full width"
+        }
+      ],
+      "default": "auto"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video banner"
+    }
+  ]
+}
+{% endschema %}

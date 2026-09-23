@@ -1,0 +1,341 @@
+{{'custom.collection-description-SEO.css' |  asset_url |  stylesheet_tag}}
+{% render 'variables.collection-description-SEO' %}
+
+{% assign collection_description_text = collection.description %}
+{% if collection_description_text != blank %}
+  <section class="section-collection-description">
+    <div class="page-widthSE0 section-container content-description minus">
+      {{ collection_description_text }}
+    </div>
+    <a href="#" class="toggle-link">
+      <svg fill="#000000" width="10px" height="10px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M0.256 8.606c0-0.269 0.106-0.544 0.313-0.75 0.412-0.412 1.087-0.412 1.5 0l14.119 14.119 13.913-13.912c0.413-0.412 1.087-0.412 1.5 0s0.413 1.088 0 1.5l-14.663 14.669c-0.413 0.413-1.088 0.413-1.5 0l-14.869-14.869c-0.213-0.213-0.313-0.481-0.313-0.756z"></path></svg>  
+    </a>
+  </section>
+{% endif %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    const toggleLink = document.querySelector(".toggle-link");
+    const contentDescription = document.querySelector(".content-description");
+    const downArrowSVG = `<svg fill="#000000" width="10px" height="10px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M0.256 8.606c0-0.269 0.106-0.544 0.313-0.75 0.412-0.412 1.087-0.412 1.5 0l14.119 14.119 13.913-13.912c0.413-0.412 1.087-0.412 1.5 0s0.413 1.088 0 1.5l-14.663 14.669c-0.413 0.413-1.088 0.413-1.5 0l-14.869-14.869c-0.213-0.213-0.313-0.481-0.313-0.756z"></path></svg>`;
+    const upArrowSVG = `<svg fill="#000000" width="10px" height="10px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"> <path d="M0.256 23.481c0 0.269 0.106 0.544 0.313 0.75 0.412 0.413 1.087 0.413 1.5 0l14.119-14.119 13.913 13.912c0.413 0.413 1.087 0.413 1.5 0s0.413-1.087 0-1.5l-14.663-14.669c-0.413-0.412-1.088-0.412-1.5 0l-14.869 14.869c-0.213 0.212-0.313 0.481-0.313 0.756z"></path></svg>`;
+
+    toggleLink.addEventListener("click", function(event) {
+      event.preventDefault();
+
+      if (contentDescription.classList.contains("minus")) {
+        contentDescription.classList.remove("minus");
+        toggleLink.innerHTML = upArrowSVG;
+      } else {
+        contentDescription.classList.add("minus");
+        toggleLink.innerHTML = downArrowSVG;
+      }
+    });
+  });
+                  
+</script>
+
+<script>
+  const readNotes = () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttonMoreDescription = document.querySelector('#descriptionReadMore');
+      const buttonGroup = document.querySelector('.group-button');
+      const moreDescriptionSection = document.querySelector('.collection-description__actions');
+      const completeDescription = document.querySelector('.complete_description');
+      let previewDescription = document.querySelector('.preview_description');
+      let moreDescriptionOpened = false;
+      buttonMoreDescription.addEventListener('click', (event) => {
+        moreDescriptionOpened = !moreDescriptionOpened;
+        completeDescription.classList.toggle('closed_description');
+
+        if({{ section.settings.opcao_checkbox }}){
+          if (!buttonGroup.querySelector('.text-button-SEO')) buttonGroup.innerHTML = '<p class="text-button-SEO"></p>';
+          buttonGroup.querySelector('.text-button-SEO').textContent = moreDescriptionOpened ? '{{ section.settings.text_button_SEO_complete }}' : '{{ section.settings.text_button_SEO_preview }}';
+        }
+
+        const iconButtonSEOImage = buttonMoreDescription.querySelector('.icon-button-SEO');
+        if (iconButtonSEOImage) {
+          iconButtonSEOImage.classList.toggle('imagem-invertida', moreDescriptionOpened);
+        }
+    })
+    })
+  } 
+  readNotes()
+</script>
+
+{% schema %}
+{
+    "name": "Collection description",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Edit Container"
+        },
+        {
+            "type": "number",
+            "id": "max_width_SEO",
+            "label": "Collection description max width",
+            "default": 1055
+        },
+        {
+            "type": "color",
+            "id": "color_background_SEO",
+            "label": "Color description background",
+            "default": "#242f2e"
+        },
+        {
+          "type": "range",
+          "id": "description_title_size_SEO",
+          "label": "Title size",
+          "min": 12,
+          "max": 30,
+          "step": 1,
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "description_title_weight_SEO",
+          "label": "Title weight",
+          "min": 100,
+          "max": 900,
+          "step":  50,
+          "default": 500
+        },
+        {
+          "type": "image_picker",
+          "id": "img_background_SEO",
+          "label": "Imagem de background"
+        },
+        {
+            "type": "range",
+            "id": "padding_top_SEO",
+            "label": "Padding top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom_SEO",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        },
+        {
+            "type": "header",
+            "content": "Edit Text"
+        },
+        {
+            "type": "color",
+            "id": "color_text_SEO",
+            "label": "Color description text",
+            "default": "rgba(255, 255, 255, 0.8)"
+        },
+        {
+            "type": "range",
+            "id": "font_size_SEO",
+            "label": "Font size",
+            "min": 12,
+            "max": 30,
+            "step": 1,
+            "default": 16
+        },
+        {
+            "type": "range",
+            "id": "percentage_text_SEO_desktop",
+            "label": "Opacity percentage text DESKTOP",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "default": 80
+        },  
+        {
+            "type": "range",
+            "id": "percentage_text_SEO_mobile",
+            "label": "Opacity percentage text MOBILE",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "default": 40
+        },
+        {
+            "type": "header",
+            "content": "Edit Button"
+        },
+        {
+          "type": "text",
+          "id": "text_button_SEO_preview",
+          "label": "Text button Preview",
+          "default": "Ler mais"
+        },
+        {
+          "type": "text",
+          "id": "text_button_SEO_complete",
+          "label": "Text button Complete",
+          "default": "Ler menos"
+        },
+        {
+          "type": "range",
+          "id": "font_size_button_SEO",
+          "label": "Font size button",
+          "min": 12,
+          "max": 30,
+          "step": 1,
+          "default": 16
+        },
+        {
+          "type": "color",
+          "id": "color_text_button_SEO",
+          "label": "Color button text",
+          "default": "#FFF"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_button_SEO",
+          "label": "Icon button"
+        },
+        {
+          "type": "range",
+          "id": "width_icon_button_SEO",
+          "label": "Width icon button",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "type": "checkbox",
+          "label": "Mostrar icone?",
+          "id": "opcao_checkbox",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "position_group_button_SEO",
+          "label": "Position group button",
+          "default": "row",
+          "options": [
+            {
+              "value": "row",
+              "label": "Left to right"
+            },
+            {
+              "value": "row-reverse",
+              "label": "Right to left"
+            },
+            {
+              "value": "column",
+              "label": "Top to bottom"
+            },
+            {
+              "value": "column-reverse",
+              "label": "Bottom to top"
+            }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "gap_group_button_SEO",
+          "label": "Gap group button",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "position_button_SEO_vertical_desktop",
+          "label": "Position button SE0 Vertical DESKTOP",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "position_button_SEO_vertical_mobile",
+          "label": "Position button SE0 Vertical MOBILE",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "select",
+          "id": "position_button_SEO_horizontal",
+          "label": "Position button SE0 Horizontal",
+          "default": "center",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "color_button_SEO",
+          "label": "Color button Background",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "paddind_vertical_button_SEO",
+          "label": "Padding vertical button",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "paddind_horizontal_button_SEO",
+          "label": "Padding horizontal button",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "border_radius_button_SEO",
+          "label": "Border radius button",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "percentage_button_SEO_hover",
+          "label": "Opacity percentage button HOVER",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "default": 80
+        },
+        {
+          "type": "color",
+          "id": "color_button_SEO_hover",
+          "label": "Color button Background HOVER",
+          "default": "#000"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Collection description SEO"
+        }]
+}
+{% endschema %}

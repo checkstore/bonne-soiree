@@ -1,0 +1,20 @@
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "CollectionPage",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {% for product in collection.products limit: 10 %}{
+          "@type":"ListItem",
+          "position":{{ forloop.index }},
+          "url":"{{ shop.url }}{{ product.url }}",
+          "name":"{{ product.title }}",
+          {% if product.metafields.custom.description != blank %}"description": {{ product.metafields.custom.description.value | json }},{% endif %}
+          "image":"{{ product.featured_image.src | image_url: width: 500 | prepend: "https:" }}"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  }
+</script>

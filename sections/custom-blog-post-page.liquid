@@ -1,0 +1,49 @@
+{% render 'variables.custom-blog-post-page' %}
+
+<div class="main-container__blog-post-page page-width">
+    <div class="main-info-blog-post">
+        <div class="div__post-title">
+            <h1 class="blog-post__title">{{ article.title }}</h1>
+        </div>
+        <div class="div__post-span">
+            {% assign dateString = article.published_at | date: "%d %B %Y" %}
+            <span class="blog-post__span">{%- render 'date-format', dateString: dateString language:'Portuguese' -%}</span>
+            {% for tag in article.tags %}
+                <span class="blog-post__span">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container__blog-post-text-img">
+        <img src="{{ article.image | img_url: '1520x'}}" style="max-height: 844px;">
+        <div class="align-text__post-page">
+            {% if article.content != blank %}
+                <p class="blog-post__paragraph">{{ article.content }}</p>
+            {% endif %}
+        </div>
+        {% if article.metafields.custom.blog_images %}
+            <div class="blog-post__image-grid">
+                {% for articleContent in article.metafields.custom.blog_images.value  %}
+                    <img class="image_blog-post" src="{{ articleContent | img_url: 'master' }}" alt="Imagem relacionada ao post">
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="div__btn-blog-post">
+        <a class="blog-post__btn" href="{{ blog.url }}">Voltar para o blog</a>
+    </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "Custom Blog Post",
+    "settings": [],
+    "presets": [
+        {
+            "name": "Default Blog Post",
+            "category": "Blog"
+        }
+    ]
+}
+{% endschema %}

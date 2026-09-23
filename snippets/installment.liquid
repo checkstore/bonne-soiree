@@ -1,0 +1,17 @@
+{%- liquid
+assign number_of_installments = price | divided_by: settings.minimum_installment_value | divided_by: 100 | round: 2 | at_most: settings.maximum_installment_value
+assign installment_price = price | divided_by: number_of_installments
+-%}
+<div class="installment-text">
+    {% unless invert_price %}{% endunless -%}
+    {% if product.price_varies and target == product and invert_price %} A partir de {% endif -%}
+    {{- number_of_installments }}x <strong>{{ installment_price | money }}</strong>
+    sem juros
+</div>
+<style>
+.installment-text {
+    font-size: 14px;
+    color: #444!important;
+    font-weight: 500;
+}
+</style>

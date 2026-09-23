@@ -1,0 +1,898 @@
+{% doc %}
+  @prompt
+    PROMPT – RESPONSIVE IMAGE BANNER (DESKTOP + MOBILE) WITH FULL DESIGN CONTROLS
+    
+    Create a responsive image banner section with the following features:
+    
+    1. Image uploads
+    
+    Add two separate image upload fields:
+    
+    Desktop image
+    
+    Mobile image
+    
+    On desktop, use only the desktop image.
+    
+    On mobile, use only the mobile image.
+    
+    If the mobile image is empty, fall back to the desktop version.
+    
+    2. Image sizing controls
+    
+    Add settings for the user to control:
+    
+    Banner width (slider: 50%–100%)
+    
+    Banner height OR aspect ratio
+    
+    Image border radius (px)
+    
+    Image border width + border color
+    
+    Optional inner padding (px) to create a framed/bordered look
+    
+    Optional drop shadow toggle (off by default)
+    
+    Images must scale responsively while respecting these controls.
+    
+    3. Text content
+    
+    Add editable fields:
+    
+    Title
+    
+    Subtitle
+    
+    CTA button label + link
+    
+    The title, subtitle, and button must be optional: hide elements with empty fields.
+    
+    4. Typography controls
+    
+    For each text element (title, subtitle, button text):
+    
+    Font picker (must support Times New Roman)
+    
+    Font size (px)
+    
+    Font weight
+    
+    Letter spacing (optional)
+    
+    Text color picker
+    
+    Alignment (left / center / right)
+    
+    5. Button styling
+    
+    Button must support:
+    
+    Transparent or colored background
+    
+    Background color picker
+    
+    Text color picker
+    
+    Border color + width controls
+    
+    Border radius (px)
+    
+    Padding controls (px)
+    
+    Hover controls:
+    
+    Hover background color
+    
+    Hover text color
+    
+    Hover border color
+    
+    Button should not have forced rounding — keep square by default (0px).
+    
+    6. Layout & positioning
+    
+    Allow choosing text position:
+    
+    Over the image (overlay)
+    
+    Below the image
+    
+    For overlay option, add a background overlay color + opacity control behind the text.
+    
+    Add top/bottom margin controls for the entire section.
+    
+    7. Behavior
+    
+    Fully responsive.
+    
+    No hover zoom on the image (keep stable).
+    
+    If both images are missing, hide the section entirely.
+    
+    8. Do not change anything else
+    
+    Keep the design minimal, elegant, and consistent with luxury fashion branding., Please update the image banner section with the adjustment below:
+    
+    1. Separate dimension controls
+    
+    The banner must have independent size controls for desktop and mobile.
+    
+    Add two sets of controls:
+    
+    Desktop controls:
+    
+    Banner width (%)
+    
+    Banner height or aspect ratio
+    
+    Border radius (px)
+    
+    Border width + border color
+    
+    Inner padding (px)
+    
+    Mobile controls:
+    
+    Banner width (%)
+    
+    Banner height or aspect ratio
+    
+    Border radius (px)
+    
+    Border width + border color
+    
+    Inner padding (px)
+    
+    Requirements:
+    
+    Desktop settings must affect only desktop view.
+    
+    Mobile settings must affect only mobile view.
+    
+    The banner must not stretch or distort — always scale proportionally.
+    
+    Keep all existing text, button, color, and font settings untouched., Please update the image banner section with true scaling controls for the banner image.
+    
+    Goal:
+    Allow the user to reduce or enlarge the image without cropping, keeping the full image visible at all times.
+    
+    1. Add image scale control
+    
+    Add a scale slider that adjusts the image size without cropping:
+    
+    Minimum: 50% of original size
+    
+    Maximum: 150% of original size
+    
+    Default: 100% (original size)
+    
+    This must scale the image proportionally using CSS like transform: scale() or responsive width/height logic without cutting any part of the image.
+    
+    2. Separate controls for desktop and mobile
+    
+    Add two different scale sliders:
+    
+    Desktop scale:
+    
+    Applies only to screens above 768px.
+    
+    Mobile scale:
+    
+    Applies only to screens below 768px.
+    
+    Both must override each other depending on device.
+    
+    3. Image display rules
+    
+    The image must always display entirely, without cropping.
+    
+    Do not use object-fit: cover.
+    
+    Use:
+    
+    object-fit: contain
+    
+    or natural image sizing via width/height
+    
+    The container should adjust automatically to accommodate the scaled image.
+    
+    4. Keep everything else untouched
+    
+    Titles, subtitles, button styling, fonts, colors, hover states, borders, padding, spacing — nothing else should change.
+    
+    Only add this new scaling behavior., Please update the image banner section so the CTA button can use a fully transparent background.
+    
+    Requirements:
+    
+    Transparent background option
+    
+    Add a setting in the theme editor allowing the button background color to be set to transparent (no forced solid color).
+    
+    Remove any default background color that prevents transparency.
+    
+    Keep existing button styling
+    
+    Preserve border color + border width settings.
+    
+    Preserve text color settings.
+    
+    Preserve hover settings (background, text, border).
+    
+    Keep border-radius at 0px (square).
+    
+    Do not modify anything else
+    
+    Do not change typography, layout, image behavior, scaling controls, or spacing.
+    
+    Only add the transparent background functionality., Please update the image banner section so the CTA button can use a fully transparent background.
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-responsive-banner-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    width: 100%;
+  }
+
+  .ai-responsive-banner-container-{{ ai_gen_id }} {
+    width: {{ block.settings.banner_width_desktop }}%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .ai-responsive-banner-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    {% if block.settings.layout_position == 'overlay' %}
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    {% endif %}
+  }
+
+  .ai-responsive-banner-image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding: {{ block.settings.image_inner_padding_desktop }}px;
+    {% if block.settings.enable_shadow %}
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    {% endif %}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .ai-responsive-banner-image-{{ ai_gen_id }} {
+    width: {{ block.settings.image_scale_desktop }}%;
+    height: auto;
+    object-fit: contain;
+    border-radius: {{ block.settings.image_border_radius_desktop }}px;
+    border: {{ block.settings.image_border_width_desktop }}px solid {{ block.settings.image_border_color_desktop }};
+    display: block;
+  }
+
+  .ai-responsive-banner-image-desktop-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-responsive-banner-image-mobile-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-responsive-banner-content-{{ ai_gen_id }} {
+    {% if block.settings.layout_position == 'overlay' %}
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 600px;
+      z-index: 2;
+    {% endif %}
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  {% if block.settings.layout_position == 'overlay' %}
+    .ai-responsive-banner-overlay-{{ ai_gen_id }} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: {{ block.settings.overlay_color }};
+      opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+      border-radius: {{ block.settings.image_border_radius_desktop }}px;
+      z-index: 1;
+    }
+  {% endif %}
+
+  .ai-responsive-banner-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-size: {{ block.settings.title_font_size }}px;
+    letter-spacing: {{ block.settings.title_letter_spacing }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 16px 0;
+  }
+
+  .ai-responsive-banner-subtitle-{{ ai_gen_id }} {
+    font-family: {{ block.settings.subtitle_font.family }}, {{ block.settings.subtitle_font.fallback_families }};
+    font-weight: {{ block.settings.subtitle_font.weight }};
+    font-size: {{ block.settings.subtitle_font_size }}px;
+    letter-spacing: {{ block.settings.subtitle_letter_spacing }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 0 24px 0;
+  }
+
+  .ai-responsive-banner-button-{{ ai_gen_id }} {
+    display: inline-block;
+    font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
+    font-weight: {{ block.settings.button_font.weight }};
+    font-size: {{ block.settings.button_font_size }}px;
+    letter-spacing: {{ block.settings.button_letter_spacing }}px;
+    color: {{ block.settings.button_text_color }};
+    background-color: {{ block.settings.button_bg_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .ai-responsive-banner-button-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.button_hover_text_color }};
+    background-color: {{ block.settings.button_hover_bg_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-responsive-banner-container-{{ ai_gen_id }} {
+      width: {{ block.settings.banner_width_mobile }}%;
+    }
+
+    .ai-responsive-banner-image-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.image_inner_padding_mobile }}px;
+    }
+
+    .ai-responsive-banner-image-{{ ai_gen_id }} {
+      width: {{ block.settings.image_scale_mobile }}%;
+      border-radius: {{ block.settings.image_border_radius_mobile }}px;
+      border: {{ block.settings.image_border_width_mobile }}px solid {{ block.settings.image_border_color_mobile }};
+    }
+
+    {% if block.settings.layout_position == 'overlay' %}
+      .ai-responsive-banner-overlay-{{ ai_gen_id }} {
+        border-radius: {{ block.settings.image_border_radius_mobile }}px;
+      }
+    {% endif %}
+
+    .ai-responsive-banner-image-desktop-{{ ai_gen_id }} {
+      {% if block.settings.image_mobile %}
+        display: none;
+      {% endif %}
+    }
+
+    .ai-responsive-banner-image-mobile-{{ ai_gen_id }} {
+      {% if block.settings.image_mobile %}
+        display: block;
+      {% endif %}
+    }
+
+    .ai-responsive-banner-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_font_size }}px * 0.8);
+    }
+
+    .ai-responsive-banner-subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_font_size }}px * 0.8);
+    }
+
+    .ai-responsive-banner-button-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.button_font_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+{% if block.settings.image_desktop or block.settings.image_mobile %}
+  <div class="ai-responsive-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+    <div class="ai-responsive-banner-container-{{ ai_gen_id }}">
+      <div class="ai-responsive-banner-wrapper-{{ ai_gen_id }}">
+        <div class="ai-responsive-banner-image-container-{{ ai_gen_id }}">
+          {% if block.settings.image_desktop %}
+            <img
+              src="{{ block.settings.image_desktop | image_url: width: 2000 }}"
+              alt="{{ block.settings.image_desktop.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.image_desktop.width }}"
+              height="{{ block.settings.image_desktop.height }}"
+              class="ai-responsive-banner-image-{{ ai_gen_id }} ai-responsive-banner-image-desktop-{{ ai_gen_id }}"
+            >
+          {% endif %}
+
+          {% if block.settings.image_mobile %}
+            <img
+              src="{{ block.settings.image_mobile | image_url: width: 1000 }}"
+              alt="{{ block.settings.image_mobile.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.image_mobile.width }}"
+              height="{{ block.settings.image_mobile.height }}"
+              class="ai-responsive-banner-image-{{ ai_gen_id }} ai-responsive-banner-image-mobile-{{ ai_gen_id }}"
+            >
+          {% endif %}
+
+          {% if block.settings.layout_position == 'overlay' %}
+            <div class="ai-responsive-banner-overlay-{{ ai_gen_id }}"></div>
+          {% endif %}
+        </div>
+
+        {% if block.settings.title != blank or block.settings.subtitle != blank or block.settings.button_label != blank %}
+          <div class="ai-responsive-banner-content-{{ ai_gen_id }}">
+            {% if block.settings.title != blank %}
+              <h2 class="ai-responsive-banner-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+            {% endif %}
+
+            {% if block.settings.subtitle != blank %}
+              <p class="ai-responsive-banner-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+            {% endif %}
+
+            {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+              <a href="{{ block.settings.button_link }}" class="ai-responsive-banner-button-{{ ai_gen_id }}">
+                {{ block.settings.button_label }}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Responsive image banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "header",
+      "content": "Desktop sizing"
+    },
+    {
+      "type": "range",
+      "id": "banner_width_desktop",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Width",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_scale_desktop",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Image scale",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius_desktop",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_border_width_desktop",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "image_border_color_desktop",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "image_inner_padding_desktop",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Inner padding",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile sizing"
+    },
+    {
+      "type": "range",
+      "id": "banner_width_mobile",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Width",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_scale_mobile",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Image scale",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_border_width_mobile",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "image_border_color_mobile",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "image_inner_padding_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Inner padding",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Additional options"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shadow",
+      "label": "Enable drop shadow",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "overlay",
+          "label": "Over image"
+        },
+        {
+          "value": "below",
+          "label": "Below image"
+        }
+      ],
+      "default": "overlay"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Title typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_letter_spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Subtitle typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtitle_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subtitle_letter_spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Button hover"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top margin",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Responsive image banner"
+    }
+  ]
+}
+{% endschema %}

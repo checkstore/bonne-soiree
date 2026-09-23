@@ -1,0 +1,414 @@
+{% doc %}
+  @prompt
+    Create a new Shopify Online Store 2.0 section called “Featured Collection — Four Products” in the Bonne Soirée style: minimal, refined, editorial, and clean.
+    
+    Purpose:
+    
+    Display products from a selected Shopify collection in a luxury editorial product grid.
+    
+    Desktop layout:
+    
+    * Display exactly four products in a single horizontal row.
+    * Use four equal-width columns.
+    * Never break the four products into a second row on desktop.
+    * Center the product grid horizontally.
+    * Use a maximum content width of 1440px.
+    * Add 32px of side padding.
+    * Maintain consistent spacing between all four product cards.
+    * Keep all product images the same displayed size and proportion.
+    * Preserve the original image proportions without distortion.
+    
+    Mobile layout:
+    
+    * Display products in two columns.
+    * Keep the section fully responsive.
+    * Use 12px of side padding.
+    * Maintain consistent spacing between products.
+    * Do not allow horizontal page overflow.
+    
+    Products:
+    
+    * Include a Shopify collection picker.
+    * Display the first four products from the selected collection.
+    * Include a setting to manually adjust the number of products, with four products as the default.
+    * Display the featured product image.
+    * Display the product title below the image.
+    * Display the product price below the title.
+    * If a product has a compare-at price, display both the original price and the sale price.
+    * Make the product image and title clickable.
+    * Link each card to its respective product page.
+    * Do not display quick-add buttons, badges, overlays, descriptions, reviews, borders, shadows, or rounded corners.
+    
+    Background:
+    
+    * Set the entire section background color to `#ebe4d8`.
+    * The background color must extend across the full browser width.
+    * Apply `#ebe4d8` behind the product cards, images, titles, prices, margins, gaps, and all spacing.
+    * Product cards must also use the background color `#ebe4d8`.
+    * Do not display any white backgrounds, white cards, white strips, or white gaps anywhere in the section.
+    * Keep the same background color on desktop and mobile.
+    
+    Spacing:
+    
+    * Add adjustable top and bottom spacing settings.
+    * Default desktop top and bottom spacing: 32px.
+    * Default mobile top and bottom spacing: 20px.
+    * Include adjustable desktop and mobile side padding.
+    * Include an adjustable gap between product cards.
+    
+    Settings:
+    
+    * Collection picker.
+    * Optional section heading.
+    * Adjustable number of products.
+    * Adjustable maximum section width.
+    * Adjustable desktop and mobile side padding.
+    * Adjustable product-card gap.
+    * Adjustable top and bottom spacing.
+    * Option to show or hide product prices.
+    * Option to show or hide the section heading.
+    
+    Style:
+    
+    The result should feel like a luxury fashion e-commerce product selection.
+    
+    Use clean typography, balanced spacing, and an editorial layout consistent with the Bonne Soirée aesthetic.
+    
+    The section must be fully responsive and compatible with Shopify Online Store 2.0.
+    
+    Do not output Markdown code fences such as “```liquid” as visible text anywhere in the section.
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-featured-collection-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: #ebe4d8;
+    padding-top: {{ block.settings.spacing_top_desktop }}px;
+    padding-bottom: {{ block.settings.spacing_bottom_desktop }}px;
+  }
+
+  .ai-featured-collection-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding-left: {{ block.settings.padding_desktop }}px;
+    padding-right: {{ block.settings.padding_desktop }}px;
+  }
+
+  .ai-featured-collection-heading-{{ ai_gen_id }} {
+    text-align: center;
+    margin: 0 0 40px;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: #000000;
+  }
+
+  .ai-featured-collection-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.gap }}px;
+    background-color: #ebe4d8;
+  }
+
+  .ai-featured-collection-card-{{ ai_gen_id }} {
+    background-color: #ebe4d8;
+    text-decoration: none;
+    display: block;
+  }
+
+  .ai-featured-collection-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #ebe4d8;
+    margin-bottom: 12px;
+  }
+
+  .ai-featured-collection-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-featured-collection-info-{{ ai_gen_id }} {
+    background-color: #ebe4d8;
+  }
+
+  .ai-featured-collection-title-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 0 6px;
+    color: #000000;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+
+  .ai-featured-collection-price-{{ ai_gen_id }} {
+    font-size: 13px;
+    font-weight: 400;
+    color: #000000;
+    margin: 0;
+  }
+
+  .ai-featured-collection-price-compare-{{ ai_gen_id }} {
+    text-decoration: line-through;
+    opacity: 0.6;
+    margin-right: 8px;
+  }
+
+  .ai-featured-collection-price-sale-{{ ai_gen_id }} {
+    color: #000000;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-featured-collection-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.spacing_top_mobile }}px;
+      padding-bottom: {{ block.settings.spacing_bottom_mobile }}px;
+    }
+
+    .ai-featured-collection-container-{{ ai_gen_id }} {
+      padding-left: {{ block.settings.padding_mobile }}px;
+      padding-right: {{ block.settings.padding_mobile }}px;
+    }
+
+    .ai-featured-collection-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ai-featured-collection-heading-{{ ai_gen_id }} {
+      font-size: 20px;
+      margin-bottom: 24px;
+    }
+  }
+{% endstyle %}
+
+<featured-collection-{{ ai_gen_id }} class="ai-featured-collection-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-featured-collection-container-{{ ai_gen_id }}">
+    {% if block.settings.show_heading and block.settings.heading != blank %}
+      <h2 class="ai-featured-collection-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    {% if block.settings.collection != blank %}
+      <div class="ai-featured-collection-grid-{{ ai_gen_id }}">
+        {% for product in block.settings.collection.products limit: block.settings.products_to_show %}
+          <a href="{{ product.url }}" class="ai-featured-collection-card-{{ ai_gen_id }}">
+            <div class="ai-featured-collection-image-wrapper-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 800 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="ai-featured-collection-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                >
+              {% else %}
+                <div class="ai-featured-collection-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+            <div class="ai-featured-collection-info-{{ ai_gen_id }}">
+              <h3 class="ai-featured-collection-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+              {% if block.settings.show_price %}
+                <div class="ai-featured-collection-price-{{ ai_gen_id }}">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="ai-featured-collection-price-compare-{{ ai_gen_id }}">{{ product.compare_at_price | money }}</span>
+                    <span class="ai-featured-collection-price-sale-{{ ai_gen_id }}">{{ product.price | money }}</span>
+                  {% else %}
+                    {{ product.price | money }}
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="ai-featured-collection-grid-{{ ai_gen_id }}">
+        {% for i in (1..4) %}
+          <div class="ai-featured-collection-card-{{ ai_gen_id }}">
+            <div class="ai-featured-collection-image-wrapper-{{ ai_gen_id }}">
+              <div class="ai-featured-collection-image-placeholder-{{ ai_gen_id }}">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            </div>
+            <div class="ai-featured-collection-info-{{ ai_gen_id }}">
+              <h3 class="ai-featured-collection-title-{{ ai_gen_id }}">Product title</h3>
+              {% if block.settings.show_price %}
+                <div class="ai-featured-collection-price-{{ ai_gen_id }}">R$ 0,00</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</featured-collection-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FeaturedCollection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('featured-collection-{{ ai_gen_id }}', FeaturedCollection{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 1000,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between products",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Spacing desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Side padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "spacing_top_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Spacing mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Side padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "spacing_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Product display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection"
+    }
+  ]
+}
+{% endschema %}

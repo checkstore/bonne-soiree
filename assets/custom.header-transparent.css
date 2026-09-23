@@ -1,0 +1,15 @@
+.header-transparent {
+    transition: background-color 0.5s ease
+}
+
+.header-transparent:hover .logo_default {
+    display: none;
+}
+
+.header-transparent:hover .logo_alt {
+    display: block;
+}
+
+a#cart-icon-bubble {
+    margin-right: 1px;
+}

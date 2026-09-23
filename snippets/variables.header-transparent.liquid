@@ -1,0 +1,35 @@
+<style>
+  .bg-transparent {
+    background-color: transparent;
+  }
+
+  .bg-\{{ section.settings.background_color_scroll }} {
+    --background-color-scroll: {{ section.settings.background_color_scroll }};
+    background-color: var(--background-color-scroll);
+  }
+
+
+  body .text-\{{ section.settings.text_color }} {
+    --text-color: {{ section.settings.text_color }};
+    color: var(--text-color);
+  }
+
+  body .text-\{{ section.settings.text_color_scroll }} {
+    --text-color-scroll: {{ section.settings.text_color_scroll }};
+    color: var(--text-color-scroll);
+  }
+
+  .header-transparent:hover {
+    --background-color-scroll: {{ section.settings.background_color_scroll }};
+    background-color: var(--background-color-scroll);
+  }
+
+  .header-transparent:hover .header__menu-item span,
+  .header-transparent:hover .localization-selector.link,
+  .header-transparent:hover .header__icon,
+  .header-transparent:hover .mega-menu .header__menu-item,
+  .header-transparent:hover .header__menu-item {
+    --text-color-scroll: {{ section.settings.text_color_scroll }};
+    color: var(--text-color-scroll);
+  }
+</style>

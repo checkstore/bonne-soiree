@@ -1,0 +1,136 @@
+{% if settings.popup_new_user_discount == true %}
+
+{{ 'new-user-discount-popup.css' |  asset_url | stylesheet_tag }}
+
+<div id="newsletter-popup" class="popup-overlay">
+    <div class="popup-content">
+      <div class="popup-left">
+        <div class="popup-info-container">
+            <img src="{{ settings.popup_logo_image | image_url }}" alt="Logo" width="100%" height="100%">
+            <div class="popup-content-info">
+                <h2>{{ settings.popup_main_title }}</h2>
+                <p>{{ settings.popup_text }}</p>
+            </div>
+        </div>
+        <div  id="form-content" class="form-customer-container">
+            {% form 'customer', id: 'new-user-discount-popup-form' %}
+                <div class="input-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                    </svg>
+                    <input type="text" name="contact[first_name]" id="first_name" placeholder="{{ settings.popup_placeholder_first_name }}" required>
+                </div>
+                <div class="input-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                    <input type="email" name="contact[email]" id="email" placeholder="{{ settings.popup_placeholder_email }}" required>
+                </div>
+                <div class="input-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                    </svg>
+                    <input type="tel" name="contact[phone]" id="phone" placeholder="{{ settings.popup_placeholder_phone }}">
+                </div>
+                <div class="input-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                    </svg>
+                    <div class="input-date-wrapper">
+                        <input id="popup-button-date" type="text" name="contact[birthday]" id="birthday" class="input-date-popup" placeholder="Digite seu aniversário" onfocus="(this.type='date')" onblur="(this.type='text')">
+                    </div>
+                </div>
+                <div class="input-popup-checkbox-container">
+                    <div class="input-popup-checkbox-wrapper">
+                        <input id="popup-checkbox" type="checkbox" required name="popup-checkbox" value="true">
+                        <label for="popup-checkbox">Ao se cadastrar, você concorda com nossa 
+                            <a href="/pages/politica-de-privacidade" target="_blank">política de privacidade</a> e 
+                            <a href="/pages/termos-de-servico" target="_blank">termos de uso</a>.
+                        </label>
+                    </div>
+                </div>                
+                <button type="submit">Inscreva-se</button>
+              {% endform %}
+        </div>
+        <div id="success-message" style="display: none;">
+            <h2>{{ settings.popup_success_message }}</h2>
+            <p>{{ settings.popup_success_message_richtext }}</p>
+        </div>
+      </div>
+      <div class="popup-right">
+        <img src="{{ settings.popup_image | image_url }}" alt="Imagem de Newsletter" width="100%" height="100%">
+      </div>
+      <span class="close-popup" onclick="closePopup()">&times;</span>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const popup = document.getElementById('newsletter-popup');
+        const popupContent = document.querySelector('.popup-content-info');
+        const closePopupBtn = document.querySelector('.close-popup');
+        const form = document.getElementById('new-user-discount-popup-form');
+        const successMessage = document.getElementById('success-message');
+        const firstPopupDelay = 1500;
+    
+        function openPopup() {
+            popup.style.display = 'flex';
+            sessionStorage.setItem('popupShownThisSession', 'true');
+        }
+        
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+    
+        function showSuccessMessage() {
+            popupContent.style.display = 'none';
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+        }
+    
+        closePopupBtn.addEventListener('click', closePopup);
+    
+        window.addEventListener('click', function(event) {
+            if (event.target === popup) {
+                closePopup();
+            }
+        });
+    
+        function shouldShowPopup() {
+            return !sessionStorage.getItem('popupShownThisSession');
+        }
+    
+        if (shouldShowPopup()) {
+            setTimeout(openPopup, firstPopupDelay);
+        }  
+        if (window.location.search.includes('customer_posted=true') || window.location.search.includes('form_type=customer')) {
+            openPopup();
+            showSuccessMessage();
+            const newUrl = window.location.href.replace(/[?&]customer_posted=true/, '');
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        const dateInput = document.getElementById('popup-button-date');
+        const placeholderLabel = document.querySelector('.date-placeholder');
+
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const isAndroid = /android/i.test(navigator.userAgent);
+
+        if (isSafari) {
+            placeholderLabel.style.display = 'block';
+        } else {
+            placeholderLabel.style.display = 'none';
+        }
+
+        dateInput.addEventListener('focus', function() {
+            placeholderLabel.style.opacity = '0';
+        });
+
+        dateInput.addEventListener('blur', function() {
+            if (dateInput.value === '') {
+                placeholderLabel.style.opacity = '1';
+            }
+        });
+    });
+</script>
+{% endif %}

@@ -1,0 +1,618 @@
+{% doc %}
+  @prompt
+    Create a responsive banner section with the following features:
+    
+    1. Separate images for desktop and mobile
+    
+    Add one image upload for desktop (horizontal).
+    
+    Add one image upload for mobile (vertical).
+    
+    The section must automatically display the correct image depending on screen size.
+    
+    Use object-fit: cover for perfect cropping without distortion.
+    
+    2. Optional text content
+    
+    Add editable fields for:
+    
+    Title
+    
+    Subtitle
+    
+    Call-to-action button (label + link)
+    
+    Add font pickers for the title and subtitle.
+    
+    Add px controls for title font size and subtitle font size.
+    
+    Text must be fully optional — if empty, it should not render.
+    
+    3. Button (outline style, no forced background)
+    
+    The button must:
+    
+    Allow transparent background (no forced color).
+    
+    Support outline style with:
+    
+    Border color picker
+    
+    Border thickness control (px)
+    
+    Text color picker
+    
+    Have 0px border-radius (square button).
+    
+    Allow choosing text-transform: Default / UPPERCASE / lowercase / Capitalize.
+    
+    Add a px control for button font size.
+    
+    Keep the layout stable regardless of chosen style.
+    
+    4. Random banner option
+    
+    Add a toggle: “Randomize banner on page load”.
+    
+    If enabled, the section should choose one banner at random from the list of banners created inside this section.
+    
+    If only one banner exists, display normally.
+    
+    5. No hover animation
+    
+    Disable any hover zoom, movement, or scaling on the image.
+    
+    Banner must remain completely stable on mouse hover.
+    
+    6. Layout & styling
+    
+    Full-width responsive banner.
+    
+    Clean, minimal, stable layout.
+    
+    Text alignment control: Left / Center / Right.
+    
+    Add padding controls (top and bottom).
+    
+    Please build this section exactly as described, keeping the code simple and fully compatible with Shopify’s theme editor., The responsive banner section is created, but the CTA button is not appearing.
+    
+    Please fix the button with the changes below without changing anything else in the section:
+    
+    Make sure the button is visible whenever:
+    
+    the button label field is not empty
+    
+    and a link (URL) is set.
+    
+    Ensure the button is rendered on top of the banner image, together with the title and subtitle, following the current alignment settings.
+    
+    Apply the existing button styles from the section:
+    
+    transparent/outline style
+    
+    border and text color settings
+    
+    font and font-size controls
+    
+    Do not remove or reset any of the current settings — just ensure the CTA button actually shows up when configured., Please update this responsive banner section to allow adjusting the image size / aspect ratio.
+    
+    Requirements:
+    
+    Aspect ratio control
+    
+    Add a setting in the theme editor to control the aspect ratio of the banner image.
+    
+    Options like:
+    
+    16:9
+    
+    4:3
+    
+    3:2
+    
+    1:1 (square)
+    
+    2:3 (vertical)
+    
+    “Custom height (px)”
+    
+    Live resize behavior
+    
+    The banner container must resize according to the selected aspect ratio.
+    
+    Use object-fit: cover so the image never stretches, always crops elegantly.
+    
+    Separate controls for Desktop and Mobile
+    
+    Allow choosing different aspect ratios for desktop and mobile images.
+    
+    Do not change anything else in the banner section — only add and connect the aspect ratio/height controls.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-banner-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .ai-banner-image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-banner-image-container-{{ ai_gen_id }}.ai-banner-desktop-container-{{ ai_gen_id }} {
+    display: block;
+    {% if block.settings.desktop_aspect_ratio == 'custom' %}
+      height: {{ block.settings.desktop_custom_height }}px;
+    {% else %}
+      aspect-ratio: {{ block.settings.desktop_aspect_ratio }};
+    {% endif %}
+  }
+
+  .ai-banner-image-container-{{ ai_gen_id }}.ai-banner-mobile-container-{{ ai_gen_id }} {
+    display: none;
+    {% if block.settings.mobile_aspect_ratio == 'custom' %}
+      height: {{ block.settings.mobile_custom_height }}px;
+    {% else %}
+      aspect-ratio: {{ block.settings.mobile_aspect_ratio }};
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-banner-image-container-{{ ai_gen_id }}.ai-banner-desktop-container-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-banner-image-container-{{ ai_gen_id }}.ai-banner-mobile-container-{{ ai_gen_id }} {
+      display: block;
+    }
+  }
+
+  .ai-banner-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-banner-content-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: {{ block.settings.text_alignment }};
+    width: 90%;
+    max-width: 800px;
+    z-index: 2;
+  }
+
+  .ai-banner-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-style: {{ block.settings.title_font.style }};
+    font-size: {{ block.settings.title_font_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 16px 0;
+  }
+
+  .ai-banner-subtitle-{{ ai_gen_id }} {
+    font-family: {{ block.settings.subtitle_font.family }}, {{ block.settings.subtitle_font.fallback_families }};
+    font-weight: {{ block.settings.subtitle_font.weight }};
+    font-style: {{ block.settings.subtitle_font.style }};
+    font-size: {{ block.settings.subtitle_font_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 0 24px 0;
+  }
+
+  .ai-banner-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: {{ block.settings.button_background_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }};
+    border-radius: 0;
+    font-size: {{ block.settings.button_font_size }}px;
+    text-decoration: none;
+    text-transform: {{ block.settings.button_text_transform }};
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-banner-button-{{ ai_gen_id }}:hover {
+    opacity: 0.8;
+  }
+
+  .ai-banner-placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-banner-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+{% endstyle %}
+
+<div
+  class="ai-banner-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-banner-image-wrapper-{{ ai_gen_id }}">
+    <div class="ai-banner-image-container-{{ ai_gen_id }} ai-banner-desktop-container-{{ ai_gen_id }}">
+      {% if block.settings.image_desktop %}
+        <img
+          src="{{ block.settings.image_desktop | image_url: width: 2000 }}"
+          alt="{{ block.settings.image_desktop.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.image_desktop.width }}"
+          height="{{ block.settings.image_desktop.height }}"
+          class="ai-banner-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-banner-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-banner-empty-state-{{ ai_gen_id }}">
+            Add a desktop image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-banner-image-container-{{ ai_gen_id }} ai-banner-mobile-container-{{ ai_gen_id }}">
+      {% if block.settings.image_mobile %}
+        <img
+          src="{{ block.settings.image_mobile | image_url: width: 1000 }}"
+          alt="{{ block.settings.image_mobile.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.image_mobile.width }}"
+          height="{{ block.settings.image_mobile.height }}"
+          class="ai-banner-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-banner-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-banner-empty-state-{{ ai_gen_id }}">
+            Add a mobile image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-banner-content-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-banner-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-banner-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+
+      {% if block.settings.button_label != blank %}
+        <a href="{{ block.settings.button_link }}" class="ai-banner-button-{{ ai_gen_id }}">
+          {{ block.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Responsive banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "select",
+      "id": "desktop_aspect_ratio",
+      "label": "Desktop aspect ratio",
+      "options": [
+        {
+          "value": "16/9",
+          "label": "16:9"
+        },
+        {
+          "value": "4/3",
+          "label": "4:3"
+        },
+        {
+          "value": "3/2",
+          "label": "3:2"
+        },
+        {
+          "value": "1/1",
+          "label": "1:1 (Square)"
+        },
+        {
+          "value": "2/3",
+          "label": "2:3 (Vertical)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom height"
+        }
+      ],
+      "default": "16/9"
+    },
+    {
+      "type": "range",
+      "id": "desktop_custom_height",
+      "min": 200,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Desktop custom height",
+      "default": 600,
+      "info": "Only applies when 'Custom height' is selected"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "select",
+      "id": "mobile_aspect_ratio",
+      "label": "Mobile aspect ratio",
+      "options": [
+        {
+          "value": "16/9",
+          "label": "16:9"
+        },
+        {
+          "value": "4/3",
+          "label": "4:3"
+        },
+        {
+          "value": "3/2",
+          "label": "3:2"
+        },
+        {
+          "value": "1/1",
+          "label": "1:1 (Square)"
+        },
+        {
+          "value": "2/3",
+          "label": "2:3 (Vertical)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom height"
+        }
+      ],
+      "default": "2/3"
+    },
+    {
+      "type": "range",
+      "id": "mobile_custom_height",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Mobile custom height",
+      "default": 500,
+      "info": "Only applies when 'Custom height' is selected"
+    },
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 16,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtitle_font",
+      "label": "Subtitle font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle font size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "button_text_transform",
+      "label": "Button text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "lowercase",
+          "label": "lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Background color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border thickness",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Responsive banner"
+    }
+  ]
+}
+{% endschema %}

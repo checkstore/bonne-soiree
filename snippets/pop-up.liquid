@@ -1,0 +1,64 @@
+{% if settings.popup_enabled == true %}
+    {{ 'custom.pop-up.css' |  asset_url | stylesheet_tag }}
+
+    {% render 'variables.pop-up-Script' %}
+
+    <div id="newsletterPopup" class="popup">
+        <div class="popup-content">
+            <span class="close">
+                <img src="https://cdn.shopify.com/s/files/1/0640/2736/1472/files/close-icon-desk.png?v=1743082965" width="30px" height="30px" alt="Ícone de Fechar">
+            </span>
+            <div class="popup-image" >
+                <img class="img-desk" src="{{ settings.popup_image_desktop |  img_url: 'master' }}" width="100%" height="100%">
+                <img class="img-mobile" src="{{ settings.popup_image_mobile |  img_url: 'master' }}" width="100%" height="100%">
+            </div>
+            <div class="popup-text">
+                <h2>{{ settings.popup_title }}</h2>
+             <div id="popup-subtitle">
+                <p>{{ settings.popup_subtitle }}</p>
+            </div>
+                {% form 'customer', id: 'ContactPopUp' %}
+                    <div class="form-customer">
+                        <div class="email">
+                            <input type="email" name="contact[email]" placeholder="Insira seu e-mail" required />
+                        </div>
+                        <div class="phone">
+                            <input type="tel" name="contact[phone]" placeholder="Insira seu telefone" pattern="[0-9\s\(\)\-\+]+" title="Digite seu número de telefone" required />
+                        </div>
+                        <div class="submit">
+                            <button type="submit" class="submit-btn">
+                                <span>Inscreva-se</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="message">
+                        {%- if form.errors -%}
+                            <small class="newsletter-form__message form__message">
+                            {%- render 'icon-error' -%}
+                            {{- form.errors.translated_fields.email | capitalize }}
+                            {{ form.errors.messages.email -}}
+                            </small>
+                        {%- endif -%}
+                        {%- if form.posted_successfully? -%}
+                        <h3
+                            class="newsletter-form__message newsletter-form__message--success form__message"
+                            tabindex="-1"
+                            autofocus
+                        >
+                            {% render 'icon-success' -%}
+                            {{- 'newsletter.success' | t }}
+                        </h3>
+                        {%- endif -%}
+                    </div>
+                {% endform %}
+                <div id="popup-subtitle-terms" style="text-decoration: none;">
+                    <p class="terms">{{ settings.popup_terms }}</p>
+                </div>
+            </div>
+            <div class="popup-text-success" style="display: none;">
+                <h2>{{ settings.popup_title_success }}</h2>
+                <p>{{ settings.popup_subtitle_success }}</p>
+            </div>
+        </div>
+    </div>
+{% endif %}

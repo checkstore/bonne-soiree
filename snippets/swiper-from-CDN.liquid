@@ -1,0 +1,52 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<style>
+
+/* Swiper Scrollbar Styles to Show */
+.swiper .swiper-scrollbar-drag:empty {
+  display: block !important;
+}
+
+{
+  --swiper-scrollbar-border-radius: 10px;
+  --swiper-scrollbar-top: auto;
+  --swiper-scrollbar-bottom: 4px;
+  --swiper-scrollbar-left: auto;
+  --swiper-scrollbar-right: 4px;
+  --swiper-scrollbar-sides-offset: 1%;
+  --swiper-scrollbar-bg-color: rgba(0, 0, 0, 0.1);
+  --swiper-scrollbar-drag-bg-color: rgba(0, 0, 0, 0.5);
+  --swiper-scrollbar-size: 4px;
+}
+
+.swiper-horizontal>.swiper-scrollbar, .swiper-scrollbar.swiper-scrollbar-horizontal {
+  position: absolute !important;
+  left: var(--swiper-scrollbar-sides-offset, 1%) !important;
+  bottom: var(--swiper-scrollbar-bottom, 3px) !important;
+  top: var(--swiper-scrollbar-top, auto) !important;
+  z-index: 50;
+  height: var(--swiper-scrollbar-size, 3px) !important;
+  width: calc(100% - 2* var(--swiper-scrollbar-sides-offset, 1%)) !important;
+}
+
+.swiper .swiper-button-next .swiper-button-lock:empty,
+.swiper .swiper-button-prev .swiper-button-lock:empty {
+  display: none;
+}
+.swiper .swiper-button-next:empty, .swiper .swiper-button-prev:empty {
+  display: inherit;
+}
+
+.swiper-button-next .swiper-button-lock:empty,
+.swiper-button-prev .swiper-button-lock:empty {
+  display: none;
+}
+.swiper-button-next:empty, .swiper-button-prev:empty {
+  display: inherit;
+}
+</style>

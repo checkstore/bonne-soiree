@@ -1,0 +1,140 @@
+.blog-placeholder-svg {
+  height: 100%;
+}
+
+@media screen and (min-width: 990px) {
+  .grid--1-col-desktop .article-card .card__content {
+    text-align: center;
+  }
+}
+
+.blog__title {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.blog__subtitle {
+  font-weight: 400;
+  width: 100%;
+  text-align: center;
+  margin: 3px 0 8px 0 ;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+ul.blog__posts {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.blog__read_more {
+  color: #000;
+  font-family: "PP Mori";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 137%; /* 24.66px */
+  text-decoration-line: underline;
+}
+
+.viewall-blog {
+  display: block;
+  text-align: center;
+  width: 123px;
+  margin: 0 auto;
+  border: 1px solid;
+  padding: 10px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.blog__posts.articles-wrapper {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 990px) {
+  .blog__posts.articles-wrapper {
+    margin-bottom: 0;
+  }
+}
+
+.blog__posts.articles-wrapper .article {
+  scroll-snap-align: start;
+}
+
+ul.blog__posts {
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.viewall-blog {
+  display: block;
+  text-align: center;
+  width: 123px;
+  margin: 0 auto;
+  border: 1px solid;
+  padding: 10px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 749px) {
+  .blog__post.article {
+    width: calc(100% - 3rem - var(--grid-mobile-horizontal-spacing));
+  }
+}
+
+.background-secondary .blog-placeholder__content {
+  background-color: rgb(var(--color-background));
+}
+
+.blog__posts .card-wrapper {
+  width: 100%;
+}
+
+
+/* check for flexbox gap in older Safari versions */
+@supports not (inset: 10px) {
+  @media screen and (min-width: 750px) {
+    .blog__posts .article + .article {
+      margin-left: var(--grid-desktop-horizontal-spacing);
+    }
+  }
+}
+
+
+@media (min-width: 767px) {
+  .mobile-blog {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-blog {
+    display: none;
+  }
+
+  .mobile-blog {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+  }
+
+  .mobile-blog li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}

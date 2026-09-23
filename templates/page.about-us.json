@@ -1,0 +1,408 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_nAmcFb": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_89dzHM": {
+          "type": "heading",
+          "settings": {
+            "heading": "About us",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_89dzHM"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 20
+      }
+    },
+    "blocks_VyJg9k": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2ad77b5_QqA3Az": {
+          "type": "ai_gen_block_2ad77b5",
+          "settings": {
+            "image": "shopify://shop_images/BONNE_SOIREE_0721.webp",
+            "banner_height": 500,
+            "max_width": 1200,
+            "frame_background_color": "#ffffff",
+            "frame_padding": 20,
+            "image_border_radius": 0,
+            "shadow_opacity": 0,
+            "shadow_vertical": 8,
+            "shadow_blur": 24,
+            "show_content_overlay": false,
+            "heading": "",
+            "text": "",
+            "button_text": "",
+            "button_link": "",
+            "content_vertical_alignment": "center",
+            "content_horizontal_alignment": "center",
+            "text_alignment": "center",
+            "content_max_width": 400,
+            "content_background_color": "#ffffffe6",
+            "content_padding": 30,
+            "content_border_radius": 12,
+            "content_backdrop_blur": 4,
+            "heading_color": "#121212",
+            "heading_size": 32,
+            "heading_weight": "600",
+            "heading_margin_bottom": 16,
+            "text_color": "#666666",
+            "text_size": 16,
+            "text_margin_bottom": 20,
+            "button_background_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_background_color": "#333333",
+            "button_hover_text_color": "#ffffff",
+            "button_border_color": "#121212",
+            "button_hover_border_color": "#333333",
+            "button_border_width": 0,
+            "button_font_size": 14,
+            "button_font_weight": "500",
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2ad77b5_QqA3Az"
+      ],
+      "disabled": true,
+      "name": "Editorial framed banner",
+      "settings": {}
+    },
+    "blocks_pV6eAG": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2815965_PyacM3": {
+          "type": "ai_gen_block_2815965",
+          "settings": {
+            "layout": "image_left",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 50,
+            "image": "shopify://shop_images/feed_0110.png",
+            "image_padding": 20,
+            "title": "<h2>Criada para vestir momentos com propósito, Bonne Soirée é uma marca que transforma o ato de se vestir em uma expressão de autenticidade.</h2>",
+            "text": "<h4>Por trás da marca estão Rosane Jorge e Raphaelle de Fraipont, mãe e filha que compartilham a mesma visão: construir um universo onde a elegância é natural e o estilo, uma extensão da personalidade.</h4><h4>Bonne Soirée reflete o encontro entre a alma brasileira e o charme francês, pensado para mulheres que vivem o presente com confiança e um certo <em>je ne sais quoi</em>.</h4>",
+            "text_padding": 30,
+            "title_size": 36,
+            "title_weight": "400",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 18,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 40,
+            "horizontal_padding": 20,
+            "mobile_gap": 40,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 15,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2815965_PyacM3"
+      ],
+      "name": "Editorial layout",
+      "settings": {}
+    },
+    "blocks_gHTYtt": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5498658_m4f8Ep": {
+          "type": "ai_gen_block_5498658",
+          "name": "Editorial quote",
+          "settings": {
+            "quote_text": "<h3><em>\"Nossas peças elevam a beleza sem roubar o protagonismo de quem as usa.\"</em></h3>",
+            "author": "– Rosane jorge",
+            "alignment": "center",
+            "padding_top": 50,
+            "padding_bottom": 50,
+            "margin_left": 40,
+            "margin_right": 40,
+            "font_size_quote": 20,
+            "font_size_author": 14,
+            "text_color": "#121212",
+            "background_color": "#ffffff"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_5498658_Fca9PJ": {
+          "type": "ai_gen_block_5498658",
+          "name": "Editorial quote",
+          "settings": {
+            "quote_text": "<h3><em>\"Minha avó foi modelista e transmitiu esse conhecimento para minha mãe. É como se a moda estivesse no DNA dela e, de certa forma, tivesse passado para mim.\"</em></h3>",
+            "author": "– Raphaelle Fraipont",
+            "alignment": "center",
+            "padding_top": 50,
+            "padding_bottom": 50,
+            "margin_left": 40,
+            "margin_right": 40,
+            "font_size_quote": 20,
+            "font_size_author": 14,
+            "text_color": "#121212",
+            "background_color": "#ffffff"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_2ad77b5_tkTYXz": {
+          "type": "ai_gen_block_2ad77b5",
+          "name": "Editorial framed banner",
+          "settings": {
+            "image": "shopify://shop_images/Tezza-0349.jpg",
+            "banner_height": 500,
+            "max_width": 1200,
+            "frame_background_color": "#ffffff",
+            "frame_padding": 25,
+            "image_border_radius": 2,
+            "shadow_opacity": 0,
+            "shadow_vertical": 8,
+            "shadow_blur": 24,
+            "show_content_overlay": false,
+            "heading": "",
+            "text": "",
+            "button_text": "",
+            "button_link": "",
+            "content_vertical_alignment": "center",
+            "content_horizontal_alignment": "center",
+            "text_alignment": "center",
+            "content_max_width": 400,
+            "content_background_color": "rgba(255, 255, 255, 0.9)",
+            "content_padding": 30,
+            "content_border_radius": 12,
+            "content_backdrop_blur": 4,
+            "heading_color": "#121212",
+            "heading_size": 32,
+            "heading_weight": "600",
+            "heading_margin_bottom": 16,
+            "text_color": "#666666",
+            "text_size": 16,
+            "text_margin_bottom": 20,
+            "button_background_color": "#121212",
+            "button_text_color": "#FFFFFF",
+            "button_hover_background_color": "#333333",
+            "button_hover_text_color": "#FFFFFF",
+            "button_border_color": "#121212",
+            "button_hover_border_color": "#333333",
+            "button_border_width": 0,
+            "button_font_size": 14,
+            "button_font_weight": "500",
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5498658_m4f8Ep",
+        "ai_gen_block_5498658_Fca9PJ",
+        "ai_gen_block_2ad77b5_tkTYXz"
+      ],
+      "name": "Editorial layout",
+      "settings": {}
+    },
+    "banner_carousel_yHCLfW": {
+      "type": "banner-carousel",
+      "blocks": {
+        "image_VbKE7A": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Quem_somos_Shopify_Desktop.png",
+            "image_mobile": "shopify://shop_images/Quem_somos_Shopify_Mobile.png",
+            "height_image": "700",
+            "link": "",
+            "subtitle": "",
+            "title": "<p>QUEM SOMOS</p>",
+            "text": "",
+            "button_text": "",
+            "link_btn": "",
+            "position_horizontal_desktop": "center",
+            "position_vertical_desktop": "center",
+            "position_horizontal_tablet": "center",
+            "position_vertical_tablet": "center",
+            "position_horizontal_mobile": "center",
+            "position_vertical_mobile": "center",
+            "font_size_subtitle_desktop": 16,
+            "font_size_title_desktop": 50,
+            "font_size_body_desktop": 16,
+            "font_size_button_desktop": 16,
+            "font_size_subtitle_tablet": 16,
+            "font_size_title_tablet": 50,
+            "font_size_body_tablet": 16,
+            "font_size_button_tablet": 16,
+            "font_size_subtitle_mobile": 14,
+            "font_size_title_mobile": 40,
+            "font_size_body_mobile": 14,
+            "font_size_button_mobile": 14,
+            "color_text": "#ffffff",
+            "color_button": "#000000",
+            "background_color": "#ffffff",
+            "color_button_border": "#ffffff",
+            "border_radius": 0,
+            "background_color_hover": "#000000",
+            "color_button_hover": "#ffffff",
+            "color_button_border_hover": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "image_VbKE7A"
+      ],
+      "disabled": true,
+      "settings": {
+        "first_banner_page": false,
+        "height_fixed": true
+      }
+    },
+    "rich_text_TzXdeJ": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_AerdWW": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "h1"
+          }
+        },
+        "text_eedbc8": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>O ano de 2020 foi turbulento para todo o mundo, mas, também, foi nesta época que alguns modelos de negócio se fortaleceram e, outros, se concretizaram. É o caso da Bonne Soirée, um sonho entre mãe e filha que, finalmente, saiu do papel. Rosane Jorge e Raphaelle de Fraipont deram vida à uma marca de roupas femininas e, juntas, idealizaram peças que carregam jovialidade em sua essência através de tecidos cuidadosamente selecionados.</p><p>No entanto, a paixão pela moda não se aflorou somente em 2020. Esse interesse é uma herança familiar tanto para Rosane quanto para Raphaelle. Rosane cresceu em uma casa onde sua mãe exercia a ocupação de costureira, por isso, sempre valorizou bons acabamentos e se acostumou com um trabalho feito com excelência. Raphaelle também herdou esse olhar atento da avó e da mãe e, hoje, aplica na Bonne Soirée.  </p><p>Atualmente, a dupla comanda uma marca que vem ganhando notoriedade dentro do mercado nacional, através de uma produção slow fashion, feita com total atenção aos detalhes. Rosane e Raphaelle são as grandes responsáveis pelas criações da Bonne Soirée - e, quando dizemos responsáveis, é porque são elas quem desenham e quem acompanham o processo de produção desde o início. </p><p>Da escolha dos tecidos às peças finais, cada etapa é única e reflete o quanto mãe e filha se dedicam à criação nacional e mantêm o compromisso com a qualidade e design excepcionais. A Bonne Soirée, inclusive, vai na contramão do que algumas marcas brasileiras fazem e desenvolve modelos comerciais que celebram tendências mundiais, mas sem deixar de lado a principal parte de uma roupa, que é a de quem a veste. </p><p>A marca acredita que a beleza é uma expressão através de atitudes, estilo e autoconfiança. Por isso, todas as coleções são concebidas de forma consciente, para que cada modelo brilhe da forma como merece, em produções criativas, atuais e cheias de personalidade, através de quem aceita a moda proposta pela Bonne Soirée. </p>"
+          }
+        },
+        "button_88XgUp": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_AerdWW",
+        "text_eedbc8",
+        "button_88XgUp"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "image_video_rkjHYa": {
+      "type": "image-video",
+      "blocks": {
+        "image_X33VAQ": {
+          "type": "image",
+          "settings": {
+            "container_image": false,
+            "image_desktop": "shopify://shop_images/IMG_0234_2.jpg",
+            "image_mobile": "shopify://shop_images/IMG_0234.jpg",
+            "title": "",
+            "text": "",
+            "text_button": "",
+            "url_button": "",
+            "image_height": "700",
+            "margin_top": 50,
+            "margin_bottom": 50,
+            "position_horizontal_desktop": "center",
+            "position_vertical_desktop": "center",
+            "position_horizontal_tablet": "center",
+            "position_vertical_tablet": "center",
+            "position_horizontal_mobile": "center",
+            "position_vertical_mobile": "center",
+            "color_text_desktop": "#000000",
+            "color_text_button_desktop": "#ffffff",
+            "color_background_button_desktop": "#000000",
+            "color_border_button_desktop": "#000000",
+            "color_text_button_desktop_hover": "#000000",
+            "color_background_button_desktop_hover": "#ffffff",
+            "color_border_button_desktop_hover": "#ffffff",
+            "underline_button_desktop": false,
+            "align_text_desktop": "center",
+            "color_text_mobile": "#000000",
+            "color_text_button_mobile": "#000000",
+            "color_background_button_mobile": "#000000",
+            "color_border_button_mobile": "#000000",
+            "align_text_mobile": "center",
+            "font_size_title_desktop": 80,
+            "letter_spacing_title_desktop": 0,
+            "font_size_text_desktop": 25,
+            "font_size_button_desktop": 18,
+            "font_size_title_tablet": 70,
+            "letter_spacing_title_tablet": 0,
+            "font_size_text_tablet": 20,
+            "font_size_button_tablet": 18,
+            "font_size_title_mobile": 50,
+            "letter_spacing_title_mobile": 0,
+            "font_size_text_mobile": 18,
+            "font_size_button_mobile": 16
+          }
+        }
+      },
+      "block_order": [
+        "image_X33VAQ"
+      ],
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_nAmcFb",
+    "blocks_VyJg9k",
+    "blocks_pV6eAG",
+    "blocks_gHTYtt",
+    "banner_carousel_yHCLfW",
+    "rich_text_TzXdeJ",
+    "image_video_rkjHYa"
+  ]
+}

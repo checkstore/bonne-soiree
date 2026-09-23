@@ -1,0 +1,100 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "banner_collection_pxN4GL": {
+      "type": "banner-collection",
+      "settings": {
+        "estilizacao_type": "estilo1",
+        "max_width": 1200,
+        "align_container": "center",
+        "background_color_container": "#ffffff",
+        "width_container": 1050,
+        "align_text_title": "center",
+        "image_background_color": "#f1f1f1",
+        "image_box_margem": 40,
+        "color_text_title": "#000000",
+        "size_text_title": 16,
+        "align_text_description": "center",
+        "color_text_description": "#000000",
+        "size_text_description": 18
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "metafield_still_image": false,
+        "products_per_page": 12,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": false,
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "columns_mobile": "2",
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "collection_description_seo_VVB8wk": {
+      "type": "collection-description-SEO",
+      "settings": {
+        "max_width_SEO": 1100,
+        "color_background_SEO": "#f4f4f4",
+        "description_title_size_SEO": 18,
+        "description_title_weight_SEO": 500,
+        "padding_top_SEO": 35,
+        "padding_bottom_SEO": 30,
+        "color_text_SEO": "#000000",
+        "font_size_SEO": 14,
+        "percentage_text_SEO_desktop": 100,
+        "percentage_text_SEO_mobile": 66,
+        "text_button_SEO_preview": "",
+        "text_button_SEO_complete": "",
+        "font_size_button_SEO": 16,
+        "color_text_button_SEO": "#ffffff",
+        "icon_button_SEO": "shopify://shop_images/icone.png",
+        "width_icon_button_SEO": 20,
+        "opcao_checkbox": true,
+        "position_group_button_SEO": "row",
+        "gap_group_button_SEO": 10,
+        "position_button_SEO_vertical_desktop": 13,
+        "position_button_SEO_vertical_mobile": 15,
+        "position_button_SEO_horizontal": "center",
+        "color_button_SEO": "rgba(0,0,0,0)",
+        "paddind_vertical_button_SEO": 15,
+        "paddind_horizontal_button_SEO": 40,
+        "border_radius_button_SEO": 3,
+        "percentage_button_SEO_hover": 80,
+        "color_button_SEO_hover": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "banner_collection_pxN4GL",
+    "product-grid",
+    "collection_description_seo_VVB8wk"
+  ]
+}

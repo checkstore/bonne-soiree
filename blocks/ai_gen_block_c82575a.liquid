@@ -1,0 +1,290 @@
+{% doc %}
+  @prompt
+    Create a new responsive image banner section.
+    
+    The section must support two different images:
+    
+    One horizontal image for desktop (landscape).
+    
+    One vertical image for mobile (portrait).
+    
+    The correct image should load automatically depending on screen size.
+    
+    Use media queries or conditional rendering for <picture> or <source> tags.
+    
+    Both images should keep their original proportions (object-fit: contain), without cropping.
+    
+    Add soft margins (5–8% of viewport width) so the image doesn’t touch screen edges.
+    
+    Button overlay:
+    
+    The button must appear centered over the image (overlay).
+    
+    Font: Times New Roman, white text, thin white border (1px solid), transparent background.
+    
+    Hover: white background, black text.
+    
+    Include controls for button text, link, and vertical position adjustment., Add customization controls for the button size.
+    
+    Include sliders in the editor for:
+    
+    Font size (e.g., 12px–24px range)
+    
+    Horizontal padding (space inside the button sides)
+    
+    Vertical padding (space inside the button top and bottom)
+    
+    Border radius (0–8px range, default 0 for sharp edges)
+    
+    Keep the current button style (Times New Roman, 1px white border, transparent background, hover invert).
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-responsive-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    margin: 0 5vw;
+    max-width: calc(100% - 10vw);
+  }
+
+  .ai-responsive-banner-picture-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .ai-responsive-banner-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .ai-responsive-banner-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    min-height: 300px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-responsive-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 300px;
+  }
+
+  .ai-responsive-banner-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-responsive-banner-button-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: {{ block.settings.button_vertical_position }}%;
+    z-index: 2;
+  }
+
+  .ai-responsive-banner-button-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    padding: {{ block.settings.button_vertical_padding }}px {{ block.settings.button_horizontal_padding }}px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: {{ block.settings.button_font_size }}px;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    white-space: nowrap;
+  }
+
+  .ai-responsive-banner-button-{{ ai_gen_id }}:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-responsive-banner-{{ ai_gen_id }} {
+      margin: 0 8vw;
+      max-width: calc(100% - 16vw);
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-responsive-banner-{{ ai_gen_id }} {
+      margin: 0 6vw;
+      max-width: calc(100% - 12vw);
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-responsive-banner-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.desktop_image or block.settings.mobile_image %}
+    <picture class="ai-responsive-banner-picture-{{ ai_gen_id }}">
+      {% if block.settings.mobile_image %}
+        <source
+          media="(max-width: 749px)"
+          srcset="{{ block.settings.mobile_image | image_url: width: 800 }} 800w,
+                  {{ block.settings.mobile_image | image_url: width: 1200 }} 1200w"
+          sizes="(max-width: 749px) 84vw"
+        >
+      {% endif %}
+      {% if block.settings.desktop_image %}
+        <source
+          media="(min-width: 750px)"
+          srcset="{{ block.settings.desktop_image | image_url: width: 1200 }} 1200w,
+                  {{ block.settings.desktop_image | image_url: width: 1600 }} 1600w,
+                  {{ block.settings.desktop_image | image_url: width: 2000 }} 2000w"
+          sizes="(min-width: 750px) 90vw"
+        >
+      {% endif %}
+      <img
+        src="{{ block.settings.desktop_image | default: block.settings.mobile_image | image_url: width: 1200 }}"
+        alt="{{ block.settings.desktop_image.alt | default: block.settings.mobile_image.alt | escape }}"
+        class="ai-responsive-banner-image-{{ ai_gen_id }}"
+        loading="lazy"
+        width="{{ block.settings.desktop_image.width | default: block.settings.mobile_image.width }}"
+        height="{{ block.settings.desktop_image.height | default: block.settings.mobile_image.height }}"
+      >
+    </picture>
+  {% else %}
+    <div class="ai-responsive-banner-placeholder-{{ ai_gen_id }}">
+      {{ 'image' | placeholder_svg_tag }}
+      <div class="ai-responsive-banner-empty-state-{{ ai_gen_id }}">
+        Add desktop and mobile images
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.button_text != blank %}
+    <div class="ai-responsive-banner-button-overlay-{{ ai_gen_id }}">
+      {% if block.settings.button_link != blank %}
+        <a
+          href="{{ block.settings.button_link }}"
+          class="ai-responsive-banner-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_text }}
+        </a>
+      {% else %}
+        <span class="ai-responsive-banner-button-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </span>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Responsive image banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image (landscape)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image (portrait)"
+    },
+    {
+      "type": "header",
+      "content": "Button overlay"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_vertical_position",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Button vertical position",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Button size"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_horizontal_padding",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_vertical_padding",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Responsive image banner"
+    }
+  ]
+}
+{% endschema %}

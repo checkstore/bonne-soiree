@@ -1,0 +1,127 @@
+.recentlyViewedProducts{
+    list-style: none;
+    display: flex;
+    gap: 9px;
+    margin-bottom: 40px;
+    padding: 0;
+}
+
+.listViewedProducts {
+    max-width: var(--page-width);
+    padding: 0 50px;
+    padding-top: 10rem;
+}
+
+.recentlyViewedProducts li{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.recentlyViewedProducts li img{
+    width: 87%; 
+    display: flex;
+    height: 95%;
+    margin: auto;
+}
+
+.recentlyViewedProducts li > a.product-link{
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 11 / 14;
+}
+
+.recentlyViewedProducts li a{
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: initial;
+    color: #000;
+    font-weight: 500;
+    font-family: var(--font-family-primary);
+    text-align: center;
+}
+
+.recentlyViewedProducts li .prices .price{
+    font-weight: bold;
+    font-family: var(--font-family-primary);
+    letter-spacing: 0.05px;
+    
+}
+.recentlyViewedProducts li .prices .compare_at_price{
+    margin-right: 8px;
+    font-family: var(--font-family-primary);
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+h2.title{
+    font-family: var(--font-family-secondary);
+    font-weight: 700;
+    font-size: 40px;
+    text-align: center;
+}
+span.collectionName {
+    display: none;
+    font-weight: 700;
+    color: var(--000000, #000);
+    font-family: var(--font-family-primary);
+}
+
+@media only screen and (max-width: 979px) {
+    .listViewedProducts{
+        display: block;
+    }
+    .recentlyViewedProducts {
+        flex-wrap: wrap;
+        padding: 0 0 0 0;
+        margin: 10px auto 20px;
+        max-width: 91vw;
+    }
+    .recentlyViewedProducts li{
+        width: calc(49% - var(--grid-mobile-horizontal-spacing) / 2);
+        margin-bottom: 25px;
+    }
+
+    .recentlyViewedProducts li img {
+        height: 100%;
+    }
+    .recentlyViewedProducts li a{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 748px){
+    .recentlyViewedProducts {
+        flex-wrap: nowrap;
+        overflow: scroll;
+    }
+
+    .related-products .product-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: scroll;
+    }
+
+    .recentlyViewedProducts li {
+        min-width: calc(49% - var(--grid-mobile-horizontal-spacing) / 2);
+    }
+
+    .listViewedProducts {
+        padding: 0 20px;
+    }   
+
+    h2.title{
+        font-family: var(--font-family-secondary);
+        font-weight: 700;
+        font-size: 30px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 479px){
+    .recentlyViewedProducts li,
+    .related-products .product-grid > li {
+        min-width: calc(79% - var(--grid-mobile-horizontal-spacing) / 2);
+    }
+}

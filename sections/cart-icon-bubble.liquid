@@ -1,0 +1,32 @@
+{% comment %} {% if settings.icon_or_text %}
+  <p class="header-align bag-text desktop-object">{{ 'sections.header.bag' | t }}</p>
+  <span class="visually-hidden desktop-object">{{ 'templates.cart.cart' | t }}</span>
+  <div class="cart-count-bubble-text desktop-object">
+    <span aria-hidden="true">({{ cart.item_count }})</span>
+    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+  </div>
+  {% render 'bag-icon' %}
+  <div class="cart-count-bubble mobile-object">
+    {%- if cart.item_count < 100 -%}
+      <span aria-hidden="true">{{ cart.item_count }}</span>
+    {%- endif -%}
+    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+  </div>
+{% else %} {% endcomment %}
+  {%- liquid
+    if cart == empty
+      render 'icon-cart-empty'
+    else
+      render 'icon-cart'
+    endif
+  -%}
+  <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+  {%- if cart != empty -%}
+    <div class="cart-count-bubble">
+      {%- if cart.item_count < 100 -%}
+        <span aria-hidden="true">{{ cart.item_count }}</span>
+      {%- endif -%}
+      <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+    </div>
+  {%- endif -%}
+{% comment %} {% endif %} {% endcomment %}

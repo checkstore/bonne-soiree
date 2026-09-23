@@ -1,0 +1,93 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var popup = document.getElementById('newsletterPopup');
+        var closeBtn = document.getElementsByClassName('close')[0];
+        var form = document.querySelector('#newsletterPopup form'); // Selecione o formulário dentro do popup
+        var popupDisplayed = getCookie("popupDisplayed");
+        var fromPopupSubmit = getCookie("fromPopupSubmit");
+        const popupContent = document.querySelector(".popup-text");
+        const popupSuccessContent = document.querySelector(".popup-text-success");
+
+        // Se a URL tiver o parâmetro customer_posted=true ou ?form_type=customer#ContactPopUp e o cookie fromPopupSubmit estiver definido
+        if (isCustomerPosted() && fromPopupSubmit) {
+            popup.style.display = "flex";
+            setCookie("popupDisplayed", "true", {{ settings.popup_displayed_days }}); // Define o cookie popupDisplayed após o uso
+            setCookie("fromPopupSubmit", "", -1); // Limpa o cookie fromPopupSubmit após o uso
+        } else if (!popupDisplayed) {
+            setTimeout(function() {
+                popup.style.display = "flex";
+            }, 5000);
+            setCookie("popupDisplayed", "true", {{ settings.popup_displayed_days }});
+        }
+
+        if (form) {
+            var phoneInput = form.querySelector('input[name="contact[phone]"]');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/[^0-9\s\(\)\-\+]/g, '');
+                });
+                
+                phoneInput.addEventListener('keypress', function(e) {
+                    var char = String.fromCharCode(e.which);
+                    if (!/[0-9\s\(\)\-\+]/.test(char)) {
+                        e.preventDefault();
+                    }
+                });
+            }
+            
+            form.addEventListener('submit', function(event) {
+                var phoneValue = phoneInput ? phoneInput.value.replace(/[^0-9]/g, '') : '';
+                if (phoneValue.length < 10) {
+                    event.preventDefault();
+                    alert('Por favor, digite um número de telefone válido com pelo menos 10 dígitos.');
+                    phoneInput.focus();
+                    return false;
+                }
+                setCookie("fromPopupSubmit", "true", 1); // Define o cookie fromPopupSubmit quando o formulário é enviado
+            });
+        }
+
+        if (window.location.search == ('?customer_posted=true')) {
+            popupContent.style.display = "none";
+            popupSuccessContent.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            popup.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == popup) {
+                popup.style.display = "none";
+            }
+        };
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function isCustomerPosted() {
+            var urlParams = new URLSearchParams(window.location.search);
+            return (urlParams.has('customer_posted') && urlParams.get('customer_posted') === 'true') ||
+                   (window.location.search.includes('?form_type=customer') && window.location.hash === '#ContactPopUp') || 
+                   (window.location.search.includes('?form_type=customer'));
+        }
+    });
+</script>

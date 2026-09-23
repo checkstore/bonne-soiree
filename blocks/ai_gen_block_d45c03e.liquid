@@ -1,0 +1,273 @@
+{% doc %}
+  @prompt
+    Create a new image banner section.
+    
+    The banner should display one background image, keeping its original aspect ratio (object-fit: contain) so the image is never cropped.
+    
+    Add soft margins/padding around the image to create elegant spacing (around 5–8% of the viewport width on each side).
+    
+    Background color behind the image: off-white (#F9F8F5) to blend with the site.
+    
+    Button styling:
+    
+    Add a centered button using Times New Roman, font-weight 400.
+    
+    White border (1px solid #FFFFFF), transparent background, white text.
+    
+    On hover: white background, black text.
+    
+    Include controls for button text, link, and alignment.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-image-banner-{{ ai_gen_id }} {
+    background-color: #F9F8F5;
+    padding: 5vw 8vw;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ai-image-banner-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .ai-image-banner-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ai-image-banner-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .ai-image-banner-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    min-height: 400px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-image-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 400px;
+    color: #ccc;
+  }
+
+  .ai-image-banner-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-image-banner-button-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: {{ block.settings.button_alignment }};
+    width: 100%;
+  }
+
+  .ai-image-banner-button-{{ ai_gen_id }} {
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: {{ block.settings.button_font_size }}px;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: {{ block.settings.button_border_radius }}px;
+  }
+
+  .ai-image-banner-button-{{ ai_gen_id }}:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+
+  .ai-image-banner-button-{{ ai_gen_id }}:focus {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-image-banner-{{ ai_gen_id }} {
+      padding: 6vw 5vw;
+    }
+
+    .ai-image-banner-container-{{ ai_gen_id }} {
+      gap: 20px;
+    }
+
+    .ai-image-banner-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_font_size | times: 0.9 }}px;
+      padding: {{ block.settings.button_padding_vertical | times: 0.8 }}px {{ block.settings.button_padding_horizontal | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-image-banner-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-image-banner-container-{{ ai_gen_id }}">
+    <div class="ai-image-banner-image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.banner_image %}
+        <img
+          src="{{ block.settings.banner_image | image_url: width: 2000 }}"
+          alt="{{ block.settings.banner_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.banner_image.width }}"
+          height="{{ block.settings.banner_image.height }}"
+          class="ai-image-banner-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-image-banner-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-image-banner-empty-state-{{ ai_gen_id }}">
+            Add an image to get started
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.button_text != blank %}
+      <div class="ai-image-banner-button-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.button_link != blank %}
+          <a
+            href="{{ block.settings.button_link }}"
+            class="ai-image-banner-button-{{ ai_gen_id }}"
+          >
+            {{ block.settings.button_text }}
+          </a>
+        {% else %}
+          <span class="ai-image-banner-button-{{ ai_gen_id }}">
+            {{ block.settings.button_text }}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_alignment",
+      "label": "Button alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image banner"
+    }
+  ]
+}
+{% endschema %}

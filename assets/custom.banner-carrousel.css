@@ -1,0 +1,151 @@
+.desktop, 
+.desktop-video-slide  {
+    display: block;
+}
+.mobile,
+.mobile-video-slide {
+   display: none;
+}
+
+.slide-banner {
+    position: relative;
+}
+
+.slideshow-banner__content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom:0;
+    width: 100%;
+    height: 80%;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-width: var(--page-width);
+    margin: auto;
+}
+
+div.text-subtitle p {
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 5px 0;
+}
+
+div.text-title p {
+    font-style: normal;
+    font-weight: 800;
+    margin: 5px 0;
+    line-height: normal;
+}
+
+div.text-body p {
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    max-width: 412px;
+    margin: 0;
+}
+
+div.text_button p {
+    display: inline-block;
+    padding: 10px 24px;
+    line-height: normal;
+    margin-top: 24px;
+    cursor: pointer;
+}
+
+.slideshow-banner .swiper {
+   width: 100%;
+}
+
+.slideshow-banner__image {
+   width: 100%;
+}
+
+.slideshow-banner__video{
+    overflow: hidden;
+    width: 100%;
+}
+
+.slideshow-banner__video video {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slideshow-banner__image img {
+   width: 100%;
+   height: 100%;
+    object-fit: fill;
+}
+
+.swiper-pagination-banner-carroussel span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    width: 44px;
+    height: 10px;
+    background: #fff;
+    opacity: 1;
+    border-radius: 35px;
+    border: 1.14px solid #FFF;
+    background: #FFF;
+}
+
+.swiper-pagination-banner-carroussel span.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    opacity: 0.8;
+    border-radius: 35px;
+    border: 1.14px solid #FFF;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+   font-size: 30px;
+   color: #fff;
+}
+
+.swiper-button-next {
+   right: 20px;
+}
+
+.swiper-button-prev {
+   left: 20px; 
+}
+
+@media screen and (min-width: 1440px){
+    .swiper-button-next {
+        right: 80px;
+     }
+     
+     .swiper-button-prev {
+        left: 80px; 
+     }
+}
+
+@media screen and (max-width: 550px){
+    .desktop,
+    .desktop-video-slide {
+        display: none;
+    }
+    .mobile,
+    .mobile-video-slide{
+        display: block;
+    }
+}
+@media screen and (max-width: 1024px) {
+    div.text_button p {
+        margin-top: 10px;
+    }
+}
+
+
+@media screen and (max-width: 425px) {
+
+   .swiper-slideshow .swiper-button-next, 
+   .swiper-slideshow .swiper-button-prev {
+       display: none !important;
+   }
+}

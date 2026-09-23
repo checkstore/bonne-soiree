@@ -1,0 +1,264 @@
+{% doc %}
+  @prompt
+    Crie uma seção chamada Banner de Vídeo Bonne Soirée.
+    
+    Objetivo: exibir um vídeo exatamente como foi enviado, sem cortes, sem distorção e com proporção original preservada.
+    
+    Requisitos técnicos:
+    
+    Permitir upload direto de arquivo (.mp4, .mov etc.), sem precisar de link externo.
+    
+    O vídeo deve ser centralizado e ajustar-se automaticamente à largura da página.
+    
+    Não recortar o vídeo em nenhuma hipótese. Use object-fit: contain em vez de cover.
+    
+    O vídeo deve ocupar no máximo 1100px de largura no desktop e ter margens verticais fixas:
+    
+    margin-top: 80px; margin-bottom: 80px;
+    
+    max-width: 1100px; width: 100%;
+    
+    No tablet: max-width: 820px; margin: 60px auto;
+    
+    No mobile: width: 100%; margin: 40px auto; padding: 0 16px;
+    
+    O contêiner principal deve usar:
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    
+    
+    O elemento <video> deve ter:
+    
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    border: 0;
+    background: transparent;
+    margin: 0 auto;
+    
+    
+    Ativar por padrão: autoplay, muted, loop, playsinline.
+    
+    O fundo da seção deve ser branco ou transparente, para integrar com o layout.
+    
+    A seção deve ser totalmente responsiva, preservando as proporções originais do vídeo em todas as telas.
+    
+    Estilo: minimalista, elegante e centrado — alinhado à identidade Bonne Soirée., o video nao esta aparecendo, preciso que seja com arquivo de video mp4 e não link, preciso que a dimensão do video nao mude e que ele não seja cortado..., ficou otimo! me da a opção de ajustar as margens
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-video-banner-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    width: 100%;
+  }
+
+  .ai-video-banner-container-{{ ai_gen_id }} {
+    max-width: 1100px;
+    width: 100%;
+    margin-top: {{ block.settings.margin_top_desktop }}px;
+    margin-bottom: {{ block.settings.margin_bottom_desktop }}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-video-banner-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ai-video-banner-video-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    border: 0;
+    background: transparent;
+    margin: 0 auto;
+  }
+
+  .ai-video-banner-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-video-banner-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-video-banner-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 989px) and (min-width: 750px) {
+    .ai-video-banner-container-{{ ai_gen_id }} {
+      max-width: 820px;
+      margin-top: {{ block.settings.margin_top_tablet }}px;
+      margin-bottom: {{ block.settings.margin_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-video-banner-container-{{ ai_gen_id }} {
+      width: 100%;
+      margin-top: {{ block.settings.margin_top_mobile }}px;
+      margin-bottom: {{ block.settings.margin_bottom_mobile }}px;
+      padding: 0 16px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-video-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-video-banner-container-{{ ai_gen_id }}">
+    <div class="ai-video-banner-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.video_file != blank %}
+        <video
+          class="ai-video-banner-video-{{ ai_gen_id }}"
+          autoplay
+          muted
+          loop
+          playsinline
+          {% if block.settings.video_controls %}controls{% endif %}
+        >
+          {% for source in block.settings.video_file.sources %}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {% endfor %}
+        </video>
+      {% else %}
+        <div class="ai-video-banner-placeholder-{{ ai_gen_id }}">
+          {{ 'hero-apparel-1' | placeholder_svg_tag }}
+          <div class="ai-video-banner-empty-state-{{ ai_gen_id }}">
+            Faça upload de um arquivo de vídeo (.mp4, .mov)
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner de vídeo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Arquivo de vídeo",
+      "info": "Faça upload de um arquivo .mp4 ou .mov. O vídeo será exibido na proporção original sem cortes."
+    },
+    {
+      "type": "checkbox",
+      "id": "video_controls",
+      "label": "Mostrar controles",
+      "default": false,
+      "info": "Ativa os controles de play/pause do vídeo"
+    },
+    {
+      "type": "header",
+      "content": "Margens desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Margem superior",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Margem inferior",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Margens tablet"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_tablet",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Margem superior",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_tablet",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Margem inferior",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Margens mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Margem superior",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Margem inferior",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner de vídeo"
+    }
+  ]
+}
+{% endschema %}

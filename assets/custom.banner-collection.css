@@ -1,0 +1,208 @@
+.section-width{
+    margin: 0 auto;  
+}
+
+.banner-colecao__content {
+    display: flex;
+    align-items: center;
+}
+
+.img-desktop{
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.img-mobile{
+    display: none;
+    width: 100%;
+}
+
+.img-desktop-default{
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.img-mobile-default{
+    display: none;
+    width: 100%;
+}
+
+
+.banner-colecao__text1 .banner-colecao__title{
+    font-style: normal;
+    font-weight: 600;
+    line-height: 71.25px;
+    margin: 10px 50px;
+}
+
+.banner-colecao__text1 .banner-colecao__description{
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26.25px; /* 164.063% */
+    margin: 10px 50px;
+}
+
+.banner-colecao__text2 {
+    position: relative;
+    margin: -150px 20px 25px;;
+    padding: 25px;
+    border-radius: 2px;
+    box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.25);
+}
+
+.banner-colecao__text2 .banner-colecao__title{
+    font-style: normal;
+    font-weight: 600;
+    margin: 0px;
+}
+
+.banner-colecao__text2 .banner-colecao__description{
+    font-style: normal;
+    font-weight: 400;
+}
+
+.banner-colecao__text3{
+    margin: -180px 50px 45px 50px;
+}
+
+.banner-colecao__text3 .banner-colecao__title{
+    margin: 15px 0px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.banner-colecao__text3 .banner-colecao__description{
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 748px) {
+    .banner-colecao__text1 .banner-colecao__title{
+        font-size: 37px;
+        margin: 10px 15px;
+    }
+    
+    .banner-colecao__text1 .banner-colecao__description{
+        margin: 10px 15px
+    }
+
+    .banner-colecao__text2 {
+        width: 460px;
+    }
+
+    .banner-colecao__text3 {
+        margin: -180px 28px 45px;
+    }
+    .banner-colecao__text3 .banner-colecao__title {
+        font-size: 30px;
+    }
+
+    .banner-colecao__text3 .banner-colecao__description {
+        width: 400px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .banner-colecao__text2 {
+        width: 380px;
+    }
+
+    .banner-colecao__text2 .banner-colecao__title{
+        font-size: 37px;
+    }
+    
+    .banner-colecao__text2 .banner-colecao__description{
+        margin: 10px 15px;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        display: -webkit-box;
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical; 
+    }
+
+    .banner-colecao__text3 .banner-colecao__description {
+        width: 320px;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        display: -webkit-box;
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical; 
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .banner-colecao .banner-colecao__content div > h2.banner-collection-title {
+        font-size: 20px;
+        letter-spacing: 1px;
+        font-weight: 700; 
+    }
+    .banner-colecao .banner-colecao__content div > p.banner-collection-description {
+        font-size: 12px; 
+        font-weight: 400;
+        line-height: 18px;
+        padding: 0 0 20px 0;
+    }
+}
+
+@media (max-width: 460px) {
+    .img-desktop{
+        display: none;
+    }
+
+    .img-mobile{
+        display: block;
+        height: 240px;
+        object-fit: cover;
+    }
+    
+    .img-desktop-default{
+        display: none;
+    }
+
+    .img-mobile-default{
+        display: block;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .banner-colecao__text1 .banner-colecao__title{
+        font-size: 37px;
+        margin: 10px 15px;
+    }
+    
+    .banner-colecao__text1 .banner-colecao__description{
+        font-size: 14px;
+        margin: 10px 15px
+    }
+
+    .banner-colecao__text2 {
+        margin: -180px 20px 0px;
+    }
+}
+
+@media (max-width: 375px) {
+
+    .banner-colecao__text2 {
+        width: 340px;
+    }
+}
+
+@media (max-width: 320px) {
+
+    .banner-colecao__text2 {
+        width: 300px;
+    }
+
+    .banner-colecao__text3 .banner-colecao__description {
+        width: 230px;
+    }
+}

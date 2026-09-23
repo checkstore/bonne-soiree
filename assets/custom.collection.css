@@ -1,0 +1,126 @@
+.banner-colecao__text1 .banner-colecao__description {
+    font-family: var(--font-family-primary);
+}
+
+.card--standard>.card__content .card__information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card--standard>.card__content{
+    padding: 0 15px;
+
+}
+
+/* .collection-grid-width {
+    max-width: 1920px;
+    width: 100%;
+    padding: 0 35px;
+  } */
+  
+.collection-badge {
+    max-width:150px;
+    height: auto;
+    font-size: 12px; 
+  background-color: #fff!important;
+  color: #000!important;
+    border-radius: 0;
+    text-transform: uppercase;
+  float: left;
+}
+
+.main-container__quick-add product-form .quick-add-btn__product-collection-card {
+    background-color: #000;
+    border-radius: 50%;
+    width: 32px;
+    min-height: 32px;
+}
+
+.card__content div.main-container__quick-add-collection {
+    position: absolute;
+    top: 1.5%;
+    left: 90%;
+}
+
+.collection-filters__container {
+    padding: 0 10px;
+}
+
+.product-grid-container .collection {
+    padding: 0 10px;
+}
+
+.price-item--regular {
+    letter-spacing: -0.5px;
+}
+
+.price .price-item {
+    letter-spacing: -0.5px;
+}
+
+span.mobile-facets__open-label.button-label.small-hide {
+    text-transform: uppercase;
+    font-family: var(--font-family-primary);
+}
+
+span#ProductCount {
+    font-weight: 600;
+    font-family: var(--font-family-primary);
+}
+
+.card--card.gradient,
+.card__inner.gradient {
+    background-color: transparent;
+}
+
+.collection {
+    padding: 0 !important;
+}
+
+@media screen and (max-width: 1500px){
+    .card__content div.main-container__quick-add-collection {
+        position: absolute;
+        top: 1.5%;
+        left: calc(90% - 12px);
+    }
+}
+
+  
+@media screen and (max-width: 1023px) {
+    .quick-add-btn__product-collection-card {
+        display: none;
+    }
+}
+  
+@media screen and (max-width: 500px) {
+    /* .collection-grid-width {
+        padding: 0 25px;
+    } 
+    .collection-filters__container {
+        padding: 0 25px;
+    }
+     */
+
+    /* .collection .product-grid .card__heading{
+        text-align: left;
+    }
+    .card__content .card__information  div.custom__card-information {
+        justify-content: start;
+        align-items: start;
+    } */
+    /* .card--standard > .card__content .card__information {
+        align-items: start;
+    } */
+    .collection .installment-text{
+        text-align: center;
+    }
+    .collection-badge {
+        font-size: 11px;
+        padding-inline: 7px;
+
+        /* position: absolute;
+        left: 67%;
+        top: 3%; */
+    }
+}

@@ -1,0 +1,374 @@
+{% doc %}
+  @prompt
+    Create a Shopify Online Store 2.0 section called “Featured Collection — Four Products”, with a minimal and editorial Bonne Soirée aesthetic.
+    
+    Include a Shopify collection picker and display the first four products.
+    Arrange the products in a 2 × 2 grid, with two products per row on desktop and mobile.
+    Set the product grid maximum width to 700px and center it horizontally.
+    Use 32px side padding on desktop and 12px on mobile.
+    Maintain consistent horizontal and vertical spacing without page overflow.
+    Place every product image inside an identical 4 / 5 aspect-ratio container.
+    Use overflow: hidden and object-fit: cover.
+    Set images to width: 100%, height: 100% and object-position: center.
+    All images must have exactly the same displayed dimensions.
+    Ensure all product titles begin at the same vertical position.
+    Display the product title and price below each image.
+    Show the original and sale prices when applicable.
+    Make the image and title clickable and link them to the product page.
+    Do not include quick-add buttons, badges, overlays, descriptions, reviews, borders, shadows or rounded corners.
+    Use a full-width white background (#ffffff) across the entire section, including cards, margins, gaps and spacing.
+    Include settings for the collection, optional heading, number of products, maximum width, desktop and mobile padding, horizontal and vertical gaps, top and bottom spacing, and showing or hiding prices.
+    Default vertical spacing: 32px on desktop and 20px on mobile.
+    Make the section fully responsive and compatible with Shopify Online Store 2.0.
+    Do not display Markdown code fences such as “```liquid” on the page.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-featured-collection-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: #ffffff;
+    padding-top: {{ block.settings.spacing_top_mobile }}px;
+    padding-bottom: {{ block.settings.spacing_bottom_mobile }}px;
+  }
+
+  .ai-featured-collection__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding-left: {{ block.settings.padding_mobile }}px;
+    padding-right: {{ block.settings.padding_mobile }}px;
+  }
+
+  .ai-featured-collection__heading-{{ ai_gen_id }} {
+    margin: 0 0 {{ block.settings.gap_vertical_mobile }}px;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    color: #000000;
+  }
+
+  .ai-featured-collection__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ block.settings.gap_vertical_mobile }}px {{ block.settings.gap_horizontal_mobile }}px;
+  }
+
+  .ai-featured-collection__product-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-featured-collection__image-link-{{ ai_gen_id }} {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 12px;
+  }
+
+  .ai-featured-collection__image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 125%;
+    overflow: hidden;
+    background-color: #f9f9f9;
+  }
+
+  .ai-featured-collection__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .ai-featured-collection__info-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-featured-collection__title-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  .ai-featured-collection__title-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 0 6px;
+    color: #000000;
+    line-height: 1.4;
+  }
+
+  .ai-featured-collection__price-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+  }
+
+  .ai-featured-collection__price-compare-{{ ai_gen_id }} {
+    text-decoration: line-through;
+    color: #999999;
+    margin-right: 8px;
+  }
+
+  .ai-featured-collection__price-sale-{{ ai_gen_id }} {
+    color: #000000;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-featured-collection-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.spacing_top_desktop }}px;
+      padding-bottom: {{ block.settings.spacing_bottom_desktop }}px;
+    }
+
+    .ai-featured-collection__container-{{ ai_gen_id }} {
+      padding-left: {{ block.settings.padding_desktop }}px;
+      padding-right: {{ block.settings.padding_desktop }}px;
+    }
+
+    .ai-featured-collection__heading-{{ ai_gen_id }} {
+      margin-bottom: {{ block.settings.gap_vertical_desktop }}px;
+      font-size: 22px;
+    }
+
+    .ai-featured-collection__grid-{{ ai_gen_id }} {
+      gap: {{ block.settings.gap_vertical_desktop }}px {{ block.settings.gap_horizontal_desktop }}px;
+    }
+
+    .ai-featured-collection__title-{{ ai_gen_id }} {
+      font-size: 16px;
+    }
+
+    .ai-featured-collection__price-{{ ai_gen_id }} {
+      font-size: 16px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-featured-collection-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-featured-collection__container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-featured-collection__heading-{{ ai_gen_id }}">
+        {{ block.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if block.settings.collection != blank %}
+      <div class="ai-featured-collection__grid-{{ ai_gen_id }}">
+        {% assign products_limit = block.settings.products_to_show | at_most: 4 %}
+        {% for product in block.settings.collection.products limit: products_limit %}
+          <div class="ai-featured-collection__product-{{ ai_gen_id }}">
+            <a
+              href="{{ product.url }}"
+              class="ai-featured-collection__image-link-{{ ai_gen_id }}"
+              aria-label="{{ product.title }}"
+            >
+              <div class="ai-featured-collection__image-container-{{ ai_gen_id }}">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 800 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    class="ai-featured-collection__image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="800"
+                    height="1000"
+                  >
+                {% else %}
+                  <img
+                    src="{{ 'product-apparel-1' | placeholder_svg_tag }}"
+                    alt="{{ product.title | escape }}"
+                    class="ai-featured-collection__image-{{ ai_gen_id }}"
+                  >
+                {% endif %}
+              </div>
+            </a>
+
+            <div class="ai-featured-collection__info-{{ ai_gen_id }}">
+              <a
+                href="{{ product.url }}"
+                class="ai-featured-collection__title-link-{{ ai_gen_id }}"
+              >
+                <h3 class="ai-featured-collection__title-{{ ai_gen_id }}">
+                  {{ product.title }}
+                </h3>
+              </a>
+
+              {% if block.settings.show_price %}
+                <div class="ai-featured-collection__price-{{ ai_gen_id }}">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="ai-featured-collection__price-compare-{{ ai_gen_id }}">
+                      {{ product.compare_at_price | money }}
+                    </span>
+                    <span class="ai-featured-collection__price-sale-{{ ai_gen_id }}">
+                      {{ product.price | money }}
+                    </span>
+                  {% else %}
+                    {{ product.price | money }}
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "gap_horizontal_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop horizontal gap",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile horizontal gap",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "gap_vertical_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop vertical gap",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "gap_vertical_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile vertical gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop top spacing",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "spacing_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile top spacing",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop bottom spacing",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile bottom spacing",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection"
+    }
+  ]
+}
+{% endschema %}

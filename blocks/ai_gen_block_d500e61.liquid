@@ -1,0 +1,339 @@
+{% doc %}
+  @prompt
+    Create a new Shopify Online Store 2.0 section called “Single Editorial Banner” in the Bonne Soirée style — minimal, refined, editorial, and clean.
+    
+    Purpose:
+    
+    Display one large campaign image as a standalone banner.
+    
+    The same section will be duplicated on the page to create multiple separate banners, so each section must maintain visible spacing above and below it using the background color `#ebe4d8`.
+    
+    Layout:
+    
+    Desktop:
+    
+    * Display one single image.
+    * Center the banner horizontally.
+    * Maximum section width: 1280px.
+    * Side padding: 32px.
+    * The image should not occupy the entire browser width.
+    * Maintain visible margins on the left and right.
+    * Add 16px of spacing above and below the section so duplicated banners never touch each other.
+    * The entire section background, including all margins and spacing, must use the color `#ebe4d8`.
+    
+    Mobile:
+    
+    * Display one single image.
+    * Side padding: 12px.
+    * Add 8px of spacing above and below the section.
+    * The image should remain fully responsive.
+    * The entire section background, including all margins and spacing, must use the color `#ebe4d8`.
+    
+    Image:
+    
+    * Include one desktop image picker.
+    * Allow a separate mobile image.
+    * If no mobile image is selected, use the desktop image.
+    * Preserve the original image proportions.
+    * Use width: 100%.
+    * Use height: auto.
+    * Do not crop the image.
+    * Do not use object-fit: cover.
+    * No rounded corners.
+    * No borders.
+    * No shadows.
+    
+    Link:
+    
+    * Include an optional link for the entire banner.
+    * The whole image should be clickable when a link is added.
+    * Do not display any visible button, text, overlay, or icon.
+    
+    Settings:
+    
+    * Desktop image picker.
+    * Optional mobile image picker.
+    * Optional banner link.
+    * Adjustable maximum section width.
+    * Adjustable desktop side padding.
+    * Adjustable mobile side padding.
+    * Adjustable top spacing.
+    * Adjustable bottom spacing.
+    
+    Background:
+    
+    * Set the entire section background color to `#ebe4d8`.
+    * The background color must extend across the full browser width.
+    * Apply `#ebe4d8` to the side margins and the spacing above and below the banner.
+    * Do not display any white background, white gaps, or white strips around or between duplicated sections.
+    * The background color must remain consistent on desktop and mobile.
+    
+    Style:
+    
+    The result should feel like a luxury fashion campaign banner.
+    
+    Minimal and editorial, with clean spacing around the image using the background color `#ebe4d8`.
+    
+    The banner must remain visually separate from any duplicated banner placed directly above or below it.
+    
+    The section must be fully responsive and compatible with Shopify Online Store 2.0.
+    , Update the “Single Editorial Banner” section with the following image requirements:
+    
+    * The desktop banner image will be uploaded at 8000 × 5111 pixels.
+    * Preserve the exact original aspect ratio of 8000:5111.
+    * Display the complete image without cropping, stretching, distortion, or repositioning.
+    * Use width: 100% and height: auto.
+    * Scale the image down responsively to fit within the section’s adjustable maximum width.
+    * Do not force the image to render at its full 8000-pixel width.
+    * Do not use a fixed height.
+    * Do not use aspect-ratio containers that crop the image.
+    * Do not use object-fit: cover.
+    * The complete image must remain visible on both desktop and mobile.
+    * Keep the section background color `#ebe4d8`, including all margins and spacing around the banner.
+    * Maintain all previously created settings and functionality.
+    , Remova o texto visível “```liquid” desta seção. Ele foi inserido por engano e não deve aparecer na página. Não altere nenhum outro elemento, imagem, espaçamento, configuração ou cor de fundo da seção.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-banner-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: #ebe4d8;
+    padding-top: {{ block.settings.spacing_top_mobile }}px;
+    padding-bottom: {{ block.settings.spacing_bottom_mobile }}px;
+  }
+
+  .ai-editorial-banner-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding-left: {{ block.settings.padding_mobile }}px;
+    padding-right: {{ block.settings.padding_mobile }}px;
+  }
+
+  .ai-editorial-banner-link-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .ai-editorial-banner-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-editorial-banner-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.spacing_top_desktop }}px;
+      padding-bottom: {{ block.settings.spacing_bottom_desktop }}px;
+    }
+
+    .ai-editorial-banner-container-{{ ai_gen_id }} {
+      padding-left: {{ block.settings.padding_desktop }}px;
+      padding-right: {{ block.settings.padding_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<single-editorial-banner-{{ ai_gen_id }}
+  class="ai-editorial-banner-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-editorial-banner-container-{{ ai_gen_id }}">
+    {% if block.settings.banner_link != blank %}
+      <a
+        href="{{ block.settings.banner_link }}"
+        class="ai-editorial-banner-link-{{ ai_gen_id }}"
+        aria-label="View campaign"
+      >
+        {% if block.settings.mobile_image != blank %}
+          <picture>
+            <source
+              media="(min-width: 750px)"
+              srcset="{{ block.settings.desktop_image | image_url: width: 8000 }}"
+            >
+            <img
+              src="{{ block.settings.mobile_image | image_url: width: 2000 }}"
+              alt="{{ block.settings.mobile_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.mobile_image.width }}"
+              height="{{ block.settings.mobile_image.height }}"
+              class="ai-editorial-banner-image-{{ ai_gen_id }}"
+            >
+          </picture>
+        {% elsif block.settings.desktop_image != blank %}
+          <img
+            src="{{ block.settings.desktop_image | image_url: width: 8000 }}"
+            alt="{{ block.settings.desktop_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.desktop_image.width }}"
+            height="{{ block.settings.desktop_image.height }}"
+            class="ai-editorial-banner-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-editorial-banner-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </a>
+    {% else %}
+      {% if block.settings.mobile_image != blank %}
+        <picture>
+          <source
+            media="(min-width: 750px)"
+            srcset="{{ block.settings.desktop_image | image_url: width: 8000 }}"
+          >
+          <img
+            src="{{ block.settings.mobile_image | image_url: width: 2000 }}"
+            alt="{{ block.settings.mobile_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.mobile_image.width }}"
+            height="{{ block.settings.mobile_image.height }}"
+            class="ai-editorial-banner-image-{{ ai_gen_id }}"
+          >
+        </picture>
+      {% elsif block.settings.desktop_image != blank %}
+        <img
+          src="{{ block.settings.desktop_image | image_url: width: 8000 }}"
+          alt="{{ block.settings.desktop_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.desktop_image.width }}"
+          height="{{ block.settings.desktop_image.height }}"
+          class="ai-editorial-banner-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-editorial-banner-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</single-editorial-banner-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class SingleEditorialBanner{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+
+    customElements.define('single-editorial-banner-{{ ai_gen_id }}', SingleEditorialBanner{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Single editorial banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "header",
+      "content": "Link"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum section width",
+      "min": 800,
+      "max": 1600,
+      "step": 40,
+      "unit": "px",
+      "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "label": "Desktop side padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "label": "Mobile side padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "spacing_top_desktop",
+      "label": "Desktop top spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom_desktop",
+      "label": "Desktop bottom spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "spacing_top_mobile",
+      "label": "Mobile top spacing",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom_mobile",
+      "label": "Mobile bottom spacing",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Single editorial banner"
+    }
+  ]
+}
+{% endschema %}

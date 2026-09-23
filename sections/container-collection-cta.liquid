@@ -1,0 +1,260 @@
+{{ "custom.container-collection-cta.css" |  asset_url |  stylesheet_tag  }}
+{% render 'variables.container-collection-cta' %}
+
+<div class="container_collection_cta">
+    <div class="container_info">
+        <h2 class="title_info">{{ section.settings.title }}</h2>
+        <p class="description_info">{{ section.settings.description }}</p>
+        <a href="{{ section.settings.btn_url }}" class="btn_info">{{ section.settings.btn_text }}</a>
+    </div>
+    <div class="container_image">
+        <img src="{{ section.settings.image | img_url: 'master' }}" alt="Image CTA" class="image">
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Container Collection CTA",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Content"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Title"
+        },
+        {
+            "type": "text",
+            "id": "description",
+            "label": "Description",
+            "default": "Description"
+        },
+        {
+            "type": "url",
+            "id": "btn_url",
+            "label": "URL"
+        },
+        {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Text Button"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "header",
+            "content": "Configuration section"
+        },
+        {
+        "type": "header",
+        "content": "Direction section"
+        },
+        {
+            "type": "checkbox",
+            "id": "direction_section",
+            "label": "Reverse section?",
+            "default": false
+        },
+        {
+        "type": "header",
+        "content": "Height section"
+        },
+        {
+        "type": "select",
+        "id": "height_section",
+        "label": "Height section",
+        "default": "960px",
+        "options": [
+            { "value": "960px", "label": "960px" },
+            { "value": "700px", "label": "700px" }
+        ]
+        },
+        {
+        "type": "header",
+        "content": "Width section"
+        },
+        {
+        "type": "select",
+        "id": "width_section",
+        "label": "Width section",
+        "default": "100%",
+        "options": [
+            { "value": "100%", "label": "Full width" },
+            { "value": "--page-width", "label": "Page width" }
+        ]
+        },
+        {
+            "type": "header",
+            "content": "Desktop gap section"
+        },
+        {
+            "type": "range",
+            "id": "desktop_gap_section",
+            "label": "Gap section",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "Mobile gap section"
+        },
+        {
+            "type": "range",
+            "id": "mobile_gap_section",
+            "label": "Gap section",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "Desktop padding section"
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_right_section",
+            "label": "Right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_left_section",
+            "label": "Left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_top_section",
+            "label": "Top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "desktop_padding_bottom_section",
+            "label": "Bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "Mobile padding section"
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_right_section",
+            "label": "Right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_left_section",
+            "label": "Left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_top_section",
+            "label": "Top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mobile_padding_bottom_section",
+            "label": "Bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "Configuration CTA"
+        },
+        {
+            "type": "color",
+            "id": "color_title",
+            "label": "Color Title",
+            "default": "#F3F3F1"
+        },
+        {
+            "type": "color",
+            "id": "color_description",
+            "label": "Color Description",
+            "default": "#F3F3F1"
+        },
+        {
+            "type": "color",
+            "id": "color_btn",
+            "label": "Color Button",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "color_background_btn",
+            "label": "Background color button",
+            "default": "#FFFFFF" 
+        },
+        {
+            "type": "color",
+            "id": "color_btn_hover",
+            "label": "Color Button hover",
+            "default": "#FFFFFF"
+        },
+        {
+            "type": "color",
+            "id": "color_background_btn_hover",
+            "label": "Background color button hover",
+            "default": "#000000" 
+        },
+        {
+            "type": "range",
+            "id": "border_radius_btn",
+            "label": "Border radius button",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30
+        },
+        {
+            "type": "color",
+            "id": "color_background_cta",
+            "label": "Background color CTA",
+            "default": "#232A22"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Container Collection CTA"
+        }
+    ]
+}
+{% endschema %}

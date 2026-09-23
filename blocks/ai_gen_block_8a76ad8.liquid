@@ -1,0 +1,513 @@
+{% doc %}
+  @prompt
+    Create a responsive section with 4 image banners displayed with no spacing between them (no gaps or margins).
+    
+    On desktop: display all 4 banners side by side in a single row (4 columns, full width).
+    On mobile: display 2 banners per row (2 columns), maintaining equal proportions.
+    
+    Each banner must include:
+    
+    An individual image
+    
+    An individual link (entire banner clickable)
+    
+    A centered button overlay with customizable text
+    
+    The entire banner area should be clickable, not only the button.
+    
+    Add customizable settings in the section schema for:
+    
+    Image upload (per banner)
+    
+    Link URL (per banner)
+    
+    Button text (per banner)
+    
+    Button text color
+    
+    Button border color
+    
+    Button background color (including transparent option)
+    
+    Button hover background color
+    
+    Button hover text color
+    
+    Font size (desktop and mobile separately)
+    
+    Button padding
+    
+    Border thickness
+    
+    Text alignment (center by default)
+    
+    The layout must remain clean and proportional across screen sizes.
+    Ensure proper responsiveness and independent control for desktop and mobile styles., Update the banner images so they are no longer forced into a square aspect ratio.
+    Allow the image ratio to be customizable (for example: portrait, landscape, or a custom aspect ratio).
+    Ensure images keep their natural proportions and do not appear cropped or stretched.
+    Maintain full-width layout and responsiveness on both desktop and mobile., Allow the button border size to be fully customizable.
+    Add a setting to control border thickness (in pixels), independent from the button text length.
+    Ensure the button width and height are controlled by padding settings, not automatically defined by the text size., Ensure the button font remains Times New Roman when a link is applied.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% liquid
+  if block.settings.aspect_ratio == 'natural'
+    assign use_aspect_ratio = false
+  else
+    assign use_aspect_ratio = true
+  endif
+%}
+
+{% style %}
+  .ai-banner-grid-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-banner-grid__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    width: 100%;
+  }
+
+  .ai-banner-grid__item-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    {% if use_aspect_ratio %}
+      {% case block.settings.aspect_ratio %}
+        {% when 'square' %}
+          aspect-ratio: 1 / 1;
+        {% when 'portrait' %}
+          aspect-ratio: 3 / 4;
+        {% when 'landscape' %}
+          aspect-ratio: 4 / 3;
+        {% when 'wide' %}
+          aspect-ratio: 16 / 9;
+        {% when 'custom' %}
+          aspect-ratio: {{ block.settings.custom_aspect_width }} / {{ block.settings.custom_aspect_height }};
+      {% endcase %}
+    {% endif %}
+  }
+
+  .ai-banner-grid__link-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: 100%;
+    {% if use_aspect_ratio %}
+      height: 100%;
+    {% endif %}
+    text-decoration: none;
+  }
+
+  .ai-banner-grid__image-{{ ai_gen_id }} {
+    width: 100%;
+    {% if use_aspect_ratio %}
+      height: 100%;
+      object-fit: cover;
+    {% else %}
+      height: auto;
+      object-fit: contain;
+    {% endif %}
+    display: block;
+  }
+
+  .ai-banner-grid__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    {% if use_aspect_ratio %}
+      height: 100%;
+    {% else %}
+      min-height: 300px;
+    {% endif %}
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-banner-grid__placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-banner-grid__button-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }};
+    font-size: {{ block.settings.button_font_size_desktop }}px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: {{ block.settings.button_text_alignment }};
+    cursor: pointer;
+    pointer-events: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .ai-banner-grid__link-{{ ai_gen_id }}:hover .ai-banner-grid__button-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-banner-grid__container-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ai-banner-grid__button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_font_size_mobile }}px;
+      padding: {{ block.settings.button_padding_vertical_mobile }}px {{ block.settings.button_padding_horizontal_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<banner-grid-{{ ai_gen_id }} class="ai-banner-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-banner-grid__container-{{ ai_gen_id }}">
+    {% for i in (1..4) %}
+      {% liquid
+        assign image_key = 'banner_' | append: i | append: '_image'
+        assign link_key = 'banner_' | append: i | append: '_link'
+        assign button_text_key = 'banner_' | append: i | append: '_button_text'
+        
+        assign banner_image = block.settings[image_key]
+        assign banner_link = block.settings[link_key]
+        assign button_text = block.settings[button_text_key]
+      %}
+      
+      <div class="ai-banner-grid__item-{{ ai_gen_id }}">
+        {% if banner_link != blank %}
+          <a href="{{ banner_link }}" class="ai-banner-grid__link-{{ ai_gen_id }}">
+        {% else %}
+          <div class="ai-banner-grid__link-{{ ai_gen_id }}">
+        {% endif %}
+          
+          {% if banner_image %}
+            <img
+              src="{{ banner_image | image_url: width: 800 }}"
+              alt="{{ banner_image.alt | escape }}"
+              loading="lazy"
+              width="{{ banner_image.width }}"
+              height="{{ banner_image.height }}"
+              class="ai-banner-grid__image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-banner-grid__placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+          
+          {% if button_text != blank %}
+            <div class="ai-banner-grid__button-{{ ai_gen_id }}">
+              {{ button_text }}
+            </div>
+          {% endif %}
+          
+        {% if banner_link != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</banner-grid-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BannerGrid{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+    
+    customElements.define('banner-grid-{{ ai_gen_id }}', BannerGrid{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Image banner grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "natural",
+          "label": "Natural"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "wide",
+          "label": "Wide (16:9)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "natural"
+    },
+    {
+      "type": "range",
+      "id": "custom_aspect_width",
+      "label": "Custom aspect width",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "custom_aspect_height",
+      "label": "Custom aspect height",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 9
+    },
+    {
+      "type": "header",
+      "content": "Banner 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "banner_1_button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "header",
+      "content": "Banner 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "banner_2_button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "header",
+      "content": "Banner 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "banner_3_button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "header",
+      "content": "Banner 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "banner_4_button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Button size desktop"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_desktop",
+      "label": "Font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Vertical padding",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Button size mobile"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "label": "Font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal_mobile",
+      "label": "Horizontal padding",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical_mobile",
+      "label": "Vertical padding",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "button_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image banner grid"
+    }
+  ]
+}
+{% endschema %}

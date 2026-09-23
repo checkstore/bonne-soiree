@@ -1,0 +1,78 @@
+<style>
+    .breadcrumbs__list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .breadcrumbs__item {
+      display: inline-block;
+      font: var(--d-title-small);
+      text-transform: lowercase;
+      font-size: 14px!important;
+    }
+  
+    .breadcrumbs__item:not(:first-child) {
+      margin-left: 0.5rem;
+    }
+  
+    .breadcrumbs__item a {
+      text-decoration: none;
+      color: #767676;
+    }
+  
+    .breadcrumbs__item:not(:last-child):after {
+      content: '>';
+      color: #767676;
+    }
+  
+    .breadcrumbs__link {
+      text-decoration: underline;
+    }
+  
+    @media screen and (max-width: 1024px) {
+      .breadcrumbs__item {
+        font: var(--t-title-small);
+      }
+    }
+  
+    @media screen and (max-width: 768px) {
+      .breadcrumbs__item {
+        font: var(--m-title-small);
+      }
+    }
+  .breadcrumbs {
+    font-size: 14px!important;
+  }
+  </style>
+  
+  {% assign thecollection = product.metafields.collection.collection.value %}
+  {% assign thecollection = thecollection | handleize %}
+  
+  {%- assign t = template | split: '.' | first -%}
+  <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+    <ol class="breadcrumbs__list">
+      <li class="breadcrumbs__item">
+        <a class="breadcrumbs__link" href="/collections/shop-all">Collections</a>
+      </li>
+      {% if product.metafields.collection.collection.value != blank %}
+        <li class="breadcrumbs__item">
+          {% if collections[thecollection].products.size > 1 %}
+            <!--<a class="breadcrumbs__link" href="/collections/{{ product.metafields.collection.collection.value | handle }}">-->
+            <a class="breadcrumbs__link" href="/">
+          {% else %}
+            <a class="breadcrumbs__link" href="{{ product.url }}">
+          {% endif %}
+            {% assign collection = product.metafields.collection.collection | strip_html | remove: '[' | remove: ']' | remove: '"' %} 
+            {{ collection }} {% render 'breadcrumb-arrow' %}
+          </a>
+        </li>
+      {% else %}
+        {%  for collection in product.collections limit: 1 %}
+          <li class="breadcrumbs__item">
+            <a class="breadcrumbs__link" href="{{ collection.url }}">{{ collection.title | strip_html | truncate: 24 }} {% render 'breadcrumb-arrow' %}</a>
+          </li>
+        {% endfor %}
+      {% endif %}
+  </nav>
+  

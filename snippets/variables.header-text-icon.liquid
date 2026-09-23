@@ -1,0 +1,18 @@
+<style>
+  {% if settings.icon_or_text %}
+    
+    .header__icon:not(.header__icon--summary), .header__icon span{
+        text-decoration: none;
+    }
+
+    .header__icons {
+      gap: 20px;
+      font-weight: 700;
+      font-family: var(--font-family-primary);
+    }
+    
+    .cart-count-bubble-text {
+    margin-left: 2px;
+    }
+  {% endif %}
+</style>

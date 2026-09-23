@@ -1,0 +1,47 @@
+<style>
+  {% if cart.item_count >= 1 %}
+    {% if settings.full_width %}
+      #MainContent.page_cart {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1300px;
+        margin: 0 auto;
+        gap: 20px;
+        align-items: flex-start;
+        padding: 50px;
+        width: 100%;
+      }
+    {% else %}
+      #MainContent.page_cart {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: var(--page-width);
+        margin: 0 auto;
+        gap: 20px;
+        align-items: flex-start;
+        padding: 50px;
+        width: 100%;
+      }
+    {% endif %}
+  
+    #MainContent.page_cart > :nth-of-type(1) {
+      width: calc(70% - 20px);
+    }
+
+    #MainContent.page_cart > :nth-of-type(2) {
+      width: calc(30%);
+    }
+
+    #MainContent.page_cart > :nth-of-type(3) {
+      width: 100%;
+    }
+  {% elsif cart.item_count == 0 %}
+    #MainContent.page_cart {
+        display: flex;
+        flex-direction: column;
+    }
+    #MainContent.page_cart > :nth-of-type(1) {
+        width: 100%;
+    }
+{% endif %}
+</style>

@@ -1,0 +1,182 @@
+{{ 'custom.banner-collection.css' |  asset_url |  stylesheet_tag}}
+{% render 'variables.banner-collection' %}
+<div>
+    <div class="banner-colecao">
+        <div class="banner-colecao__image">
+            {% if collection.metafields.custom.banner_desktop and collection.metafields.custom.banner_mobile  %}
+                <img class="img-desktop" src="{{ collection.metafields.custom.banner_desktop | img_url: '1500x' }}" alt="Imagem Desktop">       
+                <img class="img-mobile" src="{{ collection.metafields.custom.banner_mobile | image_url: width: 1500 }} 1500w" alt="Imagem Mobile">
+            {% else %}          
+                <img class="img-desktop-default" src="{{ section.settings.image_padrao_desk | image_url: width: 1500 }} 1500w" alt="Imagem Padrão Desktop">        
+                <img class="img-mobile-default" src="{{ section.settings.image_padrao_mobile | image_url: width: 1500 }} 1500w" alt="Imagem Padrão Mobile">
+            {% endif %}
+        </div>
+        <div class="banner-colecao__content section-width">
+            <div class="{% if section.settings.estilizacao_type == 'estilo1' %} banner-colecao__text1 {% elsif section.settings.estilizacao_type == 'estilo2' %}banner-colecao__text2 {% elsif section.settings.estilizacao_type == 'estilo3' %}banner-colecao__text3{% endif %}">
+                <h2 class="banner-colecao__title banner-collection-title ">{{ collection.title }}</h2>
+                <p class="banner-colecao__description banner-collection-description">{{ collection.metafields.custom.descricao | truncatewords: 28 }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Banner de Coleção",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image_padrao_desk",
+            "label": "Imagem Default Desktop"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_padrao_mobile",
+            "label": "Imagem Default Mobile"
+        },
+        {
+            "type": "select",
+            "label": "Escolha um Estilo",
+            "id": "estilizacao_type",
+            "options": [
+                { "value": "estilo1", "label": "Estilo 1" },
+                { "value": "estilo2", "label": "Estilo 2" },
+                { "value": "estilo3", "label": "Estilo 3" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Configurações do Container"
+        },
+        {
+            "type": "number",
+            "label": "Tamanho da seção",
+            "id": "max_width",
+            "default": 1200
+        },
+        {
+            "type": "select",
+            "label": "Escolha o alinhamento do container",
+            "id": "align_container",
+            "default": "flex-start",
+            "options": [
+                { "value": "flex-start", "label": "Esquerda" },
+                { "value": "center", "label": "Centro" },
+                { "value": "flex-end", "label": "Direita" }
+            ]
+        },
+        {
+            "type": "color",
+            "label": "Cor de Destaque Container",
+            "id": "background_color_container",
+            "default": "#FFFFFF",
+            "info": "Referente ao Estilo 2"
+        },
+        {
+            "type": "number",
+            "label": "Tamanho do Container",
+            "id": "width_container",
+            "default": 550,
+            "info": "Referente ao Estilo 2 e 3"
+        },
+        {
+            "type": "header",
+            "content": "Configurações Texto"
+        },
+        {
+            "type": "select",
+            "label": "Escolha o alinhamento Titulo",
+            "id": "align_text_title",
+            "default": "center",
+            "options": [
+                { "value": "left", "label": "Esquerda" },
+                { "value": "center", "label": "Centro" },
+                { "value": "right", "label": "Direita" }
+            ]
+        },
+        {
+            "type": "image_picker",
+            "id": "image_background_tit",
+            "label": "Imagem Background Box"
+        },
+        {
+            "type": "color",
+            "label": "Cor de Background Box",
+            "id": "image_background_color",
+            "default": "#f1f1f1",
+            "info": "Cor que complementará a imagem (background)"
+        },
+        {
+            "type": "range",
+            "label": "Margens Box",
+            "id": "image_box_margem",
+            "default": 40,
+            "step": 1,
+            "min": 0,
+            "max": 60
+        },
+        {
+            "type": "color",
+            "label": "Cor de Destaque Titulo",
+            "id": "color_text_title",
+            "default": "#000"
+        },
+        {
+            "type": "range",
+            "label": "Tamanho do Título",
+            "id": "size_text_title",
+            "default": 40,
+            "step": 2,
+            "min": 2,
+            "max": 60
+        },
+        {
+            "type": "select",
+            "label": "Escolha o alinhamento da Descrição",
+            "id": "align_text_description",
+            "default": "center",
+            "options": [
+                { "value": "left", "label": "Esquerda" },
+                { "value": "center", "label": "Centro" },
+                { "value": "right", "label": "Direita" }
+            ]
+        },
+        {
+            "type": "color",
+            "label": "Cor de Destaque Descrição",
+            "id": "color_text_description",
+            "default": "#000"
+        },
+        {
+            "type": "range",
+            "label": "Tamanho da descrição",
+            "id": "size_text_description",
+            "default": 18,
+            "step": 2,
+            "min": 2,
+            "max": 60
+        }
+        ],
+        
+    "presets": [
+        {
+            "name": "Banner de Coleção",
+            "category": "Banner"
+        }]
+}
+{% endschema %}
+
+{% comment %} <style>
+@media screen and (max-width: 500px) {
+    .banner-colecao .banner-colecao__content div > h2.banner-collection-title {
+        font-size: 20px;
+        letter-spacing: 1px;
+        font-weight: 700; 
+    }
+    .banner-colecao .banner-colecao__content div > p.banner-collection-description {
+        font-size: 12px; 
+        font-weight: 400;
+        line-height: 18px;
+    }
+}
+</style> {% endcomment %}

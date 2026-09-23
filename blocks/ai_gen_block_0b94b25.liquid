@@ -1,0 +1,593 @@
+{% doc %}
+  @prompt
+    Create a sticky announcement bar at the top of the site with a built-in countdown timer.
+    
+    Functionality
+    
+    The bar must be fixed at the top of the page (always visible while scrolling).
+    
+    Full-width, above all content.
+    
+    Add a setting to define the end date and time for the countdown.
+    
+    Display the remaining time in Days : Hours : Minutes : Seconds.
+    
+    Update the timer every second.
+    
+    When the countdown reaches zero, either:
+    
+    replace the timer with a custom message (e.g. “Le Marché has ended”), or
+    
+    hide the bar (make this behavior configurable).
+    
+    Content
+    
+    Text field for a short message (e.g. “Last days of Le Marché – up to 70% off”).
+    
+    Option to include an optional CTA link/button inside the bar.
+    
+    Design & settings
+    
+    Background color picker.
+    
+    Text color picker.
+    
+    Font picker + font size (px) for the message and numbers.
+    
+    Spacing controls for padding (top/bottom).
+    
+    Option to center or left-align the content.
+    
+    Optional close “X” button that hides the bar and remembers dismissal for the session.
+    
+    Responsive
+    
+    Must work perfectly on mobile and desktop, without overlapping the header content.
+    
+    Keep the style minimal and elegant., Please update the sticky announcement bar with countdown to improve the mobile layout.
+    
+    Issue:
+    On mobile, the message and the countdown are breaking into two stacked lines and the bar looks too tall.
+    
+    Required fixes (mobile only):
+    
+    Single-line layout
+    
+    On mobile screens, display the message text and the countdown timer on a single horizontal row, inside one compact bar.
+    
+    Reduce font sizes and spacing so both elements fit on one line.
+    
+    Compact style
+    
+    Decrease vertical padding on mobile so the bar height is smaller.
+    
+    Use abbreviated labels for the timer (e.g. “D”, “H”, “M”, “S”) or hide labels if needed to keep everything on one line.
+    
+    Desktop behavior
+    
+    Keep the current desktop layout exactly as it is.
+    
+    Only change the layout and spacing for mobile.
+    
+    Do not change the text, colors, close button, or countdown logic — only adjust the mobile layout to a single, slim line., EMOVE LABELS (D, H, M, S) FROM COUNTDOWN BAR, Please update the sticky countdown announcement bar with the following change:
+    
+    1. Remove the “days” unit entirely
+    
+    Do not display the days field.
+    
+    The countdown must show only:
+    Hours : Minutes : Seconds
+    Example: 12 : 00 : 55
+    
+    2. Auto-adjust logic
+    
+    If the remaining time is more than 24 hours, convert the extra days into hours so the timer still counts down correctly.
+    
+    The countdown should smoothly continue using the larger total hours.
+    
+    3. Layout
+    
+    Re-center the timer so it aligns visually with the message on the same row.
+    
+    Ensure spacing between message and countdown remains balanced.
+    
+    4. Do not change anything else
+    
+    Keep fonts, background, close button, and update interval as they are., 1. Font control
+    
+    Add a font picker for the announcement bar so the user can select the font family.
+    
+    Ensure Times New Roman is available and works correctly when selected.
+    
+    Apply the chosen font to:
+    
+    the message text
+    
+    the countdown numbers
+    
+    the close (“X”) button if it contains text
+    
+    The font setting must override any default theme fonts.
+    
+    2. Keep everything else unchanged
+    
+    Do not alter layout, countdown logic, spacing, colors, or mobile/desktop behavior.
+    
+    Only add font customization and ensure Times New Roman displays properly.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-announcement-bar-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    z-index: 9999;
+    padding: {{ block.settings.padding_vertical }}px 20px;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-style: {{ block.settings.font_family.style }};
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .ai-announcement-bar-{{ ai_gen_id }}.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ai-announcement-bar-content-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: {{ block.settings.content_alignment }};
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .ai-announcement-bar-message-{{ ai_gen_id }} {
+    font-size: {{ block.settings.message_font_size }}px;
+    margin: 0;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-style: {{ block.settings.font_family.style }};
+  }
+
+  .ai-announcement-bar-timer-{{ ai_gen_id }} {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .ai-announcement-bar-timer-unit-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+  }
+
+  .ai-announcement-bar-timer-number-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timer_font_size }}px;
+    font-weight: 700;
+    line-height: 1;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-style: {{ block.settings.font_family.style }};
+  }
+
+  .ai-announcement-bar-separator-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timer_font_size }}px;
+    font-weight: 700;
+    opacity: 0.6;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-style: {{ block.settings.font_family.style }};
+  }
+
+  .ai-announcement-bar-cta-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: {{ block.settings.cta_bg_color }};
+    color: {{ block.settings.cta_text_color }};
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: {{ block.settings.message_font_size }}px;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-style: {{ block.settings.font_family.style }};
+  }
+
+  .ai-announcement-bar-cta-{{ ai_gen_id }}:hover {
+    opacity: 0.8;
+  }
+
+  .ai-announcement-bar-close-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: {{ block.settings.text_color }};
+    cursor: pointer;
+    padding: 5px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+  }
+
+  .ai-announcement-bar-close-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-announcement-bar-close-{{ ai_gen_id }} svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ai-announcement-bar-ended-message-{{ ai_gen_id }} {
+    font-size: {{ block.settings.message_font_size }}px;
+    margin: 0;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-style: {{ block.settings.font_family.style }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-announcement-bar-{{ ai_gen_id }} {
+      padding: 8px 40px 8px 10px;
+    }
+
+    .ai-announcement-bar-content-{{ ai_gen_id }} {
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .ai-announcement-bar-message-{{ ai_gen_id }} {
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    .ai-announcement-bar-timer-{{ ai_gen_id }} {
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .ai-announcement-bar-timer-number-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .ai-announcement-bar-separator-{{ ai_gen_id }} {
+      font-size: 14px;
+      margin: 0 -2px;
+    }
+
+    .ai-announcement-bar-cta-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-announcement-bar-close-{{ ai_gen_id }} {
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      padding: 2px;
+    }
+
+    .ai-announcement-bar-close-{{ ai_gen_id }} svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .ai-announcement-bar-ended-message-{{ ai_gen_id }} {
+      font-size: 11px;
+    }
+  }
+{% endstyle %}
+
+<announcement-bar-{{ ai_gen_id }}
+  class="ai-announcement-bar-{{ ai_gen_id }}"
+  data-end-date="{{ block.settings.end_date }}"
+  data-end-time="{{ block.settings.end_time }}"
+  data-end-behavior="{{ block.settings.end_behavior }}"
+  data-ended-message="{{ block.settings.ended_message }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-announcement-bar-content-{{ ai_gen_id }}">
+    <div class="ai-announcement-bar-message-{{ ai_gen_id }}">
+      {{ block.settings.message }}
+    </div>
+
+    <div class="ai-announcement-bar-timer-{{ ai_gen_id }}" data-timer>
+      <div class="ai-announcement-bar-timer-unit-{{ ai_gen_id }}">
+        <span class="ai-announcement-bar-timer-number-{{ ai_gen_id }}" data-hours>00</span>
+      </div>
+      <span class="ai-announcement-bar-separator-{{ ai_gen_id }}">:</span>
+      <div class="ai-announcement-bar-timer-unit-{{ ai_gen_id }}">
+        <span class="ai-announcement-bar-timer-number-{{ ai_gen_id }}" data-minutes>00</span>
+      </div>
+      <span class="ai-announcement-bar-separator-{{ ai_gen_id }}">:</span>
+      <div class="ai-announcement-bar-timer-unit-{{ ai_gen_id }}">
+        <span class="ai-announcement-bar-timer-number-{{ ai_gen_id }}" data-seconds>00</span>
+      </div>
+    </div>
+
+    {% if block.settings.cta_text != blank and block.settings.cta_link != blank %}
+      <a href="{{ block.settings.cta_link }}" class="ai-announcement-bar-cta-{{ ai_gen_id }}">
+        {{ block.settings.cta_text }}
+      </a>
+    {% endif %}
+  </div>
+
+  {% if block.settings.show_close_button %}
+    <button
+      class="ai-announcement-bar-close-{{ ai_gen_id }}"
+      aria-label="Fechar"
+      data-close
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  {% endif %}
+</announcement-bar-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AnnouncementBar{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.endDate = this.dataset.endDate;
+        this.endTime = this.dataset.endTime;
+        this.endBehavior = this.dataset.endBehavior;
+        this.endedMessage = this.dataset.endedMessage;
+        this.timerElement = this.querySelector('[data-timer]');
+        this.hoursElement = this.querySelector('[data-hours]');
+        this.minutesElement = this.querySelector('[data-minutes]');
+        this.secondsElement = this.querySelector('[data-seconds]');
+        this.closeButton = this.querySelector('[data-close]');
+        this.interval = null;
+        this.storageKey = 'ai-announcement-bar-{{ ai_gen_id }}-dismissed';
+      }
+
+      connectedCallback() {
+        if (sessionStorage.getItem(this.storageKey) === 'true') {
+          this.classList.add('hidden');
+          return;
+        }
+
+        if (this.closeButton) {
+          this.closeButton.addEventListener('click', () => this.handleClose());
+        }
+
+        if (this.endDate && this.endTime) {
+          this.startCountdown();
+        }
+      }
+
+      disconnectedCallback() {
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+      }
+
+      handleClose() {
+        this.classList.add('hidden');
+        sessionStorage.setItem(this.storageKey, 'true');
+      }
+
+      startCountdown() {
+        const updateTimer = () => {
+          const now = new Date().getTime();
+          const endDateTime = new Date(this.endDate + ' ' + this.endTime).getTime();
+          const distance = endDateTime - now;
+
+          if (distance < 0) {
+            clearInterval(this.interval);
+            this.handleCountdownEnd();
+            return;
+          }
+
+          const totalHours = Math.floor(distance / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          this.hoursElement.textContent = String(totalHours).padStart(2, '0');
+          this.minutesElement.textContent = String(minutes).padStart(2, '0');
+          this.secondsElement.textContent = String(seconds).padStart(2, '0');
+        };
+
+        updateTimer();
+        this.interval = setInterval(updateTimer, 1000);
+      }
+
+      handleCountdownEnd() {
+        if (this.endBehavior === 'hide') {
+          this.classList.add('hidden');
+        } else if (this.endBehavior === 'message') {
+          const contentElement = this.querySelector('.ai-announcement-bar-content-{{ ai_gen_id }}');
+          if (contentElement && this.endedMessage) {
+            contentElement.innerHTML = '<div class="ai-announcement-bar-ended-message-{{ ai_gen_id }}">' + this.endedMessage + '</div>';
+          }
+        }
+      }
+    }
+
+    customElements.define('announcement-bar-{{ ai_gen_id }}', AnnouncementBar{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sticky announcement bar",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Mensagem",
+      "default": "Últimos dias de Le Marché – até 70% de desconto"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "Data final",
+      "info": "Formato: AAAA-MM-DD (ex: 2025-12-31)"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "Hora final",
+      "info": "Formato: HH:MM:SS (ex: 23:59:59)"
+    },
+    {
+      "type": "select",
+      "id": "end_behavior",
+      "label": "Comportamento ao terminar",
+      "options": [
+        {
+          "value": "hide",
+          "label": "Ocultar barra"
+        },
+        {
+          "value": "message",
+          "label": "Mostrar mensagem"
+        }
+      ],
+      "default": "message"
+    },
+    {
+      "type": "text",
+      "id": "ended_message",
+      "label": "Mensagem ao terminar",
+      "default": "Le Marché terminou"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texto do botão"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Cor de fundo do botão",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Cor do texto do botão",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Fonte",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "message_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da fonte da mensagem",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "timer_font_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho da fonte do timer",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaçamento vertical",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Alinhamento do conteúdo",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Esquerda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Opções"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "Mostrar botão fechar",
+      "default": true,
+      "info": "O fechamento é lembrado apenas durante a sessão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky announcement bar"
+    }
+  ]
+}
+{% endschema %}

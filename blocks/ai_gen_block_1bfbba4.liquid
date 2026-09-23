@@ -1,0 +1,531 @@
+{% doc %}
+  @prompt
+    generate an elegant and minimalist FAQ section for me, i need it to have more questions and to have max-width as the same as the page defined width
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 20px;
+  }
+
+  .ai-faq-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: {{ block.settings.spacing_between_items }}px;
+  }
+
+  .ai-faq-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 12px 0;
+    font-weight: 600;
+  }
+
+  .ai-faq-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .ai-faq-list-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }} {
+    border-bottom: 1px solid {{ block.settings.divider_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+  }
+
+  .ai-faq-question-button-{{ ai_gen_id }} {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: {{ block.settings.item_padding }}px 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ai-faq-question-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.question_size }}px;
+    color: {{ block.settings.question_color }};
+    font-weight: 500;
+    margin: 0;
+    flex: 1;
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .ai-faq-answer-content-{{ ai_gen_id }} {
+    padding: 0 0 {{ block.settings.item_padding }}px 0;
+    font-size: {{ block.settings.answer_size }}px;
+    color: {{ block.settings.answer_color }};
+    line-height: 1.6;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
+
+    .ai-faq-question-text-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.question_size }}px * 0.9);
+    }
+
+    .ai-faq-answer-content-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.answer_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<faq-accordion-{{ ai_gen_id }} class="ai-faq-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.title != blank or block.settings.description != blank %}
+    <div class="ai-faq-header-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-faq-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      {% if block.settings.description != blank %}
+        <div class="ai-faq-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <ul class="ai-faq-list-{{ ai_gen_id }}">
+    {% for i in (1..10) %}
+      {% assign question_key = 'question_' | append: i %}
+      {% assign answer_key = 'answer_' | append: i %}
+      {% assign question = block.settings[question_key] %}
+      {% assign answer = block.settings[answer_key] %}
+
+      {% if question != blank and answer != blank %}
+        <li class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button
+            class="ai-faq-question-button-{{ ai_gen_id }}"
+            aria-expanded="false"
+            aria-controls="ai-faq-answer-{{ ai_gen_id }}-{{ i }}"
+          >
+            <h3 class="ai-faq-question-text-{{ ai_gen_id }}">{{ question }}</h3>
+            <svg
+              class="ai-faq-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div
+            class="ai-faq-answer-{{ ai_gen_id }}"
+            id="ai-faq-answer-{{ ai_gen_id }}-{{ i }}"
+          >
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">
+              {{ answer }}
+            </div>
+          </div>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</faq-accordion-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FaqAccordion{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('[data-faq-item]');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.items.forEach((item) => {
+          const button = item.querySelector('.ai-faq-question-button-{{ ai_gen_id }}');
+          const answer = item.querySelector('.ai-faq-answer-{{ ai_gen_id }}');
+          const content = answer.querySelector('.ai-faq-answer-content-{{ ai_gen_id }}');
+
+          button.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            if (isActive) {
+              this.closeItem(item, button, answer);
+            } else {
+              this.openItem(item, button, answer, content);
+            }
+          });
+        });
+      }
+
+      openItem(item, button, answer, content) {
+        item.classList.add('active');
+        button.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = content.scrollHeight + 'px';
+      }
+
+      closeItem(item, button, answer) {
+        item.classList.remove('active');
+        button.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = '0';
+      }
+    }
+
+    customElements.define('faq-accordion-{{ ai_gen_id }}', FaqAccordion{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Perguntas Frequentes"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Encontre respostas para as dúvidas mais comuns sobre nossos produtos e serviços.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Question 1"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question",
+      "default": "Como faço para rastrear meu pedido?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_1",
+      "label": "Answer",
+      "default": "<p>Você receberá um e-mail com o código de rastreamento assim que seu pedido for enviado. Use esse código no site da transportadora para acompanhar a entrega.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 2"
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question",
+      "default": "Qual é o prazo de entrega?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_2",
+      "label": "Answer",
+      "default": "<p>O prazo de entrega varia de acordo com sua localização. Geralmente, os pedidos são entregues em 5 a 10 dias úteis após a confirmação do pagamento.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 3"
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question",
+      "default": "Posso trocar ou devolver um produto?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_3",
+      "label": "Answer",
+      "default": "<p>Sim! Você tem até 30 dias após o recebimento para solicitar troca ou devolução. O produto deve estar em perfeito estado, com etiquetas e embalagem original.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 4"
+    },
+    {
+      "type": "text",
+      "id": "question_4",
+      "label": "Question",
+      "default": "Quais formas de pagamento são aceitas?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_4",
+      "label": "Answer",
+      "default": "<p>Aceitamos cartões de crédito, débito, PIX e boleto bancário. Todas as transações são processadas de forma segura.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 5"
+    },
+    {
+      "type": "text",
+      "id": "question_5",
+      "label": "Question",
+      "default": "Como escolher o tamanho correto?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_5",
+      "label": "Answer",
+      "default": "<p>Consulte nossa tabela de medidas disponível na página de cada produto. Em caso de dúvida, entre em contato com nossa equipe de atendimento.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 6"
+    },
+    {
+      "type": "text",
+      "id": "question_6",
+      "label": "Question",
+      "default": "Vocês fazem entregas internacionais?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_6",
+      "label": "Answer",
+      "default": "<p>No momento, realizamos entregas apenas no Brasil. Estamos trabalhando para expandir nossos serviços para outros países em breve.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 7"
+    },
+    {
+      "type": "text",
+      "id": "question_7",
+      "label": "Question",
+      "default": "Como posso entrar em contato com o suporte?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_7",
+      "label": "Answer",
+      "default": "<p>Você pode entrar em contato através do e-mail contato@bonnesoiree.com.br ou pelo WhatsApp. Nossa equipe está disponível de segunda a sexta, das 9h às 18h.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 8"
+    },
+    {
+      "type": "text",
+      "id": "question_8",
+      "label": "Question",
+      "default": "Os produtos têm garantia?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_8",
+      "label": "Answer",
+      "default": "<p>Sim, todos os nossos produtos possuem garantia contra defeitos de fabricação. O prazo varia de acordo com o tipo de produto.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 9"
+    },
+    {
+      "type": "text",
+      "id": "question_9",
+      "label": "Question",
+      "default": "Como faço para cancelar meu pedido?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_9",
+      "label": "Answer",
+      "default": "<p>Você pode cancelar seu pedido antes do envio entrando em contato com nossa equipe. Após o envio, será necessário aguardar a entrega e solicitar a devolução.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Question 10"
+    },
+    {
+      "type": "text",
+      "id": "question_10",
+      "label": "Question",
+      "default": "Posso retirar meu pedido na loja física?"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_10",
+      "label": "Answer",
+      "default": "<p>Sim! Oferecemos a opção de retirada em loja. Selecione essa opção no checkout e você receberá um e-mail quando o pedido estiver pronto para retirada.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Item padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing_between_items",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing below header",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Question size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer size",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#e5e5e5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion"
+    }
+  ]
+}
+{% endschema %}

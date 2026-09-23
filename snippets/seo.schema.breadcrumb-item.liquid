@@ -1,0 +1,47 @@
+{%- comment -%}
+  Usage:
+    {% render 'seo.schema.breadcrumb-item',
+      url: collection.url,
+      name: collection.title
+      position: 2
+      collection_item: collection
+      first: true
+    %}
+{%- endcomment -%}
+{% if first == true and collection_item != blank and  collection_item != nil %}
+  {% capture final_position %}
+    {% render 'seo.schema.breadcrumb-item-counter',
+      counter: position,
+      collection_item: collection_item
+    %}
+  {% endcapture %}
+
+  {% assign position = final_position |  plus: 0 %}
+{% endif %}
+
+{%- if collection_item != blank -%}
+  {%- assign main_collection = collection_item.metafields.custom.main_collection.value -%}
+
+  {%- if main_collection != blank and main_collection != nil -%}
+    {% assign new_position = position | minus: 1 %}
+
+    {% render 'seo.schema.breadcrumb-item',
+      collection_item: main_collection,
+      position: new_position
+      url: main_collection.url,
+      name: main_collection.title
+      first: false
+    %}
+  {%- endif -%}
+{%- endif -%}
+
+{%- unless collection_item == blank or collection_item == nil -%}
+,
+{%- endunless -%}{
+  "@type": "ListItem",
+  "position": {{ position }},
+  "item": {
+    "@id": {{ url | json }},
+    "name": {{ name | json }}
+  }
+}

@@ -1,0 +1,97 @@
+<style>
+    .section-width{
+    --max-width: {{ section.settings.max_width }}px;
+    max-width: var(--max-width);
+    }
+
+    .banner-colecao__content{
+        --align-container: {{ section.settings.align_container }};
+        justify-content: var(--align-container);
+    }
+
+    {% if section.settings.image_background_tit != blank %}
+    .banner-colecao__content > div{
+        background: url('{{ section.settings.image_background_tit | image_url: width: 1600 }}') {{section.settings.image_background_color}} no-repeat center bottom;
+        background-size: 100%; 
+        padding: {{ section.settings.image_box_margem}}px;
+    }
+    {% endif %}
+
+    .banner-colecao__text1 {
+        --width-container: {{ section.settings.width_container }}px;
+        width: var(--width-container);
+    }
+
+    .banner-colecao__text1 .banner-colecao__title{
+        --color-text-title: {{ section.settings.color_text_title }};
+        --size-text-title: {{ section.settings.size_text_title }}px;
+        --align-text-title: {{ section.settings.align_text_title }};
+        font-family: var(--font-family-secondary);
+        color: var(--color-text-title);
+        font-size: var(--size-text-title);
+        text-align: var(--align-text-title);
+    }
+
+    .banner-colecao__text1 .banner-colecao__description{
+        --color-text-description: {{ section.settings.color_text_description }};
+        --size-text-description: {{ section.settings.size_text_description }}px;
+        --align-text-description: {{ section.settings.align_text_description }};
+        font-family: var(--font-family-primary);
+        color: var(--color-text-description);
+        font-size: var(--size-text-description);
+        text-align: var(--align-text-description);
+    }
+
+    .banner-colecao__text2 {
+        --width-container: {{ section.settings.width_container }}px;
+        --color-background-container: {{ section.settings.background_color_container }};
+        width: var(--width-container);
+        background: var(--color-background-container);
+    }
+
+    .banner-colecao__text2 .banner-colecao__title{
+        --color-text-title: {{ section.settings.color_text_title }};
+        --size-text-title: {{ section.settings.size_text_title }}px;
+        --align-text-title: {{ section.settings.align_text_title }};
+        font-family: var(--font-family-secondary);
+        color: var(--color-text-title);
+        text-align: var(--align-text-title);
+        font-size: var(--size-text-title);
+    }
+
+    .banner-colecao__text2 .banner-colecao__description{
+        --color-text-description: {{ section.settings.color_text_description }};
+        --size-text-description: {{ section.settings.size_text_description }}px;
+        --align-text-description: {{ section.settings.align_text_description }};
+        font-family: var(--font-family-primary);
+        color: var(--color-text-description);
+        text-align: var(--align-text-description);
+        font-size: var(--size-text-description);
+    } 
+
+    .banner-colecao__text3{
+        --width-container: {{ section.settings.width_container }}px;
+        width: var(--width-container);
+    }
+
+    .banner-colecao__text3 .banner-colecao__title{
+        --color-text-title: {{ section.settings.color_text_title }};
+        --size-text-title: {{ section.settings.size_text_title }}px;
+        --align-text-title: {{ section.settings.align_text_title }};
+        font-family: var(--font-family-secondary);
+        color: var(--color-text-title);
+        font-size: var(--size-text-title);
+        text-align: var(--align-text-title);
+    }
+
+    .banner-colecao__text3 .banner-colecao__description{
+        --color-text-description: {{ section.settings.color_text_description }};
+        --size-text-description: {{ section.settings.size_text_description }}px;
+        --align-text-description: {{ section.settings.align_text_description }};
+        font-family: var(--font-family-primary);
+        color: var(--color-text-description);
+        font-size: var(--size-text-description);
+        text-align: var(--align-text-description);
+    }
+
+</style>

@@ -1,0 +1,963 @@
+{{ 'custom.image-video.css' |  asset_url |  stylesheet_tag }}
+{% render 'variables.image-video' %}
+
+{% for block in section.blocks %}
+    {% if block.type == 'image' %}
+        <div class="banner-image banner-image--{{ block.id }} {% if block.settings.container_image == true %} container {% endif %}">
+            {% if block.settings.image_desktop or block.settings.image_mobile %}
+                <img class="desktop-banner-image {% if block.settings.container_image == true %} container {% endif %}" src="{{ block.settings.image_desktop |  img_url: 'master' }}" alt="{{ block.settings.title }}">
+                <img class="mobile-banner-image {% if block.settings.container_image == true %} container {% endif %}" src="{{ block.settings.image_mobile | img_url: 'master'  }}" alt="{{ block.settings.title }}">
+            {% endif %}
+            
+            <div class="banner-text banner-text--{{ block.id }}">
+                <div class="title-img">{{ block.settings.title }}</div>
+                <div class="text-img">{{ block.settings.text }}</div>
+                <a class="link-text-btn" href="{{ block.settings.url_button }}"><div class="text-btn {% if block.settings.underline_button_desktop == true %} underline {% endif %} ">{{ block.settings.text_button }}</div></a>
+            </div>
+      </div>
+    {% elsif block.type == 'video' %}
+      <div class="banner-video banner-video--{{ block.id }} {% if block.settings.container_image == true %} container {% endif %}">
+        <video class="desktop-video-image {% if block.settings.container_image == true %} container {% endif %}" width="auto" height="auto" preload="metadata" autoplay="true" muted loop>
+          <source playsinline="true" src="{{ block.settings.video_desktop.sources[1].url }}" type="video/mp4">
+        </video>
+        <video class="mobile-video-image {% if block.settings.container_image == true %} container {% endif %}" width="auto" height="auto" preload="metadata" autoplay="true" muted loop>
+            <source controlslist="nofullscreen" src="{{ block.settings.video_mobile.sources[1].url }}" type="video/mp4">
+        </video>
+        <div class="banner-text banner-text--{{ block.id }}">
+          <div class="title-img">{{ block.settings.title }}</div>
+          <div class="text-img">{{ block.settings.text }}</div>
+          <a class="link-text-btn" href="{{ block.settings.url_button }}"><div class="text-btn {% if block.settings.underline_button_desktop == true %} underline {% endif %}">{{ block.settings.text_button }}</div></a>
+        </div>
+      </div>
+    {% endif %}
+{% endfor %}
+
+{% schema %}
+{
+    "name": "t:sections.image-video.name",
+    "max_blocks": 1,
+    "settings": [
+        
+        ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "t:sections.image-video.blocks-image.name",
+            "settings": [     
+                {
+                "type": "checkbox",
+                "id": "container_image",
+                "label": "t:sections.image-video.blocks-image.settings.container-image.label",
+                "default": false
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.image-desktop.label"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.image-mobile.label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "t:sections.image-video.blocks-image.settings.title.label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "t:sections.image-video.blocks-image.settings.text.label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text_button",
+                    "label": "t:sections.image-video.blocks-image.settings.button-text.label"
+                },
+                {
+                    "type": "url",
+                    "id": "url_button",
+                    "label": "t:sections.image-video.blocks-image.settings.button-link.label"
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__1.content"
+                },
+                {
+                    "type": "select",
+                    "id": "image_height",
+                    "label": "t:sections.image-video.blocks-image.settings.image-height.label",
+                    "default": "700",
+                    "options": [
+                        {
+                            "value": "700",
+                            "label": "t:sections.image-video.blocks-image.settings.image-height.options__1.label"
+                        },
+                        {
+                            "value": "960",
+                            "label": "t:sections.image-video.blocks-image.settings.image-height.options__2.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "range",
+                    "id": "margin_top",
+                    "label": "t:sections.image-video.blocks-image.settings.margin-top.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 50
+                },
+                {
+                    "type": "range",
+                    "id": "margin_bottom",
+                    "label": "t:sections.image-video.blocks-image.settings.margin-bottom.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 50
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__2.content"
+                },
+                {
+                    "type": "select",
+                    "id": "position_horizontal_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.position-horizontal-desktop.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-desktop.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-desktop.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-desktop.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "position_vertical_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.position-vertical-desktop.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-desktop.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-desktop.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-desktop.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__3.content"
+                },
+                {
+                    "type": "select",
+                    "id": "position_horizontal_tablet",
+                    "label": "t:sections.image-video.blocks-image.settings.position-horizontal-tablet.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-tablet.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-tablet.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-tablet.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "position_vertical_tablet",
+                    "label": "t:sections.image-video.blocks-image.settings.position-vertical-tablet.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-tablet.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-tablet.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-tablet.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__4.content"
+                },
+                {
+                    "type": "select",
+                    "id": "position_horizontal_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.position-horizontal-mobile.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-mobile.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-mobile.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-image.settings.position-horizontal-mobile.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "position_vertical_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.position-vertical-mobile.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-mobile.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-mobile.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-image.settings.position-vertical-mobile.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__5.content"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.color-text-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_button_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.color-text-button-desktop.label",
+                    "default": "#FFF"
+                },
+                {
+                    "type": "color",
+                    "id": "color_background_button_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.background-button-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_border_button_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.border-button-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__6.content"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_button_desktop_hover",
+                    "label": "t:sections.image-video.blocks-image.settings.text-button-hover-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_background_button_desktop_hover",
+                    "label": "t:sections.image-video.blocks-image.settings.background-button-hover-desktop.label",
+                    "default": "#fff"
+                },
+                {
+                    "type": "color",
+                    "id": "color_border_button_desktop_hover",
+                    "label": "t:sections.image-video.blocks-image.settings.border-button-hover-desktop.label",
+                    "default": "#fff"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "underline_button_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.underline.label",
+                    "default": false
+                },
+                {
+                    "type": "select",
+                    "id": "align_text_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.align-text-desktop.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "left",
+                            "label": "t:sections.image-video.blocks-image.settings.align-text-desktop.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.align-text-desktop.options__2.label"
+                        },
+                        {
+                            "value": "right",
+                            "label": "t:sections.image-video.blocks-image.settings.align-text-desktop.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__7.content"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.color-text-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_button_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.color-text-button-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_background_button_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.background-button-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_border_button_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.border-button-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "select",
+                    "id": "align_text_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.align-text-mobile.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "left",
+                            "label": "t:sections.image-video.blocks-image.settings.align-text-mobile.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-image.settings.align-text-mobile.options__2.label"
+                        },
+                        {
+                            "value": "right",
+                            "label": "t:sections.image-video.blocks-image.settings.align-text-mobile.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__8.content"
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_title_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.size-title-desktop.label" ,
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 80
+                },
+                {
+                    "type": "range",
+                    "id": "letter_spacing_title_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.letter-spacing-desktop.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 0
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_text_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.size-text-desktop.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 25
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_button_desktop",
+                    "label": "t:sections.image-video.blocks-image.settings.size-button-desktop.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 18
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__9.content"
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_title_tablet",
+                    "label": "t:sections.image-video.blocks-image.settings.size-title-tablet.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 70
+                },
+                {
+                    "type": "range",
+                    "id": "letter_spacing_title_tablet",
+                    "label": "t:sections.image-video.blocks-image.settings.letter-spacing-tablet.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 0
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_text_tablet",
+                    "label": "t:sections.image-video.blocks-image.settings.size-text-tablet.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 20
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_button_tablet",
+                    "label": "t:sections.image-video.blocks-image.settings.size-button-tablet.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 18
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-image.settings.header__10.content"
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_title_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.size-title-mobile.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 50
+                },
+                {
+                    "type": "range",
+                    "id": "letter_spacing_title_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.letter-spacing-mobile.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 0
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_text_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.size-text-mobile.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 18
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_button_mobile",
+                    "label": "t:sections.image-video.blocks-image.settings.size-button-mobile.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 16
+                }
+            ]
+        },
+        {
+            "type": "video",
+            "name": "t:sections.image-video.blocks-video.name",
+            "settings": [
+                {
+                "type": "checkbox",
+                "id": "container_image",
+                "label": "t:sections.image-video.blocks-video.settings.container-image.label",
+                "default": false
+                },
+                {
+                    "type": "video",
+                    "id": "video_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.image-desktop.label"
+                },  
+                {
+                    "type": "video",
+                    "id": "video_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.image-mobile.label"
+                },                
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "t:sections.image-video.blocks-video.settings.title.label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "t:sections.image-video.blocks-video.settings.text.label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text_button",
+                    "label": "t:sections.image-video.blocks-video.settings.button-text.label"
+                },
+                {
+                    "type": "url",
+                    "id": "url_button",
+                    "label": "t:sections.image-video.blocks-video.settings.button-link.label"
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__1.content"
+                },
+                {
+                    "type": "select",
+                    "id": "video_height",
+                    "label": "t:sections.image-video.blocks-video.settings.image-height.label",
+                    "default": "700",
+                    "options": [
+                        {
+                            "value": "700",
+                            "label": "t:sections.image-video.blocks-video.settings.image-height.options__1.label"
+                        },
+                        {
+                            "value": "960",
+                            "label": "t:sections.image-video.blocks-video.settings.image-height.options__2.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "range",
+                    "id": "margin_top",
+                    "label": "t:sections.image-video.blocks-video.settings.margin-top.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 50
+                },
+                {
+                    "type": "range",
+                    "id": "margin_bottom",
+                    "label": "t:sections.image-video.blocks-video.settings.margin-bottom.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 50
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__2.content"
+                },
+                {
+                    "type": "select",
+                    "id": "position_horizontal_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.position-horizontal-desktop.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-desktop.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-desktop.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-desktop.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "position_vertical_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.position-vertical-desktop.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-desktop.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-desktop.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-desktop.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__3.content"
+                },
+                {
+                    "type": "select",
+                    "id": "position_horizontal_tablet",
+                    "label": "t:sections.image-video.blocks-video.settings.position-horizontal-tablet.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-tablet.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-tablet.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-tablet.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "position_vertical_tablet",
+                    "label": "t:sections.image-video.blocks-video.settings.position-vertical-tablet.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-tablet.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-tablet.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-tablet.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__4.content"
+                },
+                {
+                    "type": "select",
+                    "id": "position_horizontal_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.position-horizontal-mobile.options__1.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-mobile.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-mobile.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-video.settings.position-horizontal-mobile.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "position_vertical_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.position-vertical-mobile.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "flex-start",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-mobile.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-mobile.options__2.label"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "t:sections.image-video.blocks-video.settings.position-vertical-mobile.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__5.content"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.color-text-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_button_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.color-text-button-desktop.label",
+                    "default": "#FFF"
+                },
+                {
+                    "type": "color",
+                    "id": "color_background_button_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.background-button-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_border_button_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.border-button-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__6.content"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_button_desktop_hover",
+                    "label": "t:sections.image-video.blocks-video.settings.text-button-hover-desktop.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_background_button_desktop_hover",
+                    "label": "t:sections.image-video.blocks-video.settings.background-button-hover-desktop.label",
+                    "default": "#fff"
+                },
+                {
+                    "type": "color",
+                    "id": "color_border_button_desktop_hover",
+                    "label": "t:sections.image-video.blocks-video.settings.border-button-hover-desktop.label",
+                    "default": "#fff"
+                },
+                {
+                "type": "checkbox",
+                "id": "underline_button_desktop",
+                "label": "t:sections.image-video.blocks-video.settings.underline.label",
+                "default": false
+                },
+                {
+                    "type": "select",
+                    "id": "align_text_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.align-text-desktop.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "left",
+                            "label": "t:sections.image-video.blocks-video.settings.align-text-desktop.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.align-text-desktop.options__2.label"
+                        },
+                        {
+                            "value": "right",
+                            "label": "t:sections.image-video.blocks-video.settings.align-text-desktop.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__7.content"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.color-text-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text_button_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.color-text-button-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_background_button_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.background-button-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_border_button_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.border-button-mobile.label",
+                    "default": "#000"
+                },
+                {
+                    "type": "select",
+                    "id": "align_text_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.align-text-mobile.label",
+                    "default": "center",
+                    "options": [                        
+                        {
+                            "value": "left",
+                            "label": "t:sections.image-video.blocks-video.settings.align-text-mobile.options__1.label"
+                        },
+                        {
+                            "value": "center",
+                            "label": "t:sections.image-video.blocks-video.settings.align-text-mobile.options__2.label"
+                        },
+                        {
+                            "value": "right",
+                            "label": "t:sections.image-video.blocks-video.settings.align-text-mobile.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__8.content"
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_title_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.size-title-desktop.label" ,
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 80
+                },
+                {
+                    "type": "range",
+                    "id": "letter_spacing_title_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.letter-spacing-desktop.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 0
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_text_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.size-text-desktop.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 25
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_button_desktop",
+                    "label": "t:sections.image-video.blocks-video.settings.size-button-desktop.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 18
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__9.content"
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_title_tablet",
+                    "label": "t:sections.image-video.blocks-video.settings.size-title-tablet.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 70
+                },
+                {
+                    "type": "range",
+                    "id": "letter_spacing_title_tablet",
+                    "label": "t:sections.image-video.blocks-video.settings.letter-spacing-tablet.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 0
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_text_tablet",
+                    "label": "t:sections.image-video.blocks-video.settings.size-text-tablet.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 20
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_button_tablet",
+                    "label": "t:sections.image-video.blocks-video.settings.size-button-tablet.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 18
+                },
+                {
+                    "type": "header",
+                    "content": "t:sections.image-video.blocks-video.settings.header__10.content"
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_title_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.size-title-mobile.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 50
+                },
+                {
+                    "type": "range",
+                    "id": "letter_spacing_title_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.letter-spacing-mobile.label",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "default": 0
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_text_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.size-text-mobile.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 18
+                },
+                {
+                    "type": "range",
+                    "id": "font_size_button_mobile",
+                    "label": "t:sections.image-video.blocks-video.settings.size-button-mobile.label",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "default": 16
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "category": "t:sections.image-video.presets.category",
+            "name": "t:sections.image-video.presets.name"
+        }
+    ]
+}
+{% endschema %}

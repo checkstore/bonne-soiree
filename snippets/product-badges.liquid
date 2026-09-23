@@ -1,0 +1,20 @@
+{% comment %} <div class="product-badges">
+    {% assign product = product %}
+    {% if product.available == true %}
+        {% assign quantity = 0 %}
+        {% for variant in product.variants %}
+            {% assign quantity = quantity | plus: variant.inventory_quantity %}
+        {% endfor %}
+    {% endif %}
+    {%- if quantity > 0 -%}
+        {%- if product.variants.first.inventory_quantity <= 10 -%}
+            <span class="badge_text badge__left-in-stock">
+                {{ 'products.product.inventory_low_stock_show_count' | t: quantity: quantity }} 
+            </span>
+        {%- endif -%}
+    {%- else -%}
+        <span class="badge_text badge__sold-out">
+            {{ 'products.product.inventory_out_of_stock' | t }}
+        </span>
+    {%- endif -%}
+    </div> {% endcomment %}

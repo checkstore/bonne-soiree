@@ -1,0 +1,100 @@
+<script>
+    function verifyHeader() {
+        const headerMenu = document.querySelector('.header-transparent');
+        const url = window.location.pathname;  
+        let invert = false; // Invert the scroll colors
+        let alwaysScroll = false; // Colors from the scroll are always active
+        let scrollChanges = true; // Scroll changes;
+        let scrollY = 0;
+    
+        if (url == '/') {
+            invert = false;
+        } else if (/\/products\/.+/.test(url)) {
+            invert = false;
+            alwaysScroll = true;
+            scrollChanges = true;
+            scrollY = document.querySelector('.product__images').offsetHeight;
+        } else {
+            alwaysScroll = true;
+            invert = true;
+        }
+    
+        const headerElements = {
+            headerMenu: {
+                item: document.querySelector('.header-transparent'),
+                class: 'bg-transparent',
+                classScroll: 'bg-{{ section.settings.background_color_scroll }}',
+                alwaysScrollChange: false
+            },
+            logoDefault: {
+                item: document.querySelector('.logo_default'),
+                class: 'turn-on-logo',
+                classScroll: 'turn-off-logo'
+            },
+            logoAlt: {
+                item: document.querySelector('.logo_alt'),
+                class: 'turn-off-logo',
+                classScroll: 'turn-on-logo'
+            },
+            textMenu: {
+                item: document.querySelectorAll('.header__menu-item span, .mega-menu .header__menu-item, .header__menu-item'),
+                class: 'text-{{ section.settings.text_color }}',
+                classScroll: 'text-{{ section.settings.text_color_scroll }}'
+            },
+            textLanguage: {
+                item: document.querySelectorAll('.localization-selector.link'),
+                class: 'text-{{ section.settings.text_color }}',
+                classScroll: 'text-{{ section.settings.text_color_scroll }}'
+            },
+            imgIcons: {
+                item: document.querySelectorAll('.header__icon'),
+                class: 'text-{{ section.settings.text_color }}',
+                classScroll: 'text-{{ section.settings.text_color_scroll }}'
+            },
+            iconWishlist: {
+                item: document.querySelectorAll('.icon-wishlist path'),
+                class: 'stroke-{{ section.settings.text_color }}',
+                classScroll: 'stroke-{{ section.settings.text_color_scroll }}'
+            }
+        }
+    
+        function handleScrollHeaderElements() {
+            function itemSwitch(item, element) {
+                if (!item) return;
+
+                let isScroll = window.scrollY > scrollY;
+                if (invert) isScroll = !isScroll;
+                if (alwaysScroll) isScroll = true;
+                if (element.alwaysScrollChange == false) isScroll = window.scrollY > scrollY && scrollChanges;
+                item.classList.remove(isScroll ? element.class : element.classScroll);
+                item.classList.add(isScroll ? element.classScroll : element.class);
+                
+                if (item.tagName == 'path') {
+                    item.style.fill = isScroll ? element.classScroll : element.class;
+                } else if (item.tagName == 'svg') {
+                    item.style.fill = isScroll ? element.classScroll : element.class;
+                }
+            }
+    
+            for (const key in headerElements) {
+                if (headerElements.hasOwnProperty(key)) {
+                    const element = headerElements[key];
+                    if (element.item instanceof NodeList) {
+                        element.item.forEach(item => {
+                            itemSwitch(item, element);
+                        });
+                    } else {
+                        itemSwitch(element.item, element);
+                    }
+                }
+            }
+        }
+  
+    if(scrollChanges) window.addEventListener('scroll', handleScrollHeaderElements);
+    handleScrollHeaderElements();
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {  
+    verifyHeader();
+  });
+</script>

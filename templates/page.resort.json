@@ -1,0 +1,349 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_etahyA": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_frNTMC": {
+          "type": "heading",
+          "settings": {
+            "heading": "À la Bohème",
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_frNTMC"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 24
+      }
+    },
+    "175977952846c3fdfd": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d59facf_dKHdWi": {
+          "type": "ai_gen_block_d59facf",
+          "settings": {
+            "text": "<h5>Entre as ruas de Palma, o sal na pele e os fins de tarde dourados de Mallorca<em>, nasce um novo verão Bonne Soirée.</em></h5>",
+            "font_size": 20,
+            "line_height": 1.5,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_horizontal": 64,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_f39e0f1_4pREwk": {
+          "type": "ai_gen_block_f39e0f1",
+          "name": "Banner de imagem",
+          "settings": {
+            "image": "shopify://shop_images/Bonne_Soiree_-32.jpg",
+            "image_fit": "contain",
+            "image_position": "center center",
+            "banner_height": 750,
+            "mobile_banner_height": 300,
+            "border_radius": 0,
+            "show_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "heading": "",
+            "subheading": "",
+            "text_alignment": "center",
+            "text_color": "#ffffff",
+            "heading_size": 48,
+            "subheading_size": 18,
+            "button_text": "",
+            "button_link": "",
+            "button_color": "#000f9f",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "button_font_size": 16,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_2ad77b5_NYQdnz": {
+          "type": "ai_gen_block_2ad77b5",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Copia_de_Bonne_Soiree-110.jpg",
+            "banner_height": 500,
+            "max_width": 1450,
+            "frame_background_color": "#ffffff",
+            "frame_padding": 20,
+            "image_border_radius": 2,
+            "shadow_opacity": 0,
+            "shadow_vertical": 8,
+            "shadow_blur": 24,
+            "show_content_overlay": false,
+            "heading": "",
+            "text": "",
+            "button_text": "",
+            "button_link": "",
+            "content_vertical_alignment": "center",
+            "content_horizontal_alignment": "center",
+            "text_alignment": "center",
+            "content_max_width": 400,
+            "content_background_color": "#ffffffe6",
+            "content_padding": 30,
+            "content_border_radius": 8,
+            "content_backdrop_blur": 4,
+            "heading_color": "#121212",
+            "heading_size": 24,
+            "heading_weight": "600",
+            "heading_margin_bottom": 8,
+            "text_color": "#666666",
+            "text_size": 16,
+            "text_margin_bottom": 20,
+            "button_background_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_background_color": "#333333",
+            "button_hover_text_color": "#ffffff",
+            "button_border_color": "#121212",
+            "button_hover_border_color": "#333333",
+            "button_border_width": 0,
+            "button_font_size": 14,
+            "button_font_weight": "500",
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_2815965_rL8X4r": {
+          "type": "ai_gen_block_2815965",
+          "settings": {
+            "layout": "image_left",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 60,
+            "image": "shopify://shop_images/BonneSoiree-73.webp",
+            "image_padding": 20,
+            "title": "",
+            "text": "<h3>Uma coleção inspirada pela atmosfera boêmia e sofisticada do verão europeu, onde a feminilidade acontece de forma leve, natural e sem excessos.<br/>Os tons de marrom e siena aquecem a coleção em uma cartela solar e elegante, enquanto a estampa paisley ganha uma nova leitura: mais suave, refinada e alinhada ao universo da marca.<br/>Modelagens fluidas, texturas delicadas e detalhes que acompanham o movimento traduzem uma mulher que vive o verão entre a serenidade do mar e a energia das noites que começam sem hora para terminar.<br/></h3><h4><strong>À LA BOHÈME</strong> fala sobre esse instante entre o amanhecer e o pós-sol.<br/>Sobre a luz dourada que atravessa Mallorca.<br/>Sobre uma boemia chic e naturalmente feminina.<br/>E sobre a mulher Bonne Soirée em sua versão mais livre, solar e inesquecível</h4>",
+            "text_padding": 30,
+            "title_size": 36,
+            "title_weight": "400",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 17,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 40,
+            "horizontal_padding": 25,
+            "mobile_gap": 25,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 10,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_cdd97cd_TAmRWC": {
+          "type": "ai_gen_block_cdd97cd",
+          "name": "Featured collection grid (new)",
+          "settings": {
+            "collection": "ve26-sienna",
+            "max_products": 6,
+            "max_width": 1200,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "gap_desktop": 24,
+            "gap_mobile": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d59facf_dKHdWi",
+        "ai_gen_block_f39e0f1_4pREwk",
+        "ai_gen_block_2ad77b5_NYQdnz",
+        "ai_gen_block_2815965_rL8X4r",
+        "ai_gen_block_cdd97cd_TAmRWC"
+      ],
+      "settings": {}
+    },
+    "blocks_CpTTb4": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2815965_Yyk7tm": {
+          "type": "ai_gen_block_2815965",
+          "settings": {
+            "layout": "image_right",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 60,
+            "image": "shopify://shop_images/Bonne_Soiree_-61.jpg",
+            "image_padding": 15,
+            "title": "<h2>Le Paisley</h2>",
+            "text": "<h3>A estampa da coleção À LA BOHÈME traduz uma nova leitura do boho chic através de tons de marrom, siena e creme. Com desenho suave e sofisticado, o paisley surge de forma leve e naturalmente feminina, inspirado pela atmosfera solar e boêmia do verão europeu.</h3>",
+            "text_padding": 30,
+            "title_size": 36,
+            "title_weight": "400",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 18,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 80,
+            "horizontal_padding": 30,
+            "mobile_gap": 40,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 15,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_cdd97cd_AxWhYM": {
+          "type": "ai_gen_block_cdd97cd",
+          "name": "Featured collection grid (new)",
+          "settings": {
+            "collection": "ve26-paisley",
+            "max_products": 6,
+            "max_width": 1200,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "gap_desktop": 24,
+            "gap_mobile": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2815965_Yyk7tm",
+        "ai_gen_block_cdd97cd_AxWhYM"
+      ],
+      "name": "Editorial layout",
+      "settings": {}
+    },
+    "1759782508aa61c77a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2815965_VgVkRi": {
+          "type": "ai_gen_block_2815965",
+          "settings": {
+            "layout": "image_left",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 60,
+            "image": "shopify://shop_images/Bonne_Soiree_-21.jpg",
+            "image_padding": 15,
+            "title": "<h2>Le Brun de l’Été</h2>",
+            "text": "<h3>O marrom surge em uma versão solar e sofisticada, entre tons de café que aquecem a coleção com elegância natural. Atemporal e envolvente, traduz a essência boho chic de À LA BOHÈME em peças que transitam com leveza entre o mar, o pós-sol e as noites de verão.</h3>",
+            "text_padding": 30,
+            "title_size": 36,
+            "title_weight": "400",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 18,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 80,
+            "horizontal_padding": 30,
+            "mobile_gap": 40,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 15,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_cdd97cd_MnRxmh": {
+          "type": "ai_gen_block_cdd97cd",
+          "name": "Featured collection grid (new)",
+          "settings": {
+            "collection": "ve26-coffee",
+            "max_products": 6,
+            "max_width": 1200,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "gap_desktop": 24,
+            "gap_mobile": 16
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_c82575a_NiRdjQ": {
+          "type": "ai_gen_block_c82575a",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Bonne_Soiree_-82.jpg",
+            "mobile_image": "shopify://shop_images/Bonne_Soiree_-78.jpg",
+            "button_text": "Descubra o Resort Bonne Soirée",
+            "button_link": "shopify://pages/resort",
+            "button_vertical_position": 50,
+            "button_font_size": 13,
+            "button_horizontal_padding": 24,
+            "button_vertical_padding": 12,
+            "button_border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2815965_VgVkRi",
+        "ai_gen_block_cdd97cd_MnRxmh",
+        "ai_gen_block_c82575a_NiRdjQ"
+      ],
+      "settings": {}
+    },
+    "1758200750047a7975": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_etahyA",
+    "175977952846c3fdfd",
+    "blocks_CpTTb4",
+    "1759782508aa61c77a",
+    "1758200750047a7975"
+  ]
+}

@@ -1,0 +1,1005 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_qkYE9J": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_73q7gw": {
+          "type": "heading",
+          "settings": {
+            "heading": "Couros",
+            "heading_size": "h1"
+          }
+        },
+        "text_67NmiQ": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_73q7gw",
+        "text_67NmiQ"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "175977952846c3fdfd": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_c0b715a_GyECXY": {
+          "type": "ai_gen_block_c0b715a",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/BANNER-DENIM-DESK-04_d129ac64-035e-4bfb-8af2-8b0ce72371ff.jpg",
+            "max_width": 1200,
+            "image_border_radius": 0,
+            "background_color": "#ebe4d8",
+            "padding_top": 60,
+            "padding_bottom": 60,
+            "padding_horizontal": 40,
+            "mobile_padding_top": 40,
+            "mobile_padding_bottom": 40,
+            "mobile_padding_horizontal": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_f39e0f1_ndgAGj": {
+          "type": "ai_gen_block_f39e0f1",
+          "name": "Banner de imagem",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/LP_LE_DENIM-part-03_1.webp",
+            "image_fit": "cover",
+            "image_position": "center center",
+            "banner_height": 400,
+            "mobile_banner_height": 300,
+            "border_radius": 0,
+            "show_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "heading": "",
+            "subheading": "",
+            "text_alignment": "center",
+            "text_color": "#ffffff",
+            "heading_size": 48,
+            "subheading_size": 18,
+            "button_text": "",
+            "button_link": "shopify://collections/apres-le-film",
+            "button_color": "#000f9f",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "button_font_size": 16,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_fjehjG": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/BANNER-DENIM-DESK-04_d129ac64-035e-4bfb-8af2-8b0ce72371ff.jpg",
+            "mobile_image": "shopify://shop_images/BANNER-DENIM-DESK-04_d129ac64-035e-4bfb-8af2-8b0ce72371ff.jpg",
+            "banner_link": "shopify://collections/jeans",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_633ELH": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-04_2.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-04_2.webp",
+            "banner_link": "shopify://collections/jeans",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_pqVHhb": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-05_3.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-05_3.webp",
+            "banner_link": "shopify://collections/jeans",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_gA4xb4": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-06_1.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-06_1.webp",
+            "banner_link": "shopify://products/calca-jane-jeans-azul-medio-v27",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_TxQmgw": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-07.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-07.webp",
+            "banner_link": "shopify://products/calca-jane-jeans-azul-medio-v27",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_LbpdhP": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-08.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-08.webp",
+            "banner_link": "shopify://products/calca-alix-jeans-vintage-v27",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_XELzw9": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-09_1.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-09_1.webp",
+            "banner_link": "shopify://products/calca-alix-jeans-vintage-v27",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_Bf8TfG": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-10.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-10.webp",
+            "banner_link": "shopify://products/calca-kayra-zebra-jeans-azul-marinho-v27",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_9615734_kp93Yd": {
+          "type": "ai_gen_block_9615734",
+          "settings": {
+            "collection": "lp-denim-zebra",
+            "products_to_show": 4,
+            "show_heading": true,
+            "heading": "",
+            "max_width": 1440,
+            "gap": 16,
+            "padding_desktop": 32,
+            "spacing_top_desktop": 32,
+            "spacing_bottom_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_mobile": 20,
+            "spacing_bottom_mobile": 20,
+            "show_price": true
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_NEcnmw": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-11.webp",
+            "banner_link": "shopify://products/calca-bardot-jeans-azul-medio-v27",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_gEP7kq": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-12.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-12.webp",
+            "banner_link": "shopify://products/calca-bardot-jeans-azul-medio-v27",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_CqJmmh": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-13.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-13.webp",
+            "banner_link": "",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_aNbiy9": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-14.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-14.webp",
+            "banner_link": "shopify://products/calca-jeans-flare-lexie-cintura-baixa-azul-i26",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_6fdGf4": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-15.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-15.webp",
+            "banner_link": "shopify://products/calca-jeans-flare-lexie-cintura-baixa-azul-i26",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_gcwMHm": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-16.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-16.webp",
+            "banner_link": "shopify://products/calca-jeans-flare-lexie-cintura-baixa-azul-i26",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_fE9URX": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-17.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-17.webp",
+            "banner_link": "shopify://products/calca-jeans-skinny-sarah",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_mfprG6": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-18.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-18.webp",
+            "banner_link": "shopify://products/calca-jeans-skinny-sarah",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_Ga6Ya9": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-19.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-19.webp",
+            "banner_link": "shopify://collections/jeans",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d500e61_dpmgzy": {
+          "type": "ai_gen_block_d500e61",
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_LE_DENIM-part-20_1.webp",
+            "mobile_image": "shopify://shop_images/LP_LE_DENIM-part-20_1.webp",
+            "banner_link": "shopify://collections/jeans",
+            "max_width": 1280,
+            "padding_desktop": 32,
+            "padding_mobile": 12,
+            "spacing_top_desktop": 16,
+            "spacing_bottom_desktop": 16,
+            "spacing_top_mobile": 8,
+            "spacing_bottom_mobile": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d59facf_QxLzAa": {
+          "type": "ai_gen_block_d59facf",
+          "name": "Texto Times New Roman",
+          "disabled": true,
+          "settings": {
+            "text": "<h2><em>O couro faz parte do guarda-roupa Bonne Soirée.</em></h2>",
+            "font_size": 14,
+            "line_height": 1.4,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 12,
+            "padding_bottom": 12,
+            "padding_horizontal": 16,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d59facf_BBppwY": {
+          "type": "ai_gen_block_d59facf",
+          "name": "Texto Times New Roman",
+          "disabled": true,
+          "settings": {
+            "text": "<h3>Peças confeccionadas em couro 100% legítimo e produzidas com matéria-prima de alta qualidade, revelando um toque macio e acabamento refinado. </h3><h3>Silhuetas contemporâneas unem presença e versatilidade em uma seleção pensada para acompanhar diferentes momentos e atravessar o tempo com elegância.</h3>",
+            "font_size": 16,
+            "line_height": 1.5,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 12,
+            "padding_bottom": 12,
+            "padding_horizontal": 64,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_ccf6465_zahYDY": {
+          "type": "ai_gen_block_ccf6465",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_COUROS-05_jpg.webp",
+            "banner_link": "shopify://collections/couro",
+            "max_width": 1280,
+            "desktop_padding": 32,
+            "mobile_padding": 12,
+            "spacing_top": 16,
+            "spacing_bottom": 16,
+            "mobile_spacing_top": 8,
+            "mobile_spacing_bottom": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_ccf6465_iLt6UT": {
+          "type": "ai_gen_block_ccf6465",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify://shop_images/LP_COUROS-06_jpg.webp",
+            "banner_link": "shopify://collections/couro",
+            "max_width": 1280,
+            "desktop_padding": 32,
+            "mobile_padding": 12,
+            "spacing_top": 16,
+            "spacing_bottom": 16,
+            "mobile_spacing_top": 8,
+            "mobile_spacing_bottom": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_9a84531_dJMdfU": {
+          "type": "ai_gen_block_9a84531",
+          "disabled": true,
+          "settings": {
+            "collection": "lp-denim-zebra",
+            "product_count": 4,
+            "show_heading": true,
+            "heading": ""
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_f39e0f1_W4jrfk": {
+          "type": "ai_gen_block_f39e0f1",
+          "name": "Banner de imagem",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/LP_COUROS-05_jpg.webp",
+            "image_fit": "cover",
+            "image_position": "center center",
+            "banner_height": 800,
+            "mobile_banner_height": 300,
+            "border_radius": 0,
+            "show_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50,
+            "heading": "",
+            "subheading": "",
+            "text_alignment": "center",
+            "text_color": "#ffffff",
+            "heading_size": 48,
+            "subheading_size": 18,
+            "button_text": "",
+            "button_link": "",
+            "button_color": "#000f9f",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "button_font_size": 16,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_f39e0f1_wnBeUN": {
+          "type": "ai_gen_block_f39e0f1",
+          "name": "Banner de imagem",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/LP_COUROS-05_jpg.webp",
+            "image_fit": "cover",
+            "image_position": "center center",
+            "banner_height": 800,
+            "mobile_banner_height": 300,
+            "border_radius": 0,
+            "show_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50,
+            "heading": "",
+            "subheading": "",
+            "text_alignment": "center",
+            "text_color": "#ffffff",
+            "heading_size": 48,
+            "subheading_size": 18,
+            "button_text": "",
+            "button_link": "",
+            "button_color": "#000f9f",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "button_font_size": 16,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_f39e0f1_mhnBkk": {
+          "type": "ai_gen_block_f39e0f1",
+          "name": "Banner de imagem",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Captura_de_Tela_2026-07-14_as_12.32.24.png",
+            "image_fit": "cover",
+            "image_position": "center center",
+            "banner_height": 800,
+            "mobile_banner_height": 300,
+            "border_radius": 0,
+            "show_overlay": true,
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "heading": "",
+            "subheading": "",
+            "text_alignment": "center",
+            "text_color": "#ffffff",
+            "heading_size": 48,
+            "subheading_size": 18,
+            "button_text": "",
+            "button_link": "",
+            "button_color": "#000f9f",
+            "button_text_color": "#ffffff",
+            "button_hover_color": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "button_font_size": 16,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_cf37981_rKbhyM": {
+          "type": "ai_gen_block_cf37981",
+          "name": "Video banner",
+          "disabled": true,
+          "settings": {
+            "video_desktop": "shopify://files/videos/copy_2CB262C1-15C6-4EB1-9042-898938FA50AF.MOV",
+            "video_mobile": "shopify://files/videos/copy_2CB262C1-15C6-4EB1-9042-898938FA50AF.MOV",
+            "title": "",
+            "subtitle": "",
+            "button_label": "",
+            "button_link": "",
+            "content_position": "overlay",
+            "title_font": "assistant_n4",
+            "title_size": 48,
+            "subtitle_size": 18,
+            "text_color": "#ffffff",
+            "button_bg_color": "",
+            "button_text_color": "#ffffff",
+            "button_border_color": "#000000",
+            "button_border_width": 1,
+            "button_hover_bg_color": "",
+            "button_hover_text_color": "",
+            "button_hover_border_color": "",
+            "button_font_size": 16,
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 32,
+            "button_width": "auto"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_d59facf_dKHdWi": {
+          "type": "ai_gen_block_d59facf",
+          "disabled": true,
+          "settings": {
+            "text": "<h4><br/>Neste Dia dos Namorados, uma curadoria pensada para acompanhar conexões que despertam, marcam e fazem sentir.<br/><br/>Entre presença, desejo e aquilo que não precisa ser explicado.</h4><p></p>",
+            "font_size": 20,
+            "line_height": 1.5,
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "link_color": "#0066cc",
+            "link_hover_color": "#004499",
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_horizontal": 64,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_2ad77b5_NYQdnz": {
+          "type": "ai_gen_block_2ad77b5",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Copia_de_Bonne_Soiree-110.jpg",
+            "banner_height": 500,
+            "max_width": 1450,
+            "frame_background_color": "#ffffff",
+            "frame_padding": 20,
+            "image_border_radius": 2,
+            "shadow_opacity": 0,
+            "shadow_vertical": 8,
+            "shadow_blur": 24,
+            "show_content_overlay": false,
+            "heading": "",
+            "text": "",
+            "button_text": "",
+            "button_link": "",
+            "content_vertical_alignment": "center",
+            "content_horizontal_alignment": "center",
+            "text_alignment": "center",
+            "content_max_width": 400,
+            "content_background_color": "#ffffffe6",
+            "content_padding": 30,
+            "content_border_radius": 8,
+            "content_backdrop_blur": 4,
+            "heading_color": "#121212",
+            "heading_size": 24,
+            "heading_weight": "600",
+            "heading_margin_bottom": 8,
+            "text_color": "#666666",
+            "text_size": 16,
+            "text_margin_bottom": 20,
+            "button_background_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_background_color": "#333333",
+            "button_hover_text_color": "#ffffff",
+            "button_border_color": "#121212",
+            "button_hover_border_color": "#333333",
+            "button_border_width": 0,
+            "button_font_size": 14,
+            "button_font_weight": "500",
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_border_radius": 6
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_2815965_rL8X4r": {
+          "type": "ai_gen_block_2815965",
+          "disabled": true,
+          "settings": {
+            "layout": "image_left",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 60,
+            "image": "shopify://shop_images/26_02_11_Bonne_Soiree10607_1.webp",
+            "image_padding": 5,
+            "title": "<h2><strong>Couro on Demand</strong><br/><br/><em>Nosso couro vai além do sold out.</em></h2>",
+            "text": "<h3>Algumas das peças mais desejadas da Bonne Soirée seguem disponíveis sob encomenda, preservando o caráter exclusivo da coleçao e permitindo que modelos icônicos continuem fazendo parte do guarda-roupa da marca. Consulte a disponibilidade através do nosso atendimento via Whatsapp.</h3>",
+            "text_padding": 30,
+            "title_size": 40,
+            "title_weight": "400",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 17,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 40,
+            "horizontal_padding": 25,
+            "mobile_gap": 25,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 10,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_7bac6ef_bzpYEL": {
+          "type": "ai_gen_block_7bac6ef",
+          "disabled": true,
+          "settings": {
+            "collection": "lp-couro-preto",
+            "product_count": 4,
+            "show_heading": false,
+            "heading": "Featured Collection",
+            "heading_color": "#000000",
+            "product_title_color": "#000000",
+            "product_price_color": "#000000"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_cdd97cd_TAmRWC": {
+          "type": "ai_gen_block_cdd97cd",
+          "name": "Featured collection grid (new)",
+          "disabled": true,
+          "settings": {
+            "collection": "lp-couro-preto",
+            "max_products": 4,
+            "max_width": 1200,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "gap_desktop": 24,
+            "gap_mobile": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_c0b715a_GyECXY",
+        "ai_gen_block_f39e0f1_ndgAGj",
+        "ai_gen_block_d500e61_fjehjG",
+        "ai_gen_block_d500e61_633ELH",
+        "ai_gen_block_d500e61_pqVHhb",
+        "ai_gen_block_d500e61_gA4xb4",
+        "ai_gen_block_d500e61_TxQmgw",
+        "ai_gen_block_d500e61_LbpdhP",
+        "ai_gen_block_d500e61_XELzw9",
+        "ai_gen_block_d500e61_Bf8TfG",
+        "ai_gen_block_9615734_kp93Yd",
+        "ai_gen_block_d500e61_NEcnmw",
+        "ai_gen_block_d500e61_gEP7kq",
+        "ai_gen_block_d500e61_CqJmmh",
+        "ai_gen_block_d500e61_aNbiy9",
+        "ai_gen_block_d500e61_6fdGf4",
+        "ai_gen_block_d500e61_gcwMHm",
+        "ai_gen_block_d500e61_fE9URX",
+        "ai_gen_block_d500e61_mfprG6",
+        "ai_gen_block_d500e61_Ga6Ya9",
+        "ai_gen_block_d500e61_dpmgzy",
+        "ai_gen_block_d59facf_QxLzAa",
+        "ai_gen_block_d59facf_BBppwY",
+        "ai_gen_block_ccf6465_zahYDY",
+        "ai_gen_block_ccf6465_iLt6UT",
+        "ai_gen_block_9a84531_dJMdfU",
+        "ai_gen_block_f39e0f1_W4jrfk",
+        "ai_gen_block_f39e0f1_wnBeUN",
+        "ai_gen_block_f39e0f1_mhnBkk",
+        "ai_gen_block_cf37981_rKbhyM",
+        "ai_gen_block_d59facf_dKHdWi",
+        "ai_gen_block_2ad77b5_NYQdnz",
+        "ai_gen_block_2815965_rL8X4r",
+        "ai_gen_block_7bac6ef_bzpYEL",
+        "ai_gen_block_cdd97cd_TAmRWC"
+      ],
+      "settings": {}
+    },
+    "blocks_CpTTb4": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2815965_Yyk7tm": {
+          "type": "ai_gen_block_2815965",
+          "disabled": true,
+          "settings": {
+            "layout": "image_left",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 60,
+            "image": "shopify://shop_images/BONNE_SOIREE__1256_4.jpg",
+            "image_padding": 15,
+            "title": "<h1><em>TOQUE MACIO</em></h1>",
+            "text": "<h3>Um acabamento suave que proporciona conforto e acompanha o movimento do corpo com naturalidade.</h3>",
+            "text_padding": 30,
+            "title_size": 34,
+            "title_weight": "500",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 20,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 80,
+            "horizontal_padding": 30,
+            "mobile_gap": 40,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 15,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_7bac6ef_phDtRY": {
+          "type": "ai_gen_block_7bac6ef",
+          "disabled": true,
+          "settings": {
+            "collection": "lp-couro-marrom",
+            "product_count": 4,
+            "show_heading": false,
+            "heading": "Featured Collection",
+            "heading_color": "#000000",
+            "product_title_color": "#000000",
+            "product_price_color": "#000000"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_2815965_pCxLR3": {
+          "type": "ai_gen_block_2815965",
+          "disabled": true,
+          "settings": {
+            "layout": "image_left",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 60,
+            "image": "shopify://shop_images/26_02_11_Bonne_Soiree_9847.webp",
+            "image_padding": 15,
+            "title": "<h1><em>ELEGÂNCIA ATEMPORAL</em></h1>",
+            "text": "<h3>Peças pensadas para atravessar estações e permanecer relevantes muito além das tendências.</h3>",
+            "text_padding": 30,
+            "title_size": 34,
+            "title_weight": "500",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 20,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 80,
+            "horizontal_padding": 30,
+            "mobile_gap": 40,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 15,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_7bac6ef_Dnzxqx": {
+          "type": "ai_gen_block_7bac6ef",
+          "disabled": true,
+          "settings": {
+            "collection": "lp-couros-preto-2",
+            "product_count": 4,
+            "show_heading": true,
+            "heading": "",
+            "heading_color": "#000000",
+            "product_title_color": "#000000",
+            "product_price_color": "#000000"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_cdd97cd_AxWhYM": {
+          "type": "ai_gen_block_cdd97cd",
+          "name": "Featured collection grid (new)",
+          "disabled": true,
+          "settings": {
+            "collection": "marrom-lp-namorados",
+            "max_products": 6,
+            "max_width": 1200,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "gap_desktop": 24,
+            "gap_mobile": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2815965_Yyk7tm",
+        "ai_gen_block_7bac6ef_phDtRY",
+        "ai_gen_block_2815965_pCxLR3",
+        "ai_gen_block_7bac6ef_Dnzxqx",
+        "ai_gen_block_cdd97cd_AxWhYM"
+      ],
+      "name": "Editorial layout",
+      "settings": {}
+    },
+    "1759782508aa61c77a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2815965_wEVpaW": {
+          "type": "ai_gen_block_2815965",
+          "disabled": true,
+          "settings": {
+            "layout": "image_right",
+            "max_width": 1200,
+            "min_height": 500,
+            "column_gap": 60,
+            "image": "shopify://shop_images/Bonne_Soiree-217.webp",
+            "image_padding": 15,
+            "title": "<h1><em>ELEGÂNCIA </em></h1><h1><em>ATEMPORAL</em></h1>",
+            "text": "<h4>O amor, para nós, nunca foi sobre excessos.<br/>Mas sobre escolher ficar.<br/>Escolher viver.<br/>Escolher sentir.</h4><h4>Neste Dia dos Namorados, Bonne Soirée celebra as conexões que permanecem.</h4><h4><br/>As que despertam.<br/>As que marcam.<br/>As que fazem sentir.</h4><h4><em><strong>For the ones you never forget.</strong></em></h4>",
+            "text_padding": 30,
+            "title_size": 36,
+            "title_weight": "400",
+            "title_line_height": 1.2,
+            "title_margin": 25,
+            "text_size": 18,
+            "text_weight": "400",
+            "text_line_height": 1.6,
+            "background_color": "#FFFFFF",
+            "title_color": "#000000",
+            "text_color": "#333333",
+            "section_padding": 80,
+            "horizontal_padding": 30,
+            "mobile_gap": 40,
+            "mobile_title_size": 28,
+            "mobile_text_size": 16,
+            "mobile_title_margin": 20,
+            "mobile_image_padding": 15,
+            "mobile_text_padding": 25,
+            "mobile_horizontal_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_cdd97cd_MnRxmh": {
+          "type": "ai_gen_block_cdd97cd",
+          "name": "Featured collection grid (new)",
+          "disabled": true,
+          "settings": {
+            "collection": "off-white-lp-namorados",
+            "max_products": 6,
+            "max_width": 1200,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "gap_desktop": 24,
+            "gap_mobile": 16
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_c82575a_NiRdjQ": {
+          "type": "ai_gen_block_c82575a",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify://shop_images/Bonne_Soiree-57_7b685019-8c7e-40b4-ace0-b3c225596288.jpg",
+            "mobile_image": "shopify://shop_images/Copia_de_Bonne_Soiree-54.jpg",
+            "button_text": "Descubra o Verão Bonne Soirée",
+            "button_link": "shopify://collections/nouvelle-vague",
+            "button_vertical_position": 50,
+            "button_font_size": 13,
+            "button_horizontal_padding": 24,
+            "button_vertical_padding": 12,
+            "button_border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2815965_wEVpaW",
+        "ai_gen_block_cdd97cd_MnRxmh",
+        "ai_gen_block_c82575a_NiRdjQ"
+      ],
+      "settings": {}
+    },
+    "1758200750047a7975": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_qkYE9J",
+    "175977952846c3fdfd",
+    "blocks_CpTTb4",
+    "1759782508aa61c77a",
+    "1758200750047a7975"
+  ]
+}

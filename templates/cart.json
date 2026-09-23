@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "cart-footer": {
+      "type": "main-cart-footer",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {}
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "buttons"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "related_product_iDnadE": {
+      "type": "related-product",
+      "disabled": true,
+      "settings": {
+        "title": "Você também pode gostar",
+        "font_size_title_section": 20,
+        "color_title_section": "#000000",
+        "position_title_section": "flex-start",
+        "margin_top": 0,
+        "margin_bottom": 40,
+        "padding_lateral": 0,
+        "padding_lateral_tablet": 0,
+        "gap_between_products": 25,
+        "product_card_style": "row",
+        "position_product_card_vertical": "center",
+        "position_product_card_horizontal": "flex-start",
+        "text_align_product_card": "start",
+        "padding_card_lateral": 15,
+        "font_size_title_product": 16,
+        "font_size_price_product": 14,
+        "font_size_variants_product": 13,
+        "color_title_product": "#000000",
+        "color_price_product": "#262626",
+        "color_variants_product": "#262626",
+        "padding_button": 10,
+        "margin_top_button": 10,
+        "border_radius_button": 0,
+        "font_size_text_button": 16,
+        "color_button_text": "#262626",
+        "color_button_background": "#ffffff",
+        "color_button_border": "#262626",
+        "color_button_text_hover": "#ffffff",
+        "color_button_background_hover": "#262626",
+        "color_button_border_hover": "#262626"
+      }
+    }
+  },
+  "order": [
+    "cart-items",
+    "cart-footer",
+    "related_product_iDnadE"
+  ]
+}

@@ -1,0 +1,227 @@
+{% doc %}
+  @prompt
+    Uma seção de texto na fonte Times New Roman com a fonte pequena
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-text-block-{{ ai_gen_id }} {
+    font-family: "Times New Roman", Times, serif;
+    font-size: {{ block.settings.font_size }}px;
+    line-height: {{ block.settings.line_height }};
+    color: {{ block.settings.text_color }};
+    text-align: {{ block.settings.text_alignment }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_horizontal }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  .ai-text-block-{{ ai_gen_id }} h1,
+  .ai-text-block-{{ ai_gen_id }} h2,
+  .ai-text-block-{{ ai_gen_id }} h3,
+  .ai-text-block-{{ ai_gen_id }} h4,
+  .ai-text-block-{{ ai_gen_id }} h5,
+  .ai-text-block-{{ ai_gen_id }} h6 {
+    font-family: "Times New Roman", Times, serif;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+  }
+
+  .ai-text-block-{{ ai_gen_id }} p {
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .ai-text-block-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-text-block-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+  }
+
+  .ai-text-block-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-text-block-{{ ai_gen_id }} ul,
+  .ai-text-block-{{ ai_gen_id }} ol {
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+  }
+
+  .ai-text-block-{{ ai_gen_id }} li {
+    margin-bottom: 0.25em;
+  }
+
+  .ai-text-block-{{ ai_gen_id }} blockquote {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 3px solid {{ block.settings.text_color }};
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-text-block-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+      padding: {{ block.settings.padding_top | times: 0.8 }}px {{ block.settings.padding_horizontal | times: 0.8 }}px {{ block.settings.padding_bottom | times: 0.8 }}px {{ block.settings.padding_horizontal | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-text-block-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.text != blank %}
+    {{ block.settings.text }}
+  {% else %}
+    <p>Adicione seu texto aqui. Este bloco usa a fonte Times New Roman com tamanho pequeno.</p>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Texto Times New Roman",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Escreva seu texto aqui. Este bloco utiliza a fonte Times New Roman com tamanho pequeno para uma aparência clássica e elegante.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tipografia"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da fonte",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "label": "Altura da linha",
+      "default": 1.5
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Alinhamento do texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Esquerda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Direita"
+        },
+        {
+          "value": "justify",
+          "label": "Justificado"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Cor dos links",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Cor dos links ao passar o mouse",
+      "default": "#004499"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento superior",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento inferior",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento lateral",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Raio da borda",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texto Times New Roman"
+    }
+  ]
+}
+{% endschema %}
