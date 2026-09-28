@@ -12,13 +12,13 @@
     "banner_carousel_CpT7Wf": {
       "type": "banner-carousel",
       "blocks": {
-        "image_qdHCq3": {
-          "type": "image",
+        "video_iB3tDK": {
+          "type": "video",
           "settings": {
-            "image": "shopify://shop_images/voila_pecas_Artboard_2-02_1_2.webp",
-            "image_mobile": "shopify://shop_images/voila_pecas_Artboard_3-03.webp",
-            "height_image": "700",
-            "link": "https://www.bonnesoiree.com.br/collections/apres-le-film",
+            "video_desktop": "shopify://files/videos/Desk-VideoCalçaPaisley.mp4",
+            "video_mobile": "shopify://files/videos/0926.mp4",
+            "height_video": "700",
+            "link": "shopify://collections/jeans",
             "subtitle": "",
             "title": "",
             "text": "",
@@ -52,11 +52,11 @@
             "color_button_border_hover": "#000000"
           }
         },
-        "image_BE7JMH": {
+        "image_qdHCq3": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Cacau-desk.jpg",
-            "image_mobile": "shopify://shop_images/Cacau-mobile.jpg",
+            "image": "shopify://shop_images/Desk-Voila.jpg",
+            "image_mobile": "shopify://shop_images/VMFinal-Site_Voila-DropI__Mobile.jpg",
             "height_image": "700",
             "link": "https://www.bonnesoiree.com.br/collections/apres-le-film",
             "subtitle": "",
@@ -132,6 +132,46 @@
             "color_button_border_hover": "#000000"
           }
         },
+        "image_WyA97K": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Desk-Banner-Couro.jpg",
+            "image_mobile": "shopify://shop_images/Mobile-Banner-Couro.jpg",
+            "height_image": "700",
+            "link": "shopify://collections/couro",
+            "subtitle": "",
+            "title": "",
+            "text": "",
+            "button_text": "",
+            "link_btn": "",
+            "position_horizontal_desktop": "center",
+            "position_vertical_desktop": "center",
+            "position_horizontal_tablet": "center",
+            "position_vertical_tablet": "center",
+            "position_horizontal_mobile": "center",
+            "position_vertical_mobile": "center",
+            "font_size_subtitle_desktop": 16,
+            "font_size_title_desktop": 60,
+            "font_size_body_desktop": 16,
+            "font_size_button_desktop": 16,
+            "font_size_subtitle_tablet": 16,
+            "font_size_title_tablet": 50,
+            "font_size_body_tablet": 16,
+            "font_size_button_tablet": 16,
+            "font_size_subtitle_mobile": 14,
+            "font_size_title_mobile": 40,
+            "font_size_body_mobile": 14,
+            "font_size_button_mobile": 14,
+            "color_text": "#ffffff",
+            "color_button": "#000000",
+            "background_color": "#ffffff",
+            "color_button_border": "#ffffff",
+            "border_radius": 0,
+            "background_color_hover": "#000000",
+            "color_button_hover": "#ffffff",
+            "color_button_border_hover": "#000000"
+          }
+        },
         "image_HYwEfm": {
           "type": "image",
           "settings": {
@@ -171,54 +211,14 @@
             "color_button_hover": "#ffffff",
             "color_button_border_hover": "#000000"
           }
-        },
-        "image_WyA97K": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/banners_couro-29_jpg.webp",
-            "image_mobile": "shopify://shop_images/banners_couro-30_jpg.jpg",
-            "height_image": "700",
-            "link": "shopify://collections/couro",
-            "subtitle": "",
-            "title": "",
-            "text": "",
-            "button_text": "",
-            "link_btn": "",
-            "position_horizontal_desktop": "center",
-            "position_vertical_desktop": "center",
-            "position_horizontal_tablet": "center",
-            "position_vertical_tablet": "center",
-            "position_horizontal_mobile": "center",
-            "position_vertical_mobile": "center",
-            "font_size_subtitle_desktop": 16,
-            "font_size_title_desktop": 60,
-            "font_size_body_desktop": 16,
-            "font_size_button_desktop": 16,
-            "font_size_subtitle_tablet": 16,
-            "font_size_title_tablet": 50,
-            "font_size_body_tablet": 16,
-            "font_size_button_tablet": 16,
-            "font_size_subtitle_mobile": 14,
-            "font_size_title_mobile": 40,
-            "font_size_body_mobile": 14,
-            "font_size_button_mobile": 14,
-            "color_text": "#ffffff",
-            "color_button": "#000000",
-            "background_color": "#ffffff",
-            "color_button_border": "#ffffff",
-            "border_radius": 0,
-            "background_color_hover": "#000000",
-            "color_button_hover": "#ffffff",
-            "color_button_border_hover": "#000000"
-          }
         }
       },
       "block_order": [
+        "video_iB3tDK",
         "image_qdHCq3",
-        "image_BE7JMH",
         "image_zCzDxf",
-        "image_HYwEfm",
-        "image_WyA97K"
+        "image_WyA97K",
+        "image_HYwEfm"
       ],
       "settings": {
         "first_banner_page": true,
@@ -235,16 +235,16 @@
             "aspect_ratio": "natural",
             "custom_aspect_width": 16,
             "custom_aspect_height": 9,
-            "banner_1_image": "shopify://shop_images/home-photos-01.jpg",
+            "banner_1_image": "shopify://shop_images/260807_bonne_soiree_14274_copiar.webp",
             "banner_1_link": "shopify://collections/couro",
             "banner_1_button_text": "Couro",
-            "banner_2_image": "shopify://shop_images/home-photos-02.jpg",
+            "banner_2_image": "shopify://shop_images/BonneSoiree_Studio_3978_1_copiar_c6cf591f-75cd-4431-ab7b-1785358f95c1.webp",
             "banner_2_link": "shopify://collections/jeans",
             "banner_2_button_text": "Jeans",
-            "banner_3_image": "shopify://shop_images/home-photos-03.jpg",
+            "banner_3_image": "shopify://shop_images/260807_bonne_soiree_12439_copiar.webp",
             "banner_3_link": "shopify://collections/apres-le-film",
             "banner_3_button_text": "New In",
-            "banner_4_image": "shopify://shop_images/home-photos-04.jpg",
+            "banner_4_image": "shopify://shop_images/BonneSoiree_Studio_3502_copiar.webp",
             "banner_4_link": "shopify://collections/tricot",
             "banner_4_button_text": "Tricot",
             "button_text_color": "#ffffff",
@@ -703,8 +703,9 @@
       "blocks": {
         "ai_gen_block_74569e3_LJdRFW": {
           "type": "ai_gen_block_74569e3",
+          "disabled": true,
           "settings": {
-            "left_image": "shopify://shop_images/post_24-08.jpg",
+            "left_image": "shopify://shop_images/BonneSoiree_Studio_3978_1_copiar.webp",
             "show_text_overlay": true,
             "left_heading": "",
             "left_paragraph": "",
@@ -737,6 +738,45 @@
             "button_horizontal_offset_mobile": 40,
             "button_vertical_offset_px_mobile": 150,
             "button_horizontal_offset_px_mobile": 150
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_fb6e5cd_YJMFwr": {
+          "type": "ai_gen_block_fb6e5cd",
+          "disabled": true,
+          "settings": {
+            "image_left": "shopify://shop_images/BonneSoiree_Studio_3978_1_copiar.webp",
+            "image_top": "shopify://shop_images/BonneSoiree_Studio_0739_1_copiar.webp",
+            "image_bottom_left": "shopify://shop_images/BonneSoiree_Studio_1170_2_copiar.webp",
+            "image_bottom_right": "shopify://shop_images/BonneSoiree_Studio_1171_1_copiar.webp",
+            "show_heading": true,
+            "heading": "Le Denim",
+            "show_cta": true,
+            "cta_text": "DESCUBRA",
+            "cta_collection": "jeans",
+            "cta_product": "",
+            "cta_page": "",
+            "cta_url": "",
+            "heading_font": "times_new_roman_n4",
+            "heading_size": 32,
+            "heading_weight": "400",
+            "cta_font": "assistant_n4",
+            "cta_size": 12,
+            "text_color": "#ffffff",
+            "text_alignment": "right",
+            "text_vertical": "flex-end",
+            "overlay_opacity": 25,
+            "background_color": "#ffffff",
+            "desktop_width_percent": 100,
+            "gap": 8,
+            "desktop_height": 1000,
+            "padding_top": 30,
+            "padding_bottom": 20,
+            "mobile_image_height": 420,
+            "mobile_gap": 4,
+            "mobile_heading_size": 24,
+            "mobile_padding_top": 10,
+            "mobile_padding_bottom": 10
           },
           "blocks": {}
         },
@@ -800,6 +840,7 @@
       },
       "block_order": [
         "ai_gen_block_74569e3_LJdRFW",
+        "ai_gen_block_fb6e5cd_YJMFwr",
         "ai_gen_block_fd434e0_PCpyBR",
         "ai_gen_block_fbd6bf0_n6UqiY"
       ],
@@ -965,6 +1006,7 @@
       "blocks": {
         "ai_gen_block_04ca471_EBMTpP": {
           "type": "ai_gen_block_04ca471",
+          "disabled": true,
           "settings": {
             "section_min_height": 200,
             "max_content_width": 650,
@@ -974,7 +1016,7 @@
             "padding_horizontal": 0,
             "horizontal_gap": 30,
             "image": "shopify://shop_images/shopper.jpg",
-            "image_width": 170,
+            "image_width": 150,
             "text_column_width": 400,
             "content_alignment": "center",
             "vertical_alignment": "center",
@@ -1019,14 +1061,13 @@
         },
         "ai_gen_block_81aca3e_zDjEky": {
           "type": "ai_gen_block_81aca3e",
-          "disabled": true,
           "settings": {
             "title": "Personal Shopper",
-            "description": "<h4>Um atendimento pensado para guiar você na escolha das peças e na criação de combinações que fazem sentido para o seu estilo. <br/>Um cuidado personalizado, com olhar atento e curadoria à la française, para que sua experiência Bonne Soirée seja ainda mais especial.</h4>",
+            "description": "<h4>Um atendimento pensado para guiar você na escolha das peças e na criação de combinações que fazem sentido para o seu estilo.&nbsp;<br/>Um cuidado personalizado, com olhar atento e curadoria à la française, para que sua experiência Bonne Soirée seja ainda mais especial.</h4>",
             "button_label": "ENTRE EM CONTATO",
             "button_link": "https://wa.me/5511910910055",
             "text_alignment": "center",
-            "background_color": "#fdfcf0",
+            "background_color": "#fef9f7",
             "title_font": "times_new_roman_n4",
             "title_font_size": 20,
             "description_font": "times_new_roman_n4",

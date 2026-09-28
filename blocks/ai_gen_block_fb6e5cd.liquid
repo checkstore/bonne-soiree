@@ -1,0 +1,73 @@
+{% doc %}
+  @prompt
+    Create a customizable editorial image mosaic section for a fashion e-commerce website.
+    The section should feature an asymmetrical image grid inspired by a luxury fashion editorial layout:
+    - One large vertical image on the left
+    - One large horizontal image on the top right
+    - Two smaller vertical images side by side underneath the horizontal image
+    Keep narrow, consistent spacing between all images for a clean and refined editorial look.
+    One of the images should support a text overlay containing:
+    - A customizable heading, for example: “Le Denim”
+    - A customizable CTA, for example: “Discover”
+    The CTA must be clickable and allow me to select any Shopify collection, product, page, or custom URL.
+    Please make the section highly customizable inside the Shopify Theme Editor. I want to be able to edit:
+    - All images individually
+    - Heading text
+    - CTA text
+    - Heading font family
+    - Heading font size
+    - Heading font weight
+    - CTA font family
+    - CTA font size
+    - Text color
+    - Text alignment
+    - Text position over the image
+    - Image overlay opacity
+    - Background color
+    - Space/gap between images
+    - Section width
+    - Top and bottom padding
+    - Image aspect ratios / heights when possible
+    - CTA link
+    - Option to show or hide the heading
+    - Option to show or hide the CTA
+    Please also include separate responsive settings for desktop and mobile.
+    On mobile, the mosaic should adapt elegantly instead of simply shrinking the desktop version. Allow the images to stack or rearrange into a clean editorial composition.
+    Images should use responsive image loading and preserve good image quality without negatively affecting page speed.
+    The design should feel minimal, sophisticated and editorial, with no borders, rounded corners, shadows or unnecessary decorative elements.
+    Important: build this as a flexible Shopify section using editable section settings and image blocks whenever possible, rather than hardcoding the images, typography, colors or links., Please update the mosaic section so that the text overlay is no longer placed on the top-right image.
+    Instead, move the text content (heading + CTA) to the bottom images area., Please update the mosaic section so that the text overlay appears on the bottom-right image only.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign editorial_link = block.settings.cta_url %}
+{% if block.settings.cta_collection != blank %}{% assign editorial_link = block.settings.cta_collection.url %}{% elsif block.settings.cta_product != blank %}{% assign editorial_link = block.settings.cta_product.url %}{% elsif block.settings.cta_page != blank %}{% assign editorial_link = block.settings.cta_page.url %}{% endif %}
+{% style %}
+  {{ block.settings.heading_font | font_face }}
+  {{ block.settings.cta_font | font_face }}
+  .ai-editorial-{{ ai_gen_id }}{display:block;width:100%;background:{{ block.settings.background_color }};padding:{{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px}
+  .ai-editorial-{{ ai_gen_id }}__inner{width:{{ block.settings.desktop_width_percent }}%;max-width:100%;margin:0 auto}
+  .ai-editorial-{{ ai_gen_id }}__grid{display:grid;grid-template-columns:1fr 1fr;gap:{{ block.settings.gap }}px}
+  .ai-editorial-{{ ai_gen_id }}__left{height:{{ block.settings.desktop_height }}px;min-width:0}
+  .ai-editorial-{{ ai_gen_id }}__right{display:grid;grid-template-rows:1fr 1fr;gap:{{ block.settings.gap }}px;min-width:0;height:{{ block.settings.desktop_height }}px}
+  .ai-editorial-{{ ai_gen_id }}__top{min-height:0}
+  .ai-editorial-{{ ai_gen_id }}__bottom{display:grid;grid-template-columns:1fr 1fr;gap:{{ block.settings.gap }}px;min-height:0}
+  .ai-editorial-{{ ai_gen_id }}__tile{position:relative;overflow:hidden;min-width:0;min-height:0}
+  .ai-editorial-{{ ai_gen_id }}__image,.ai-editorial-{{ ai_gen_id }}__placeholder{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .ai-editorial-{{ ai_gen_id }}__placeholder{background:#e9e6e1}
+  .ai-editorial-{{ ai_gen_id }}__placeholder svg{width:100%;height:100%;object-fit:cover;color:#777}
+  .ai-editorial-{{ ai_gen_id }}__empty{position:absolute;inset:auto 12px 12px;z-index:1;color:#333;font-size:13px;text-align:center}
+  .ai-editorial-{{ ai_gen_id }}__shade{position:absolute;inset:0;background:rgba(0,0,0,{{ block.settings.overlay_opacity | divided_by: 100.0 }})}
+  .ai-editorial-{{ ai_gen_id }}__overlay{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:{{ block.settings.text_vertical }};align-items:{% if block.settings.text_alignment == 'left' %}flex-start{% elsif block.settings.text_alignment == 'right' %}flex-end{% else %}center{% endif %};text-align:{{ block.settings.text_alignment }};padding:clamp(18px,4vw,56px);color:{{ block.settings.text_color }}}
+  .ai-editorial-{{ ai_gen_id }}__heading{margin:0 0 16px;color:inherit;font-family:{{ block.settings.heading_font.family }},{{ block.settings.heading_font.fallback_families }};font-size:{{ block.settings.heading_size }}px;font-weight:{{ block.settings.heading_weight }};line-height:1.05}
+  .ai-editorial-{{ ai_gen_id }}__cta{color:inherit;font-family:{{ block.settings.cta_font.family }},{{ block.settings.cta_font.fallback_families }};font-size:{{ block.settings.cta_size }}px;font-weight:500;text-decoration:underline;text-underline-offset:4px}
+  .ai-editorial-{{ ai_gen_id }}__cta:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+  @media(max-width:749px){.ai-editorial-{{ ai_gen_id }}{padding:{{ block.settings.mobile_padding_top }}px 0 {{ block.settings.mobile_padding_bottom }}px}.ai-editorial-{{ ai_gen_id }}__inner{width:100%;padding:0 16px}.ai-editorial-{{ ai_gen_id }}__grid{display:flex;flex-direction:column;gap:{{ block.settings.mobile_gap }}px}.ai-editorial-{{ ai_gen_id }}__left{height:{{ block.settings.mobile_image_height }}px}.ai-editorial-{{ ai_gen_id }}__right{height:auto;display:grid;grid-template-rows:auto auto;gap:{{ block.settings.mobile_gap }}px}.ai-editorial-{{ ai_gen_id }}__top{height:{{ block.settings.mobile_image_height | times: 0.65 }}px}.ai-editorial-{{ ai_gen_id }}__bottom{height:{{ block.settings.mobile_image_height | times: 0.65 }}px;gap:{{ block.settings.mobile_gap }}px}.ai-editorial-{{ ai_gen_id }}__heading{font-size:{{ block.settings.mobile_heading_size }}px}}
+{% endstyle %}
+<div class="ai-editorial-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="ai-editorial-{{ ai_gen_id }}__inner"><div class="ai-editorial-{{ ai_gen_id }}__grid">
+  <div class="ai-editorial-{{ ai_gen_id }}__left"><div class="ai-editorial-{{ ai_gen_id }}__tile" style="height:100%">{% if block.settings.image_left != blank %}<img class="ai-editorial-{{ ai_gen_id }}__image" src="{{ block.settings.image_left | image_url: width: 1200 }}" srcset="{{ block.settings.image_left | image_url: width: 480 }} 480w, {{ block.settings.image_left | image_url: width: 800 }} 800w, {{ block.settings.image_left | image_url: width: 1200 }} 1200w" sizes="(max-width: 749px) 100vw, 50vw" width="{{ block.settings.image_left.width }}" height="{{ block.settings.image_left.height }}" alt="{{ block.settings.image_left.alt | escape }}" loading="lazy">{% else %}<div class="ai-editorial-{{ ai_gen_id }}__placeholder">{{ 'image' | placeholder_svg_tag }}<span class="ai-editorial-{{ ai_gen_id }}__empty">Add the large left image</span></div>{% endif %}</div></div>
+  <div class="ai-editorial-{{ ai_gen_id }}__right"><div class="ai-editorial-{{ ai_gen_id }}__tile ai-editorial-{{ ai_gen_id }}__top">{% if block.settings.image_top != blank %}<img class="ai-editorial-{{ ai_gen_id }}__image" src="{{ block.settings.image_top | image_url: width: 1400 }}" srcset="{{ block.settings.image_top | image_url: width: 480 }} 480w, {{ block.settings.image_top | image_url: width: 900 }} 900w, {{ block.settings.image_top | image_url: width: 1400 }} 1400w" sizes="(max-width: 749px) 100vw, 50vw" width="{{ block.settings.image_top.width }}" height="{{ block.settings.image_top.height }}" alt="{{ block.settings.image_top.alt | escape }}" loading="lazy">{% else %}<div class="ai-editorial-{{ ai_gen_id }}__placeholder">{{ 'image' | placeholder_svg_tag }}<span class="ai-editorial-{{ ai_gen_id }}__empty">Add the top image</span></div>{% endif %}</div>
+  <div class="ai-editorial-{{ ai_gen_id }}__bottom">{% for image_setting in (1..2) %}{% if image_setting == 1 %}{% assign mosaic_image = block.settings.image_bottom_left %}{% assign mosaic_alt = 'Add the lower left image' %}{% else %}{% assign mosaic_image = block.settings.image_bottom_right %}{% assign mosaic_alt = 'Add the lower right image' %}{% endif %}<div class="ai-editorial-{{ ai_gen_id }}__tile">{% if mosaic_image != blank %}<img class="ai-editorial-{{ ai_gen_id }}__image" src="{{ mosaic_image | image_url: width: 900 }}" srcset="{{ mosaic_image | image_url: width: 360 }} 360w, {{ mosaic_image | image_url: width: 600 }} 600w, {{ mosaic_image | image_url: width: 900 }} 900w" sizes="(max-width: 749px) 50vw, 25vw" width="{{ mosaic_image.width }}" height="{{ mosaic_image.height }}" alt="{{ mosaic_image.alt | escape }}" loading="lazy">{% else %}<div class="ai-editorial-{{ ai_gen_id }}__placeholder">{{ 'image' | placeholder_svg_tag }}<span class="ai-editorial-{{ ai_gen_id }}__empty">{{ mosaic_alt }}</span></div>{% endif %}{% if forloop.last %}<div class="ai-editorial-{{ ai_gen_id }}__shade"></div><div class="ai-editorial-{{ ai_gen_id }}__overlay">{% if block.settings.show_heading and block.settings.heading != blank %}<h2 class="ai-editorial-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% endif %}{% if block.settings.show_cta and block.settings.cta_text != blank and editorial_link != blank %}<a class="ai-editorial-{{ ai_gen_id }}__cta" href="{{ editorial_link }}">{{ block.settings.cta_text | escape }}</a>{% endif %}</div>{% endif %}</div>{% endfor %}</div></div>
+</div></div></div>
+{% schema %}
+{"name":"Editorial image mosaic","settings":[{"type":"header","content":"Images"},{"type":"image_picker","id":"image_left","label":"Large left image"},{"type":"image_picker","id":"image_top","label":"Top right image"},{"type":"image_picker","id":"image_bottom_left","label":"Lower left image"},{"type":"image_picker","id":"image_bottom_right","label":"Lower right image"},{"type":"header","content":"Overlay content"},{"type":"checkbox","id":"show_heading","label":"Show heading","default":true},{"type":"text","id":"heading","label":"Heading","default":"Le Denim"},{"type":"checkbox","id":"show_cta","label":"Show CTA","default":true},{"type":"text","id":"cta_text","label":"CTA text","default":"Discover"},{"type":"collection","id":"cta_collection","label":"Collection link"},{"type":"product","id":"cta_product","label":"Product link"},{"type":"page","id":"cta_page","label":"Page link"},{"type":"url","id":"cta_url","label":"Custom URL"},{"type":"font_picker","id":"heading_font","label":"Heading font","default":"assistant_n4"},{"type":"range","id":"heading_size","label":"Heading size","min":20,"max":80,"step":2,"unit":"px","default":48},{"type":"select","id":"heading_weight","label":"Heading weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"},{"value":"600","label":"Semibold"},{"value":"700","label":"Bold"}],"default":"400"},{"type":"font_picker","id":"cta_font","label":"CTA font","default":"assistant_n4"},{"type":"range","id":"cta_size","label":"CTA size","min":12,"max":30,"step":1,"unit":"px","default":16},{"type":"color","id":"text_color","label":"Text color","default":"#FFFFFF"},{"type":"select","id":"text_alignment","label":"Text alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"left"},{"type":"select","id":"text_vertical","label":"Text position","options":[{"value":"flex-start","label":"Top"},{"value":"center","label":"Middle"},{"value":"flex-end","label":"Bottom"}],"default":"center"},{"type":"range","id":"overlay_opacity","label":"Overlay opacity","min":0,"max":80,"step":5,"unit":"%","default":20},{"type":"header","content":"Layout"},{"type":"color","id":"background_color","label":"Background","default":"#FFFFFF"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"range","id":"gap","label":"Desktop image gap","min":2,"max":30,"step":2,"unit":"px","default":8},{"type":"range","id":"desktop_height","label":"Desktop mosaic height","min":400,"max":1000,"step":50,"unit":"px","default":700},{"type":"range","id":"padding_top","label":"Top padding","min":0,"max":100,"step":5,"unit":"px","default":30},{"type":"range","id":"padding_bottom","label":"Bottom padding","min":0,"max":100,"step":5,"unit":"px","default":30},{"type":"header","content":"Mobile layout"},{"type":"range","id":"mobile_image_height","label":"Mobile main image height","min":220,"max":600,"step":20,"unit":"px","default":420},{"type":"range","id":"mobile_gap","label":"Mobile image gap","min":2,"max":24,"step":2,"unit":"px","default":6},{"type":"range","id":"mobile_heading_size","label":"Mobile heading size","min":18,"max":50,"step":2,"unit":"px","default":32},{"type":"range","id":"mobile_padding_top","label":"Mobile top padding","min":0,"max":80,"step":5,"unit":"px","default":20},{"type":"range","id":"mobile_padding_bottom","label":"Mobile bottom padding","min":0,"max":80,"step":5,"unit":"px","default":20}],"presets":[{"name":"Editorial image mosaic"}],"tag":null,"class":"editorial-image-mosaic-block"}
+{% endschema %}
