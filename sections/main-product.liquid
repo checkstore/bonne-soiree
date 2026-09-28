@@ -33,13 +33,6 @@
 
   {% if settings.add_zoom_pdp %}
     <style>
-      .image__zoom {
-        transform: scale(2);
-      }
-
-      .no-scroll {
-        overflow: hidden;
-      }
       .suggestion-click {
         position: absolute;
         z-index: 3;
@@ -48,6 +41,7 @@
         width: 100%;
         display: flex;
         justify-content: center;
+        pointer-events: none;
       }
 
       .suggestion-click p {
@@ -61,6 +55,49 @@
       .hide-suggestion {
         opacity: 0;
         z-index: -1;
+      }
+
+      .swiper__product-images .product__media,
+      [data-product-images='desktop'] .product__media {
+        touch-action: pan-y;
+      }
+
+      .swiper__product-images .product__media.is-zoomed,
+      [data-product-images='desktop'] .product__media.is-zoomed {
+        touch-action: none;
+      }
+
+      .swiper__product-images .product__media img,
+      [data-product-images='desktop'] .product__media img {
+        transform-origin: 0 0;
+      }
+
+      .product__media.media > .product__media-error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 16px;
+        text-align: center;
+        background: #f4f4f4;
+        color: #767676;
+        z-index: 2;
+      }
+
+      .product__media.media > .product__media-error[hidden] {
+        display: none !important;
+      }
+
+      .product__images__featured__image[data-product-images='desktop'] .product__media.media > img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      @media screen and (min-width: 1025px) {
+        [data-product-images='desktop'] .product__media-item {
+          cursor: zoom-in;
+        }
       }
     </style>
   {% endif %}
@@ -137,7 +174,7 @@
                     %}
                     {% if settings.add_zoom_pdp %}
                       <div class="suggestion-click">
-                        <p>Toque duas vezes para ampliar</p>
+                        <p>{{ 'products.product.media.zoom_hint' | t }}</p>
                       </div>
                     {% endif %}
                   </li>
@@ -163,7 +200,7 @@
                     {% if settings.add_zoom_pdp %}
                       {% if media.media_type == 'image' %}
                         <div class="suggestion-click">
-                          <p>Dois toques para o zoom</p>
+                          <p>{{ 'products.product.media.zoom_hint' | t }}</p>
                         </div>
                       {% endif %}
                     {% endif %}
