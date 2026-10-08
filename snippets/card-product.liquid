@@ -264,7 +264,12 @@
                     {% assign colors = variantProduct.metafields.custom.cor_do_produto.value %}
                     <li class="color-variants__item {% if link_color == card_product.url %} color-variant__selected {% endif %}">
                       {% for color in colors %}
-                        <a href="{{ variantProduct.url }}" style="background-color: {{ color.color.value }};"></a>
+                        {% assign style = "background-color: " | append: color.color.value %}
+                        {% if color.image.value != blank %}
+                          {% assign image = color.image.value | image_url: width: 38, height: 38 %}
+                          {% assign style = "background-image: url(" | append: image | append: ")" %}
+                        {% endif %}
+                        <a href="{{ variantProduct.url }}" style="{{ style }}"></a>
                       {% endfor %}
                     </li>
                   {% endfor %}

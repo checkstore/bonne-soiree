@@ -379,11 +379,17 @@
                       {% assign variant_products = product.metafields.custom.variantes_do_produto.value %}
                       {% for variantProduct in variant_products %}
                         {% assign colors = variantProduct.metafields.custom.cor_do_produto.value %}
-                        <li class="color-variants__item">
+                        <li class="color-variants__item"> 
                           {% for color in colors %}
+                            {% assign style = "background-color: " | append: color.color.value %}
+                            {% if color.image.value != blank %}
+                              {% assign image = color.image.value | image_url: width: 38, height: 38 %}
+                              {% assign style = "background-image: url(" | append: image | append: ")" %}
+                            {% endif %}
+
                             <a
                               href="{{ variantProduct.url }}"
-                              style="background-color: {{ color.color.value }}"
+                              style="{{ style }}"
                             ></a>
                           {% endfor %}
                         </li>
